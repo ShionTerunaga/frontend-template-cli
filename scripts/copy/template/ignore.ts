@@ -8,5 +8,6 @@ export const ignores = [
     ".output",
     ".nuxt",
     ".react-router",
-    "build"
+    "build",
+    ".turbo"
 ];
