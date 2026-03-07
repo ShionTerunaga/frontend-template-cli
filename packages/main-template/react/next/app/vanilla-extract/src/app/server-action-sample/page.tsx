@@ -1,6 +1,7 @@
 import { ja } from "@/shared/lang/ja";
 import RandomStart from "./_components/random-start/random-start";
 import { Box, Heading } from "@/components/ui";
+import serverActionSamplePageStyle from "./page.css";
 
 export const metadata = {
     title: ja.app.serverActionSample.title,
@@ -9,10 +10,13 @@ export const metadata = {
 
 function ServerActionSample() {
     return (
-        <Box as="main">
-            <Heading as="h1">{ja.app.serverActionSample.title}</Heading>
-
-            <RandomStart />
+        <Box as="main" className={serverActionSamplePageStyle.page}>
+            <Box className={serverActionSamplePageStyle.inner}>
+                <Heading as="h1" className={serverActionSamplePageStyle.title}>
+                    {ja.app.serverActionSample.title}
+                </Heading>
+                <RandomStart />
+            </Box>
         </Box>
     );
 }
