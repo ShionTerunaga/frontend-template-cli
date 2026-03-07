@@ -16,8 +16,8 @@ export default function Home() {
                     {ja.app.home.title}
                 </Heading>
                 <p className={homePageStyle.description}>
-                    ルーティング、キャッシュ戦略、Server Action をこのテンプレートで
-                    すぐ試せます。
+                    ルーティング、キャッシュ戦略、Server Action
+                    をこのテンプレートで すぐ試せます。
                 </p>
                 <ul className={homePageStyle.navList}>
                     <li>

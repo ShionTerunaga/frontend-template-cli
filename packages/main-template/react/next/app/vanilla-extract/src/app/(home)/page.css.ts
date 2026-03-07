@@ -40,7 +40,8 @@ const homePageStyle = {
         background: "#f8fafc",
         padding: "14px 16px",
         fontWeight: 500,
-        transition: "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
+        transition:
+            "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
         selectors: {
             "&:hover": {
                 transform: "translateY(-2px)",

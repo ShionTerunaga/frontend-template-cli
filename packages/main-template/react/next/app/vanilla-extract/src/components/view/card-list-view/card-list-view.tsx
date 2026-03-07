@@ -19,7 +19,9 @@ export function CardListView<T extends Props>(
         <Box as="section" className={cardListViewStyle.section}>
             <Box className={cardListViewStyle.inner}>
                 <FontCenter className={cardListViewStyle.headingWrap}>
-                    <Heading className={cardListViewStyle.heading}>{title}</Heading>
+                    <Heading className={cardListViewStyle.heading}>
+                        {title}
+                    </Heading>
                 </FontCenter>
 
                 <GridBox>

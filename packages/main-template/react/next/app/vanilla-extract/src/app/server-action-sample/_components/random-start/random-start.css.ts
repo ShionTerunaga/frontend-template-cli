@@ -37,7 +37,8 @@ const randomStartStyle = {
         color: "#ffffff",
         background: "linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%)",
         cursor: "pointer",
-        transition: "transform .15s ease, box-shadow .2s ease, opacity .2s ease",
+        transition:
+            "transform .15s ease, box-shadow .2s ease, opacity .2s ease",
         selectors: {
             "&:hover": {
                 transform: "translateY(-1px)",

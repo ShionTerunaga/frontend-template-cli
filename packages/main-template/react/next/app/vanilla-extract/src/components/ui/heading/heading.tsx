@@ -27,7 +27,11 @@ export function Heading<T extends HeadingProps>(
         children
     } = props;
 
-    const cn = classMerger([className, headingFontStyle[fontStyle], textColor[color]]);
+    const cn = classMerger([
+        className,
+        headingFontStyle[fontStyle],
+        textColor[color]
+    ]);
 
     const As = as;
     return (

@@ -10,7 +10,8 @@ const cardStyles = {
         boxShadow: "0 12px 28px rgba(15, 23, 42, 0.12)",
         textAlign: "center",
         margin: "0.8rem",
-        transition: "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
+        transition:
+            "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
         selectors: {
             "&:hover": {
                 transform: "translateY(-4px)",
