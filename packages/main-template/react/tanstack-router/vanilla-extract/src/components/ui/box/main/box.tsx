@@ -1,7 +1,7 @@
-import { type ChildrenOnly } from '@/shared/types/react'
+import type { ChildrenOnly } from '@/shared/types/react'
 import { boxVariants } from './box.css'
 import type { CheckerProps } from '@/shared/types/object'
-import { type ElementType } from 'react'
+import type { ElementType } from 'react'
 import classMerger from '@/utils/class-merger'
 
 /**
@@ -71,19 +71,19 @@ export function Box<T extends BoxProps>(
         color = 'white',
         border = 'none',
         borderRadius = 'none',
-        className = '',
         style,
+        className = '',
         children,
     } = props
 
     const cn = classMerger([
+        className,
         boxVariants.boxWidthStyle[width],
         boxVariants.boxHeightStyle[height],
         boxVariants.boxShadowStyle[boxShadow],
         boxVariants.colorStyle[color],
         boxVariants.border[border],
         boxVariants.boxBorderRadiusStyle[borderRadius],
-        className,
     ])
 
     const As = as

@@ -1,8 +1,8 @@
-import type { CheckerProps } from '@/shared/types/object'
+import { CheckerProps } from '@/shared/types/object'
 import { headingFontStyle } from './heading.style' // Tailwind variants
-import { textColor, type TextTheme } from '@/shared/theme/design-system.style'
-import type { ChildrenOnly } from '@/shared/types/react'
-import type { ElementType } from 'react'
+import { textColor, TextTheme } from '@/shared/theme/design-system.style'
+import { ChildrenOnly } from '@/shared/types/react'
+import { ElementType } from 'react'
 import classMerger from '@/utils/class-merger'
 
 type HeadingFont = keyof typeof headingFontStyle
@@ -11,6 +11,7 @@ interface HeadingStyle {
     fontStyle?: HeadingFont
     color?: TextTheme
     style?: React.CSSProperties
+    className?: string
 }
 interface HeadingProps extends HeadingStyle, ChildrenOnly {}
 
@@ -22,10 +23,15 @@ export function Heading<T extends HeadingProps>(
         fontStyle = 'firstBig',
         color = 'textNormal',
         style,
+        className,
         children,
     } = props
 
-    const cn = classMerger([headingFontStyle[fontStyle], textColor[color]])
+    const cn = classMerger([
+        headingFontStyle[fontStyle],
+        textColor[color],
+        className ? className : '',
+    ])
 
     const As = as
     return (
