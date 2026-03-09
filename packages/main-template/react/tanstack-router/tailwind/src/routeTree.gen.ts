@@ -13,65 +13,65 @@ import { Route as SingleDynamicFetchRouteImport } from './routes/single-dynamic-
 import { Route as IndexRouteImport } from './routes/index'
 
 const SingleDynamicFetchRoute = SingleDynamicFetchRouteImport.update({
-  id: '/single-dynamic-fetch',
-  path: '/single-dynamic-fetch',
-  getParentRoute: () => rootRouteImport,
+    id: '/single-dynamic-fetch',
+    path: '/single-dynamic-fetch',
+    getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
+    id: '/',
+    path: '/',
+    getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/single-dynamic-fetch': typeof SingleDynamicFetchRoute
+    '/': typeof IndexRoute
+    '/single-dynamic-fetch': typeof SingleDynamicFetchRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/single-dynamic-fetch': typeof SingleDynamicFetchRoute
+    '/': typeof IndexRoute
+    '/single-dynamic-fetch': typeof SingleDynamicFetchRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/single-dynamic-fetch': typeof SingleDynamicFetchRoute
+    __root__: typeof rootRouteImport
+    '/': typeof IndexRoute
+    '/single-dynamic-fetch': typeof SingleDynamicFetchRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/single-dynamic-fetch'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/single-dynamic-fetch'
-  id: '__root__' | '/' | '/single-dynamic-fetch'
-  fileRoutesById: FileRoutesById
+    fileRoutesByFullPath: FileRoutesByFullPath
+    fullPaths: '/' | '/single-dynamic-fetch'
+    fileRoutesByTo: FileRoutesByTo
+    to: '/' | '/single-dynamic-fetch'
+    id: '__root__' | '/' | '/single-dynamic-fetch'
+    fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  SingleDynamicFetchRoute: typeof SingleDynamicFetchRoute
+    IndexRoute: typeof IndexRoute
+    SingleDynamicFetchRoute: typeof SingleDynamicFetchRoute
 }
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/single-dynamic-fetch': {
-      id: '/single-dynamic-fetch'
-      path: '/single-dynamic-fetch'
-      fullPath: '/single-dynamic-fetch'
-      preLoaderRoute: typeof SingleDynamicFetchRouteImport
-      parentRoute: typeof rootRouteImport
+    interface FileRoutesByPath {
+        '/single-dynamic-fetch': {
+            id: '/single-dynamic-fetch'
+            path: '/single-dynamic-fetch'
+            fullPath: '/single-dynamic-fetch'
+            preLoaderRoute: typeof SingleDynamicFetchRouteImport
+            parentRoute: typeof rootRouteImport
+        }
+        '/': {
+            id: '/'
+            path: '/'
+            fullPath: '/'
+            preLoaderRoute: typeof IndexRouteImport
+            parentRoute: typeof rootRouteImport
+        }
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  SingleDynamicFetchRoute: SingleDynamicFetchRoute,
+    IndexRoute: IndexRoute,
+    SingleDynamicFetchRoute: SingleDynamicFetchRoute,
 }
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+    ._addFileChildren(rootRouteChildren)
+    ._addFileTypes<FileRouteTypes>()
