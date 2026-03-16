@@ -1,33 +1,33 @@
-import type { ChildrenOnly } from '@/shared/types/react'
-import { boxVariants } from './box.css'
-import type { CheckerProps } from '@/shared/types/object'
-import type { ElementType } from 'react'
-import classMerger from '@/utils/class-merger'
+import type { ChildrenOnly } from "@/shared/types/react";
+import { boxVariants } from "./box.css";
+import type { CheckerProps } from "@/shared/types/object";
+import type { ElementType } from "react";
+import classMerger from "@/utils/class-merger";
 
 /**
  * Box Width Type
  */
-export type BoxWidth = keyof typeof boxVariants.boxWidthStyle
+export type BoxWidth = keyof typeof boxVariants.boxWidthStyle;
 /**
  * Box Height Type
  */
-export type BoxHeight = keyof typeof boxVariants.boxHeightStyle
+export type BoxHeight = keyof typeof boxVariants.boxHeightStyle;
 /**
  * Box Shadow Type
  */
-export type BoxShadow = keyof typeof boxVariants.boxShadowStyle
+export type BoxShadow = keyof typeof boxVariants.boxShadowStyle;
 /**
  * Box Color Type
  */
-export type BoxColor = keyof typeof boxVariants.colorStyle
+export type BoxColor = keyof typeof boxVariants.colorStyle;
 /**
  * Box Border Type
  */
-export type BoxBorder = keyof typeof boxVariants.border
+export type BoxBorder = keyof typeof boxVariants.border;
 /**
  * Box Border Radius Type
  */
-export type BoxBorderRadius = keyof typeof boxVariants.boxBorderRadiusStyle
+export type BoxBorderRadius = keyof typeof boxVariants.boxBorderRadiusStyle;
 
 /**
  * Box Style Interface
@@ -42,15 +42,15 @@ export type BoxBorderRadius = keyof typeof boxVariants.boxBorderRadiusStyle
  * @property {string} [className] - Additional class names for the box.
  */
 interface BoxStyle {
-    as?: Extract<ElementType, 'div' | 'section' | 'article' | 'main'>
-    width?: BoxWidth
-    height?: BoxHeight
-    boxShadow?: BoxShadow
-    color?: BoxColor
-    border?: BoxBorder
-    borderRadius?: BoxBorderRadius
-    style?: React.CSSProperties
-    className?: string
+    as?: Extract<ElementType, "div" | "section" | "article" | "main">;
+    width?: BoxWidth;
+    height?: BoxHeight;
+    boxShadow?: BoxShadow;
+    color?: BoxColor;
+    border?: BoxBorder;
+    borderRadius?: BoxBorderRadius;
+    style?: React.CSSProperties;
+    className?: string;
 }
 
 interface BoxProps extends BoxStyle, ChildrenOnly {}
@@ -61,20 +61,20 @@ interface BoxProps extends BoxStyle, ChildrenOnly {}
  * @returns - A JSX element representing the Box component
  */
 export function Box<T extends BoxProps>(
-    props: CheckerProps<T, BoxProps, 'Box Props Error'>,
+    props: CheckerProps<T, BoxProps, "Box Props Error">
 ) {
     const {
-        as = 'div',
-        width = 'auto',
-        height = 'auto',
-        boxShadow = 'none',
-        color = 'white',
-        border = 'none',
-        borderRadius = 'none',
+        as = "div",
+        width = "auto",
+        height = "auto",
+        boxShadow = "none",
+        color = "white",
+        border = "none",
+        borderRadius = "none",
         style,
-        className = '',
-        children,
-    } = props
+        className = "",
+        children
+    } = props;
 
     const cn = classMerger([
         className,
@@ -83,14 +83,16 @@ export function Box<T extends BoxProps>(
         boxVariants.boxShadowStyle[boxShadow],
         boxVariants.colorStyle[color],
         boxVariants.border[border],
-        boxVariants.boxBorderRadiusStyle[borderRadius],
-    ])
+        boxVariants.boxBorderRadiusStyle[borderRadius]
+    ]);
 
-    const As = as
+    const Components = as;
 
-    return (
-        <As className={cn} style={style}>
-            {children}
-        </As>
-    )
+    const componentProps = {
+        className: cn,
+        style,
+        children
+    };
+
+    return <Components {...componentProps} />;
 }

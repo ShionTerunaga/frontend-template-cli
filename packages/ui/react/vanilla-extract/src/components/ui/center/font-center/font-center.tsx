@@ -22,9 +22,11 @@ export function FontCenter<T extends Props>(
 
     const Component = as;
 
-    return (
-        <Component className={classNames} style={style}>
-            {children}
-        </Component>
-    );
+    const componentProps = {
+        className: classNames,
+        style,
+        children
+    };
+
+    return <Component {...componentProps} />;
 }
