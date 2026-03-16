@@ -1,25 +1,25 @@
-import { FontCenter } from "@/components/ui";
+import { FontCenter } from '@/components/ui'
 
 const meta = {
-    title: "components/ui/font-center",
-    component: FontCenter
-};
+    title: 'components/ui/font-center',
+    component: FontCenter,
+}
 
-export default meta;
+export default meta
 
 export const Default = {
     args: {
-        children: <div style={{ padding: 24 }}>Centered text</div>
-    }
-};
+        children: <div style={{ padding: 24 }}>Centered text</div>,
+    },
+}
 
 export const Callout = {
     args: {
         style: {
-            backgroundColor: "#f8fafc",
+            backgroundColor: '#f8fafc',
             borderRadius: 16,
-            padding: 32
+            padding: 32,
         },
-        children: <div>Centered callout block</div>
-    }
-};
+        children: <div>Centered callout block</div>,
+    },
+}
