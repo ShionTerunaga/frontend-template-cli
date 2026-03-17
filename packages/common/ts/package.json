@@ -11,15 +11,26 @@
     "author": "",
     "packageManager": "pnpm@10.18.3",
     "dependencies": {
+        "@storybook/react-vite": "^10.2.1",
+        "@tailwindcss/vite": "^4.1.13",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^5.1.0",
+        "@vanilla-extract/css": "^1.17.4",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "storybook": "^10.2.10",
+        "tailwindcss": "^4.1.13",
         "typescript": "^5.9.3",
+        "vite": "^7.2.2",
         "vite-tsconfig-paths": "^5.1.4",
         "vitest": "^4.0.8"
     },
     "devDependencies": {
-        "jsdom": "^27.1.0",
-        "eslint": "^8.45.0",
+        "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
-        "@typescript-eslint/eslint-plugin": "^6.8.0"
+        "@vanilla-extract/vite-plugin": "^5.1.1",
+        "eslint": "^8.45.0",
+        "jsdom": "^27.1.0"
     }
 }

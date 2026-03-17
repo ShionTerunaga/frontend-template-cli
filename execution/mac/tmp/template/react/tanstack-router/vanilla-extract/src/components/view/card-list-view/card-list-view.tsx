@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+import { Card } from '@/components/layout'
+import { Box, FontCenter, GridBox, Heading } from '@/components/ui'
 import type { SinglePageGetCharacters } from '@/features/harry-potter'
 import type { CheckerProps } from '@/shared/types/object'
-import { Card } from '@/components/layout'
-import { GridBox, Heading } from '@/components/ui'
-import FontCenter from '@/components/ui/center/font-center/font-center'
+import cardListViewStyle from './card-list-view.css'
 
 interface Props<T extends SinglePageGetCharacters> {
     potters: Array<T>
@@ -17,24 +16,28 @@ export function CardListView<
     const { potters, title } = props
 
     return (
-        <section>
-            <FontCenter>
-                <Heading>{title}</Heading>
-            </FontCenter>
+        <Box as="section" className={cardListViewStyle.section}>
+            <Box className={cardListViewStyle.inner}>
+                <FontCenter className={cardListViewStyle.headingWrap} as="div">
+                    <Heading className={cardListViewStyle.heading}>
+                        {title}
+                    </Heading>
+                </FontCenter>
 
-            <GridBox>
-                {potters.map(({ id, image, name }) => (
-                    <Card
-                        key={id}
-                        src={image}
-                        alt={id}
-                        title={name}
-                        srcWidth={150}
-                        boxHeight={300}
-                        srcHeight={200}
-                    />
-                ))}
-            </GridBox>
-        </section>
+                <GridBox>
+                    {potters.map(({ id, image, name }) => (
+                        <Card
+                            key={id}
+                            src={image}
+                            alt={id}
+                            title={name}
+                            srcWidth={150}
+                            boxHeight={300}
+                            srcHeight={200}
+                        />
+                    ))}
+                </GridBox>
+            </Box>
+        </Box>
     )
 }

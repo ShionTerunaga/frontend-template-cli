@@ -24,5 +24,10 @@ export function GridBox<T extends Props>(
         gridBoxBaseStyles,
     ])
 
-    return <Box className={className}>{children}</Box>
+    const componentProps = {
+        className,
+        children,
+    }
+
+    return <Box {...componentProps} />
 }

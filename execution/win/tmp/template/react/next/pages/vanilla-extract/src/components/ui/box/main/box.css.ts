@@ -40,7 +40,7 @@ export const boxVariants = {
     }),
     boxBorderRadiusStyle: styleVariants({
         none: {
-            borderRadius: 0
+            borderRadius: ""
         },
         small: {
             borderRadius: 4
@@ -57,7 +57,7 @@ export const boxVariants = {
     }),
     border: styleVariants({
         none: {
-            border: "none"
+            border: ""
         },
         thin: {
             border: "1px solid #E0E0E0"
@@ -71,7 +71,7 @@ export const boxVariants = {
     }),
     boxShadowStyle: styleVariants({
         none: {
-            boxShadow: "none"
+            boxShadow: ""
         },
         small: {
             boxShadow:

@@ -1,8 +1,7 @@
-import { ChildrenOnly } from '@/shared/types/react'
 import { CheckerProps } from '@/shared/types/object'
 // Tailwind class variants imported from box.css.ts (converted from vanilla-extract)
 import { boxVariants } from './box.style'
-import { ElementType } from 'react'
+import { ElementType, ReactNode } from 'react'
 import classMerger from '@/utils/class-merger'
 
 type BoxWidth = keyof typeof boxVariants.boxWidthStyle
@@ -24,7 +23,9 @@ interface BoxStyle {
     className?: string
 }
 
-interface BoxProps extends BoxStyle, ChildrenOnly {}
+interface BoxProps extends BoxStyle {
+    children?: ReactNode
+}
 
 export function Box<T extends BoxProps>(
     props: CheckerProps<T, BoxProps, 'Box Props Error'>,

@@ -1,16 +1,46 @@
-import { ChildrenOnly } from "@/shared/types/react";
-import { CheckerProps } from "@/shared/types/object";
+import type { ChildrenOnly } from "@/shared/types/react";
 import { boxVariants } from "./box.css";
-import { ElementType } from "react";
+import type { CheckerProps } from "@/shared/types/object";
+import type { ElementType } from "react";
 import classMerger from "@/utils/class-merger";
 
-type BoxWidth = keyof typeof boxVariants.boxWidthStyle;
-type BoxHeight = keyof typeof boxVariants.boxHeightStyle;
-type BoxShadow = keyof typeof boxVariants.boxShadowStyle;
-type BoxColor = keyof typeof boxVariants.colorStyle;
-type BoxBorder = keyof typeof boxVariants.border;
-type BoxBorderRadius = keyof typeof boxVariants.boxBorderRadiusStyle;
+/**
+ * Box Width Type
+ */
+export type BoxWidth = keyof typeof boxVariants.boxWidthStyle;
+/**
+ * Box Height Type
+ */
+export type BoxHeight = keyof typeof boxVariants.boxHeightStyle;
+/**
+ * Box Shadow Type
+ */
+export type BoxShadow = keyof typeof boxVariants.boxShadowStyle;
+/**
+ * Box Color Type
+ */
+export type BoxColor = keyof typeof boxVariants.colorStyle;
+/**
+ * Box Border Type
+ */
+export type BoxBorder = keyof typeof boxVariants.border;
+/**
+ * Box Border Radius Type
+ */
+export type BoxBorderRadius = keyof typeof boxVariants.boxBorderRadiusStyle;
 
+/**
+ * Box Style Interface
+ * @property {Extract<ElementType, 'div' | 'section' | 'article' | 'main'>} [as='div'] - The HTML element type to render as.
+ * @property {BoxWidth} [width='auto'] - The width of the box.
+ * @property {BoxHeight} [height='auto'] - The height of the box.
+ * @property {BoxShadow} [boxShadow='none'] - The box shadow style.
+ * @property {BoxColor} [color='white'] - The background color of the box.
+ * @property {BoxBorder} [border='none'] - The border style of the box.
+ * @property {BoxBorderRadius} [borderRadius='none'] - The border radius of the box.
+ * @property {React.CSSProperties} [style] - Additional inline styles for the box.
+ * @property {string} [className] - Additional class names for the box.
+ */
 interface BoxStyle {
     as?: Extract<ElementType, "div" | "section" | "article" | "main">;
     width?: BoxWidth;
@@ -25,6 +55,11 @@ interface BoxStyle {
 
 interface BoxProps extends BoxStyle, ChildrenOnly {}
 
+/**
+ * Box Component
+ * @param props - Props for the Box component
+ * @returns - A JSX element representing the Box component
+ */
 export function Box<T extends BoxProps>(
     props: CheckerProps<T, BoxProps, "Box Props Error">
 ) {
@@ -51,11 +86,13 @@ export function Box<T extends BoxProps>(
         boxVariants.boxBorderRadiusStyle[borderRadius]
     ]);
 
-    const As = as;
+    const Components = as;
 
-    return (
-        <As className={cn} style={style}>
-            {children}
-        </As>
-    );
+    const componentProps = {
+        className: cn,
+        style,
+        children
+    };
+
+    return <Components {...componentProps} />;
 }

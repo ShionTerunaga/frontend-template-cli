@@ -4,6 +4,13 @@
     margin: 0;
 }
 
+body {
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    color: #0f172a;
+    background: #f8fafc;
+    line-height: 1.5;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Box, Heading } from "@/components/ui";
 import { ja } from "@/shared/lang/ja";
 import Link from "next/link";
+import homeScreenStyle from "./home.css";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -29,25 +30,39 @@ function HomeScreen() {
 
             <Box
                 as="main"
-                className={`${geistSans.variable} ${geistMono.variable}`}
+                className={`${homeScreenStyle.pageRoot} ${geistSans.variable} ${geistMono.variable}`}
             >
-                <Heading>{ja.app.home.title}</Heading>
+                <Box as="section" className={homeScreenStyle.container}>
+                    <Heading className={homeScreenStyle.heading}>
+                        {ja.app.home.title}
+                    </Heading>
 
-                <Box>
-                    <Link href="/server-side-render">
-                        {ja.app.home.toServerSideRender}
-                    </Link>
-
-                    <br />
-                    <Link href="/static-generator">
-                        {ja.app.home.toStaticPotter}
-                    </Link>
-
-                    <br />
-
-                    <Link href="/dynamic-render">
-                        {ja.app.home.toSingleDynamicPotter}
-                    </Link>
+                    <ul className={homeScreenStyle.navList}>
+                        <li>
+                            <Link
+                                className={homeScreenStyle.navItemLink}
+                                href="/server-side-render"
+                            >
+                                {ja.app.home.toServerSideRender}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={homeScreenStyle.navItemLink}
+                                href="/static-generator"
+                            >
+                                {ja.app.home.toStaticPotter}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className={homeScreenStyle.navItemLink}
+                                href="/dynamic-render"
+                            >
+                                {ja.app.home.toSingleDynamicPotter}
+                            </Link>
+                        </li>
+                    </ul>
                 </Box>
             </Box>
         </>

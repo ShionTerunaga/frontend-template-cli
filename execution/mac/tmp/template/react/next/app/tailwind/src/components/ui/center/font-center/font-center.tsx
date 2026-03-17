@@ -1,26 +1,28 @@
-import { CheckerProps } from "@/shared/types/object";
-import { ChildrenOnly } from "@/shared/types/react";
-import { CSSProperties } from "react";
+import type { CheckerProps } from "@/shared/types/object";
+import type { ChildrenOnly } from "@/shared/types/react";
+import classMerger from "@/utils/class-merger";
+import type { CSSProperties, ElementType } from "react";
 
 interface Props extends ChildrenOnly {
+    as?: Extract<ElementType, "div" | "section" | "article" | "main" | "p">;
     className?: string;
     style?: Omit<CSSProperties, "center">;
 }
 
-function FontCenter<T extends Props>(
+export function FontCenter<T extends Props>(
     props: CheckerProps<T, Props, "fontCenter has not any props.">
 ) {
-    if (typeof props !== "object") {
-        throw Error("runtime error");
-    }
+    const { as = "p", className, style, children } = props;
 
-    const { className, style, children } = props;
+    const Component = as;
 
-    return (
-        <div className={`text-center ${className || ""}`} style={style}>
-            {children}
-        </div>
-    );
+    const cn = classMerger(["text-center", className ?? ""]);
+
+    const asProps = {
+        className: cn,
+        style,
+        children
+    };
+
+    return <Component {...asProps} />;
 }
-
-export default FontCenter;

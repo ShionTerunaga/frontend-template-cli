@@ -18,6 +18,6 @@ export const gridBoxBaseStyles = classMerger([
     'justify-items-center',
     'items-start',
     'w-full',
+    'grid-cols-[repeat(1,minmax(0,1fr))]',
     'sm:grid-cols-[repeat(2,minmax(0,1fr))]',
-    'xs:grid-cols-[repeat(1,minmax(0,1fr))]',
 ])

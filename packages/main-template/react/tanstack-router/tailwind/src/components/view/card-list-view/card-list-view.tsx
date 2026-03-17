@@ -1,8 +1,7 @@
 import { Card } from '@/components/layout'
-import { Box, GridBox, Heading } from '@/components/ui'
-import FontCenter from '@/components/ui/center/font-center/font-center'
-import { SinglePageGetCharacters } from '@/features/harry-potter'
-import { CheckerProps } from '@/shared/types/object'
+import { Box, FontCenter, GridBox, Heading } from '@/components/ui'
+import type { SinglePageGetCharacters } from '@/features/harry-potter'
+import type { CheckerProps } from '@/shared/types/object'
 import classMerger from '@/utils/class-merger'
 
 interface Props {
@@ -40,7 +39,7 @@ export function CardListView<T extends Props>(
                     'pt-6',
                 ])}
             >
-                <FontCenter className="mb-[28px]">
+                <FontCenter className="mb-[28px]" as="div">
                     <Heading className={classMerger(['tracking-[-0.02em]'])}>
                         {title}
                     </Heading>

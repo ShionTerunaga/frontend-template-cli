@@ -33,10 +33,13 @@ export function Heading<T extends HeadingProps>(
         className ? className : '',
     ])
 
-    const As = as
-    return (
-        <As className={cn} style={style}>
-            {children}
-        </As>
-    )
+    const componentProps = {
+        className: cn,
+        style,
+        children,
+    }
+
+    const Components = as
+
+    return <Components {...componentProps} />
 }

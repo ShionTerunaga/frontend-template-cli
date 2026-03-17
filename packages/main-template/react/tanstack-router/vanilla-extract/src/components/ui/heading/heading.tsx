@@ -38,10 +38,13 @@ export function Heading<T extends HeadingProps>(
         textColor[color],
     ])
 
-    const As = as
-    return (
-        <As className={cn} style={style}>
-            {children}
-        </As>
-    )
+    const Components = as
+
+    const componentProps = {
+        className: cn,
+        style,
+        children,
+    }
+
+    return <Components {...componentProps} />
 }

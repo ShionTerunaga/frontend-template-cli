@@ -1,6 +1,5 @@
 import { Card } from '@/components/layout'
-import { Box, GridBox, Heading } from '@/components/ui'
-import FontCenter from '@/components/ui/center/font-center/font-center'
+import { Box, FontCenter, GridBox, Heading } from '@/components/ui'
 import type { SinglePageGetCharacters } from '@/features/harry-potter'
 import type { CheckerProps } from '@/shared/types/object'
 import cardListViewStyle from './card-list-view.css'

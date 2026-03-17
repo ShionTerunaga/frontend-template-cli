@@ -86,11 +86,13 @@ export function Box<T extends BoxProps>(
         boxVariants.boxBorderRadiusStyle[borderRadius],
     ])
 
-    const As = as
+    const Components = as
 
-    return (
-        <As className={cn} style={style}>
-            {children}
-        </As>
-    )
+    const componentProps = {
+        className: cn,
+        style,
+        children,
+    }
+
+    return <Components {...componentProps} />
 }

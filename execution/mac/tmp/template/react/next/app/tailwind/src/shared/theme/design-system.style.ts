@@ -1,16 +1,13 @@
-import { appTheme } from "./theme";
-
-// Tailwind class maps (previously vanilla-extract styleVariants)
-// If custom theme colors differ from Tailwind palette, create matching entries in tailwind.config.js.
+// Tailwind class maps must remain static strings so the classes are generated.
 export const textColor = {
-    textNormal: `text-[${appTheme.textNormal}]`, // fallback to arbitrary color if not in palette
+    textNormal: "text-[#333]",
     textWhite: "text-white"
 } as const;
 
 export const backgroundColor = {
-    likeBlue: `bg-[${appTheme.likeBlue}]`,
-    likeGreen: `bg-[${appTheme.likeGreen}]`,
-    popupBackground: `bg-[${appTheme.popupBackground}]`
+    likeBlue: "bg-[aqua]",
+    likeGreen: "bg-[#33FFCC]",
+    popupBackground: "bg-[rgba(0,0,0,0.6)]"
 } as const;
 
 export type TextTheme = keyof typeof textColor;

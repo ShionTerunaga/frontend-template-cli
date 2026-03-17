@@ -11,6 +11,7 @@ interface HeadingStyle {
     fontStyle?: HeadingFont;
     color?: TextTheme;
     style?: React.CSSProperties;
+    className?: string;
 }
 interface HeadingProps extends HeadingStyle, ChildrenOnly {}
 
@@ -22,15 +23,23 @@ export function Heading<T extends HeadingProps>(
         fontStyle = "firstBig",
         color = "textNormal",
         style,
+        className,
         children
     } = props;
 
-    const cn = classMerger([headingFontStyle[fontStyle], textColor[color]]);
+    const cn = classMerger([
+        headingFontStyle[fontStyle],
+        textColor[color],
+        className ? className : ""
+    ]);
 
-    const As = as;
-    return (
-        <As className={cn} style={style}>
-            {children}
-        </As>
-    );
+    const componentProps = {
+        className: cn,
+        style,
+        children
+    };
+
+    const Components = as;
+
+    return <Components {...componentProps} />;
 }

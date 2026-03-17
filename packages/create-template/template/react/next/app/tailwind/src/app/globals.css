@@ -2,6 +2,22 @@
 
 * {
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+}
+
+body {
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    color: #0f172a;
+    background: #f8fafc;
+    line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

@@ -49,6 +49,7 @@
         "test:mt:vvr-sc": "pnpm exec turbo run test test:unit --filter=./packages/main-template/vue/vue-router/scoped-css",
         "test:mt:vvr-ve": "pnpm exec turbo run test test:unit --filter=./packages/main-template/vue/vue-router/vanilla-extract",
         "cp:utils": "pnpm exec tsx scripts/copy/utils/copy-utils.ts",
+        "cp:ui": "pnpm exec tsx scripts/copy/ui/copy-ui.ts",
         "build:upgrade-mac": "pnpm exec ncc build ./scripts/upgrade/change-upgrade-version-mac.ts -o ./dist/upgrade-mac && pnpm exec tsx scripts/write/upgrade-write-mac.ts",
         "build:upgrade-win": "pnpm exec ncc build ./scripts/upgrade/change-upgrade-version-win.ts -o ./dist/upgrade-win && pnpm exec tsx scripts/write/upgrade-write-win.ts",
         "cp:template": "pnpm exec tsx scripts/copy/template/copy-template-main.ts",
@@ -65,7 +66,9 @@
         "test:vue-dev": "cd test/auto && uv sync && uv run main.py vue dev",
         "test:vue-pack": "pnpm build:all && cd test/auto && uv sync && uv run main.py vue pack",
         "lib:storybook": "pnpm exec turbo run storybook --filter=lib",
-        "lib:test": "pnpm exec turbo run test --filter=lib"
+        "lib:test": "pnpm exec turbo run test --filter=lib",
+        "story:react-tw": "pnpm exec turbo run storybook --filter=./packages/ui/react/tailwind",
+        "story:react-ve": "pnpm exec turbo run storybook --filter=./packages/ui/react/vanilla-extract"
     },
     "dependencies": {
         "@commitlint/cli": "^19.8.1",

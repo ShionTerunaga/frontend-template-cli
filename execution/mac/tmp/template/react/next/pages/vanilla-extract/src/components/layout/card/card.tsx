@@ -2,6 +2,7 @@ import { CheckerProps } from "@/shared/types/object";
 import Image, { StaticImageData } from "next/image";
 import { CSSProperties } from "react";
 import cardStyles from "./card.css";
+import { Box } from "@/components/ui";
 
 interface Props {
     key: number | string;
@@ -24,7 +25,7 @@ export function Card<T extends Props>(
     };
 
     return (
-        <div className={cardStyles.cardContainer} style={cardStyle}>
+        <Box className={cardStyles.cardContainer} style={cardStyle}>
             <Image
                 src={src}
                 alt={alt}
@@ -33,6 +34,6 @@ export function Card<T extends Props>(
                 height={srcHeight}
             />
             <p className={cardStyles.title}>{title}</p>
-        </div>
+        </Box>
     );
 }

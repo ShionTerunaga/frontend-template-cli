@@ -1,6 +1,5 @@
 import { Card } from "@/components/layout";
-import { Box, GridBox, Heading } from "@/components/ui";
-import FontCenter from "@/components/ui/center/font-center/font-center";
+import { Box, FontCenter, GridBox, Heading } from "@/components/ui";
 import { SinglePageGetCharacters } from "@/features/harry-potter";
 import { CheckerProps } from "@/shared/types/object";
 import cardListViewStyle from "./card-list-view.css";
@@ -19,12 +18,11 @@ export function CardListView<
     return (
         <Box as="section" className={cardListViewStyle.section}>
             <Box className={cardListViewStyle.inner}>
-                <FontCenter className={cardListViewStyle.headingWrap}>
+                <FontCenter className={cardListViewStyle.headingWrap} as="div">
                     <Heading className={cardListViewStyle.heading}>
                         {title}
                     </Heading>
                 </FontCenter>
-
                 <GridBox>
                     {potters.map(({ id, image, name }) => (
                         <Card

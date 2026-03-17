@@ -27,5 +27,15 @@ export const gridBoxGridTemplate = styleVariants({
 
 export const gridBoxBaseStyles = style({
     display: "grid",
-    justifyItems: "center"
+    justifyItems: "center",
+    alignItems: "start",
+    width: "100%",
+    "@media": {
+        "screen and (max-width: 980px)": {
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))"
+        },
+        "screen and (max-width: 640px)": {
+            gridTemplateColumns: "repeat(1, minmax(0, 1fr))"
+        }
+    }
 });
