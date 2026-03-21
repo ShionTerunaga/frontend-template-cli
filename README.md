@@ -1,8 +1,19 @@
-# Create frontend template cli Project
+# Create Frontend Template CLI
 
-This is template of frontend projects. For now, it will be for macos only.We
-will not put this repository on npm for now.
+Frontend template generation CLI.
 
-## setup
+## Install
 
-coming soon....
+Install directly from GitHub:
+
+```bash
+npm i -g github:ShionTerunaga/frontend-template-cli
+```
+
+## Usage
+
+Run the CLI with:
+
+```bash
+create-frontend-template
+```
