@@ -9,7 +9,7 @@ import { foundFolder } from "../../utils/found-file";
 
 export async function vueCli(): Promise<Result<TechMaterial, Error>> {
     const { optionCss, optionVueFramework } = commanderCore;
-    const { createNone, createSome } = optionUtility;
+    const { createSome } = optionUtility;
     const { createOk } = resultUtility;
     const frameworkResult = await vueFrameworkCommand(optionVueFramework);
 
@@ -51,8 +51,7 @@ export async function vueCli(): Promise<Result<TechMaterial, Error>> {
 
     const techMaterial: TechMaterial = {
         path: resultPath.value,
-        styleSheet: createSome(cssResult.value),
-        lib: createNone()
+        styleSheet: createSome(cssResult.value)
     };
 
     return createOk(techMaterial);

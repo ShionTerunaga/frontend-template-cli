@@ -1,0 +1,29 @@
+{
+    "name": "@apps/vue-nuxt-vanilla-extract",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "echo 'lint is not configured for @apps/vue-nuxt-vanilla-extract'",
+        "typecheck": "nuxt typecheck",
+        "test": "vitest run",
+        "test:unit": "vitest run"
+    },
+    "dependencies": {
+        "@nuxt/image": "2.0.0",
+        "@vanilla-extract/css": "^1.18.0",
+        "@vanilla-extract/vite-plugin": "^5.1.4",
+        "jsdom": "^27.4.0",
+        "nuxt": "^4.3.0",
+        "ts-common-by-teru": "github:ShionTerunaga/ts-common-by-teru#release",
+        "vite": "^8.0.1",
+        "vitest": "^4.1.0",
+        "vue": "^3.5.25",
+        "vue-router": "^4.6.4",
+        "zod": "^4.3.2"
+    }
+}
