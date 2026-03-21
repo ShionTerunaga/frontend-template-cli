@@ -1,6 +1,6 @@
-import { Link } from 'react-router'
-import { Box, Heading } from '@/components/ui'
-import { ja } from '@/shared/lang/ja'
+import { Link } from "react-router";
+import { Box, Heading } from "@/components/ui";
+import { ja } from "@/shared/lang/ja";
 
 export default function HomeView() {
     return (
@@ -12,5 +12,5 @@ export default function HomeView() {
             <br />
             <Link to="/server-action">{ja.app.home.toServerActionPotter}</Link>
         </Box>
-    )
+    );
 }

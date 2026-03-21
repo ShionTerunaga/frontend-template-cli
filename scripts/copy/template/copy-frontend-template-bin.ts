@@ -70,7 +70,9 @@ async function main() {
         runGit(["sparse-checkout", "set", "template"], checkoutDir);
 
         if (!fs.existsSync(sourceTemplateDir)) {
-            throw new Error(`template directory not found: ${sourceTemplateDir}`);
+            throw new Error(
+                `template directory not found: ${sourceTemplateDir}`
+            );
         }
 
         fs.rmSync(binDir, { recursive: true, force: true });

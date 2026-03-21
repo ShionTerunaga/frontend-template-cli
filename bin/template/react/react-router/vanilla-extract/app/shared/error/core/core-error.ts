@@ -1,6 +1,6 @@
-export type ErrorType = 'httpError' | 'fetcherError' | 'objectError'
+export type ErrorType = "httpError" | "fetcherError" | "objectError";
 
 export interface CustomError {
-    type: ErrorType
-    message: string
+    type: ErrorType;
+    message: string;
 }

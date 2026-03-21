@@ -1,11 +1,11 @@
-import type { CheckerProps } from '@/shared/types/object'
+import type { CheckerProps } from "@/shared/types/object";
 
 interface SubmitButtonProps {
-    title: string
+    title: string;
 }
 
 export function SubmitButton<T extends SubmitButtonProps>({
-    title,
-}: CheckerProps<T, SubmitButtonProps, 'Invalid SubmitButton props'>) {
-    return <button type="submit">{title}</button>
+    title
+}: CheckerProps<T, SubmitButtonProps, "Invalid SubmitButton props">) {
+    return <button type="submit">{title}</button>;
 }

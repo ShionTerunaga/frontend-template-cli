@@ -1,4 +1,4 @@
-import z from 'zod'
+import z from "zod";
 
 export const APIScheme = z.array(
     z
@@ -7,7 +7,7 @@ export const APIScheme = z.array(
             name: z.string(),
             alternate_names: z.array(z.string()),
             species: z.string(),
-            gender: z.enum(['male', 'female', '']),
+            gender: z.enum(["male", "female", ""]),
             house: z.string(),
             dateOfBirth: z.string().nullable(),
             yearOfBirth: z.number().nullable(),
@@ -18,7 +18,7 @@ export const APIScheme = z.array(
             wand: z.object({
                 wood: z.string(),
                 core: z.string(),
-                length: z.number().nullable(),
+                length: z.number().nullable()
             }),
             patronus: z.string(),
             hogwartsStudent: z.boolean(),
@@ -26,9 +26,9 @@ export const APIScheme = z.array(
             actor: z.string(),
             alternate_actors: z.array(z.string()),
             alive: z.boolean(),
-            image: z.string(),
+            image: z.string()
         })
-        .strict(),
-)
+        .strict()
+);
 
-export type APIRes = z.infer<typeof APIScheme>
+export type APIRes = z.infer<typeof APIScheme>;

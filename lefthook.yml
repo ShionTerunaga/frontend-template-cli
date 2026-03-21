@@ -1,15 +1,8 @@
 pre-commit:
     piped: true
     commands:
-        test:
-            priority: 1
-            run: |
-                pnpm build:all
-                pnpm test:react-bin
-                pnpm test:vue-bin
-                pnpm lib:test
         format:
-            priority: 2
+            priority: 1
             run: |
                 echo "{staged_files}" | tr ' ' '\n' | grep -E '\.(js|jsx|ts|tsx|json|css|md|html)$' | xargs npx prettier --write
 

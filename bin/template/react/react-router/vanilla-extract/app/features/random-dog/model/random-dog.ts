@@ -1,10 +1,10 @@
-import z from 'zod'
+import z from "zod";
 
 export const randomDogScheme = z
     .object({
         message: z.string(),
-        status: z.string(),
+        status: z.string()
     })
-    .strict()
+    .strict();
 
-export type RandomDogRes = z.infer<typeof randomDogScheme>
+export type RandomDogRes = z.infer<typeof randomDogScheme>;

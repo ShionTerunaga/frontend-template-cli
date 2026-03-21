@@ -1,16 +1,16 @@
-import type { RandomDogRes } from '@/features/random-dog/model/random-dog'
-import type { FetcherError } from '@/shared/error/fetcher'
-import type { Result } from 'ts-common-by-teru'
-import type { Option } from 'ts-common-by-teru'
-import { Heading } from '@/components/ui'
-import { ja } from '@/shared/lang/ja'
-import { Form } from 'react-router'
-import { SubmitButton } from '@/features/random-dog'
+import type { RandomDogRes } from "@/features/random-dog/model/random-dog";
+import type { FetcherError } from "@/shared/error/fetcher";
+import type { Result } from "ts-common-by-teru";
+import type { Option } from "ts-common-by-teru";
+import { Heading } from "@/components/ui";
+import { ja } from "@/shared/lang/ja";
+import { Form } from "react-router";
+import { SubmitButton } from "@/features/random-dog";
 
 export default function ServerActionView({
-    action,
+    action
 }: {
-    action?: Result<Option<RandomDogRes>, FetcherError>
+    action?: Result<Option<RandomDogRes>, FetcherError>;
 }) {
     return (
         <main>
@@ -39,5 +39,5 @@ export default function ServerActionView({
                 </>
             )}
         </main>
-    )
+    );
 }

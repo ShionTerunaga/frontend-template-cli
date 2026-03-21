@@ -1,73 +1,73 @@
-import type { CustomError } from '../core/core-error'
-import { createHttpError, type HttpError } from '../http/http'
-import { fetcherErrorScheme, type FetcherStatus } from './fetcher-scheme'
+import type { CustomError } from "../core/core-error";
+import { createHttpError, type HttpError } from "../http/http";
+import { fetcherErrorScheme, type FetcherStatus } from "./fetcher-scheme";
 
 interface FetcherBaseError extends CustomError {
-    status: FetcherStatus
+    status: FetcherStatus;
 }
 
-export type FetcherError = FetcherBaseError | HttpError
+export type FetcherError = FetcherBaseError | HttpError;
 
 export const createFetcherError = (function () {
     const {
         returnBadRequest,
         returnNoPermission,
         returnNotFoundAPIUrl,
-        returnInternalServerError,
-    } = createHttpError
+        returnInternalServerError
+    } = createHttpError;
     const {
         fetchErrorMessage,
         fetcherErrorStatusScheme,
-        httpErrorStatusResponse,
-    } = fetcherErrorScheme
+        httpErrorStatusResponse
+    } = fetcherErrorScheme;
 
     const createFetcher = ({
         status,
-        errorMessage,
+        errorMessage
     }: {
-        status: FetcherStatus
-        errorMessage: string
+        status: FetcherStatus;
+        errorMessage: string;
     }): FetcherError => {
         return {
-            type: 'fetcherError',
+            type: "fetcherError",
             status,
-            message: errorMessage,
-        }
-    }
+            message: errorMessage
+        };
+    };
 
     const returnNotSetApiUrl = (function () {
         return createFetcher({
             status: fetcherErrorStatusScheme.returnNotSetAPIUrl,
-            errorMessage: fetchErrorMessage.returnNotSetAPIUrl,
-        })
-    })()
+            errorMessage: fetchErrorMessage.returnNotSetAPIUrl
+        });
+    })();
     const returnSchemeError = (function () {
         return createFetcher({
             status: fetcherErrorStatusScheme.returnSchemeError,
-            errorMessage: fetchErrorMessage.returnSchemeError,
-        })
-    })()
+            errorMessage: fetchErrorMessage.returnSchemeError
+        });
+    })();
 
     const returnParseError = (function () {
         return createFetcher({
             status: fetcherErrorStatusScheme.returnParseError,
-            errorMessage: fetchErrorMessage.returnParseError,
-        })
-    })()
+            errorMessage: fetchErrorMessage.returnParseError
+        });
+    })();
 
     const returnFetchFunctionError = (function () {
         return createFetcher({
             status: fetcherErrorStatusScheme.returnFetchFunctionError,
-            errorMessage: fetchErrorMessage.returnFetchFunctionError,
-        })
-    })()
+            errorMessage: fetchErrorMessage.returnFetchFunctionError
+        });
+    })();
 
     const returnUnknownError = (function () {
         return createFetcher({
             status: fetcherErrorStatusScheme.returnUnknownError,
-            errorMessage: fetchErrorMessage.returnUnknownError,
-        })
-    })()
+            errorMessage: fetchErrorMessage.returnUnknownError
+        });
+    })();
 
     return {
         httpErrorStatusResponse,
@@ -79,6 +79,6 @@ export const createFetcherError = (function () {
         returnSchemeError,
         returnParseError,
         returnFetchFunctionError,
-        returnInternalServerError,
-    }
-})()
+        returnInternalServerError
+    };
+})();
