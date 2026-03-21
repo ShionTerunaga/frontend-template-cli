@@ -23,42 +23,36 @@ def get_actions():
             "tech_stack": KEYBOARD["Enter"],
             "framework": KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
             "css": KEYBOARD["Enter"],
-            "library": KEYBOARD["Space"] + KEYBOARD["ArrowDown"] + KEYBOARD["Space"] + KEYBOARD["Enter"],
         },
         {
             "project_name": "next-app-vanilla-extract",
             "tech_stack": KEYBOARD["Enter"],
             "framework": KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
             "css": KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
-            "library": KEYBOARD["Space"] + KEYBOARD["ArrowDown"] + KEYBOARD["Space"] + KEYBOARD["Enter"],
         },
         {
             "project_name": "next-pages-tailwind",
             "tech_stack": KEYBOARD["Enter"],
             "framework": KEYBOARD["ArrowDown"] + KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
             "css": KEYBOARD["Enter"],
-            "library": KEYBOARD["Space"] + KEYBOARD["ArrowDown"] + KEYBOARD["Space"] + KEYBOARD["Enter"],
         },
         {
             "project_name": "next-pages-vanilla-extract",
             "tech_stack": KEYBOARD["Enter"],
             "framework": KEYBOARD["ArrowDown"] + KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
-            "css": KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
-            "library": KEYBOARD["Space"] + KEYBOARD["ArrowDown"] + KEYBOARD["Space"] + KEYBOARD["Enter"],
+            "css": KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],    
         },
         {
             "project_name": "tanstack-router-tailwind",
             "tech_stack": KEYBOARD["Enter"],
             "framework": KEYBOARD["Enter"],
             "css": KEYBOARD["Enter"],
-            "library": KEYBOARD["Space"] + KEYBOARD["ArrowDown"] + KEYBOARD["Space"] + KEYBOARD["Enter"],
-        },
+          },
         {
             "project_name": "tanstack-router-vanilla-extract",
             "tech_stack": KEYBOARD["Enter"],
             "framework": KEYBOARD["Enter"],
             "css": KEYBOARD["ArrowDown"] + KEYBOARD["Enter"],
-            "library": KEYBOARD["Space"] + KEYBOARD["ArrowDown"] + KEYBOARD["Space"] + KEYBOARD["Enter"],
         },
     ]
 
@@ -83,9 +77,6 @@ def react_run_action(actions, cmd_noninteractive, workdir):
 
             child.expect(r"elect a CSS framework for your project")
             child.sendline(action["css"])
-
-            child.expect(r"Select packages to add")
-            child.sendline(action["library"])
 
             child.expect(pexpect.EOF, timeout=120)
             # success if exit code 0

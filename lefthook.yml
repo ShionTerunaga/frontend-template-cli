@@ -1,29 +1,8 @@
 pre-commit:
     piped: true
     commands:
-        test:
-            priority: 1
-            run: |
-                pnpm test:mt:rna-tw
-                pnpm test:mt:rna-ve
-                pnpm test:mt:rnp-tw
-                pnpm test:mt:rnp-ve
-                pnpm test:mt:rrr-ve
-                pnpm test:mt:rts-tw
-                pnpm test:mt:rts-ve
-                pnpm test:mt:vn-ve
-                pnpm test:mt:vvr-ve
-                pnpm build:mt:rna-tw
-                pnpm build:mt:rna-ve
-                pnpm build:mt:rnp-tw
-                pnpm build:mt:rnp-ve
-                pnpm build:mt:rrr-ve
-                pnpm build:mt:rts-tw
-                pnpm build:mt:rts-ve
-                pnpm build:mt:vn-ve
-                pnpm build:mt:vvr-ve
         format:
-            priority: 2
+            priority: 1
             run: |
                 echo "{staged_files}" | tr ' ' '\n' | grep -E '\.(js|jsx|ts|tsx|json|css|md|html)$' | xargs npx prettier --write
 
@@ -32,16 +11,7 @@ post-merge:
         install:
             run: |
                 pnpm install
-                pnpm install:mt:rna-tw
-                pnpm install:mt:rna-ve
-                pnpm install:mt:rnp-tw
-                pnpm install:mt:rnp-ve
-                pnpm install:mt:rrr-ve
-                pnpm install:mt:rts-tw
-                pnpm install:mt:rts-ve
-                pnpm install:mt:vn-ve
-                pnpm install:mt:vvr-ve
-                pnpm create:env
+                pnpm build:all
 
 commit-msg:
     commands:

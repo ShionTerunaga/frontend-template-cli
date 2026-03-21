@@ -1,7 +1,0 @@
-{
-    "name": "create-frontend-tmp",
-    "bin": {
-        "create-frontend-tmp": "./tmp/index.js",
-        "upgrade-frontend-tmp": "./upgrade-tmp.js"
-    }
-}

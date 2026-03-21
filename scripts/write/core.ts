@@ -2,7 +2,6 @@ import fs from "fs";
 
 /**
  * Prepends a shebang to the target JS file (if missing) and marks it executable.
- * Target: dist/react-tmp/index.js
  */
 async function core(pathName: string) {
     if (!fs.existsSync(pathName)) {

@@ -16,7 +16,6 @@ export type TechStackCss = ReactCss | VueCss;
 
 export interface TechMaterial {
     path: string;
-    lib: Option<TechStackList>;
     styleSheet: Option<TechStackCss>;
 }
 
