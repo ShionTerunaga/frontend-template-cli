@@ -5,7 +5,9 @@
     "bin": {
         "create-frontend-template": "./bin/index.js"
     },
-    "files": ["bin"],
+    "files": [
+        "bin"
+    ],
     "preferGlobal": true,
     "packageManager": "pnpm@10.18.3",
     "scripts": {
