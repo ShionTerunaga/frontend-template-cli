@@ -2,6 +2,7 @@
     "name": "create-frontend-template",
     "version": "0.5.0",
     "description": "CLI for generating frontend templates",
+    "license": "MIT",
     "bin": {
         "create-frontend-template": "./bin/index.js"
     },

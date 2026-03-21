@@ -2,6 +2,8 @@
 
 Frontend template generation CLI.
 
+This project is inspired by `create-next-app`.
+
 ## Install
 
 Install directly from GitHub:
@@ -17,3 +19,7 @@ Run the CLI with:
 ```bash
 create-frontend-template
 ```
+
+## License
+
+MIT
