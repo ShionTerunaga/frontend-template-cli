@@ -4,7 +4,6 @@
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "target": "es2015",
-        "allowImportingTsExtensions": true,
         "types": ["node"],
         "resolveJsonModule": true,
         "outDir": "./dist"

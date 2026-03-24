@@ -13430,6 +13430,15 @@ exports.commanderCore = (function () {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13441,43 +13450,48 @@ const is_1 = __nccwpck_require__(8538);
 const prompts_1 = __importDefault(__nccwpck_require__(7193));
 const validate_npm_name_1 = __nccwpck_require__(7253);
 const command_core_1 = __nccwpck_require__(2497);
-async function nameCommand(optionName) {
-    const { optionConversion } = option_1.optionUtility;
-    const { onPromptState } = command_core_1.commanderCore;
-    const { createOk, checkPromiseReturn } = result_1.resultUtility;
-    if (optionName.isSome && (0, is_1.isString)(optionName.value)) {
-        return createOk(optionName.value.trim());
-    }
-    const response = await checkPromiseReturn({
-        fn: async () => await (0, prompts_1.default)({
-            onState: onPromptState,
-            type: "text",
-            name: "path",
-            message: "What is your project named?",
-            initial: "my-project",
-            validate: (name) => {
-                const validation = (0, validate_npm_name_1.validateNpmName)(name);
-                if (validation.valid) {
-                    return true;
-                }
-                return `Invalid project name: ${validation.problems?.join(", ")}`;
-            }
-        }),
-        err: (e) => {
-            if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
-            }
-            return new Error("Prompt failed: Unknown error");
+function nameCommand(optionName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { optionConversion } = option_1.optionUtility;
+        const { onPromptState } = command_core_1.commanderCore;
+        const { createOk, checkPromiseReturn } = result_1.resultUtility;
+        if (optionName.isSome && (0, is_1.isString)(optionName.value)) {
+            return createOk(optionName.value.trim());
         }
+        const response = yield checkPromiseReturn({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                return yield (0, prompts_1.default)({
+                    onState: onPromptState,
+                    type: "text",
+                    name: "path",
+                    message: "What is your project named?",
+                    initial: "my-project",
+                    validate: (name) => {
+                        var _a;
+                        const validation = (0, validate_npm_name_1.validateNpmName)(name);
+                        if (validation.valid) {
+                            return true;
+                        }
+                        return `Invalid project name: ${(_a = validation.problems) === null || _a === void 0 ? void 0 : _a.join(", ")}`;
+                    }
+                });
+            }),
+            err: (e) => {
+                if (e instanceof Error) {
+                    return new Error(`Prompt failed: ${e.message}`);
+                }
+                return new Error("Prompt failed: Unknown error");
+            }
+        });
+        if (response.isErr) {
+            return response;
+        }
+        const name = optionConversion(response.value.path);
+        if (name.isSome && (0, is_1.isString)(name.value)) {
+            return createOk(name.value.trim());
+        }
+        return createOk("my-project");
     });
-    if (response.isErr) {
-        return response;
-    }
-    const name = optionConversion(response.value.path);
-    if (name.isSome && (0, is_1.isString)(name.value)) {
-        return createOk(name.value.trim());
-    }
-    return createOk("my-project");
 }
 
 
@@ -13488,6 +13502,15 @@ async function nameCommand(optionName) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13498,36 +13521,40 @@ const core_static_1 = __nccwpck_require__(9645);
 const result_1 = __nccwpck_require__(9439);
 const command_core_1 = __nccwpck_require__(2497);
 const react_is_1 = __nccwpck_require__(2720);
-async function techStackCommand(optionTech) {
-    const { createOk, createNg, checkPromiseReturn } = result_1.resultUtility;
-    const { onPromptState } = command_core_1.commanderCore;
-    if (optionTech.isSome && (0, react_is_1.isTechStack)(optionTech.value)) {
-        return createOk(optionTech.value);
-    }
-    const response = await checkPromiseReturn({
-        fn: async () => await (0, prompts_1.default)({
-            onState: onPromptState,
-            type: "select",
-            name: "techStack",
-            message: "Select a tech stack for your project:",
-            choices: core_static_1.techStackSelectList,
-            initial: 0
-        }),
-        err: (e) => {
-            if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
-            }
-            return new Error("Prompt failed: Unknown error");
+function techStackCommand(optionTech) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { createOk, createNg, checkPromiseReturn } = result_1.resultUtility;
+        const { onPromptState } = command_core_1.commanderCore;
+        if (optionTech.isSome && (0, react_is_1.isTechStack)(optionTech.value)) {
+            return createOk(optionTech.value);
         }
+        const response = yield checkPromiseReturn({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                return yield (0, prompts_1.default)({
+                    onState: onPromptState,
+                    type: "select",
+                    name: "techStack",
+                    message: "Select a tech stack for your project:",
+                    choices: core_static_1.techStackSelectList,
+                    initial: 0
+                });
+            }),
+            err: (e) => {
+                if (e instanceof Error) {
+                    return new Error(`Prompt failed: ${e.message}`);
+                }
+                return new Error("Prompt failed: Unknown error");
+            }
+        });
+        if (response.isErr) {
+            return response;
+        }
+        const techStack = response.value.techStack;
+        if ((0, react_is_1.isTechStack)(techStack)) {
+            return createOk(techStack);
+        }
+        return createNg(new Error("Tech stack selection is invalid"));
     });
-    if (response.isErr) {
-        return response;
-    }
-    const techStack = response.value.techStack;
-    if ((0, react_is_1.isTechStack)(techStack)) {
-        return createOk(techStack);
-    }
-    return createNg(new Error("Tech stack selection is invalid"));
 }
 
 
@@ -13538,6 +13565,15 @@ async function techStackCommand(optionTech) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13547,60 +13583,75 @@ const option_1 = __nccwpck_require__(5315);
 const result_1 = __nccwpck_require__(9439);
 const prompts_1 = __importDefault(__nccwpck_require__(7193));
 const command_core_1 = __nccwpck_require__(2497);
-async function cssCommand({ optionCss, isCss, csses }) {
-    const { optionConversion } = option_1.optionUtility;
-    const { createOk, createNg, checkPromiseReturn } = result_1.resultUtility;
-    const { onPromptState } = command_core_1.commanderCore;
-    if (optionCss.isSome && isCss(optionCss.value)) {
-        return createOk(optionCss.value);
-    }
-    const response = await checkPromiseReturn({
-        fn: async () => await (0, prompts_1.default)({
-            onState: onPromptState,
-            type: "select",
-            name: "css",
-            message: "Select a CSS framework for your project:",
-            choices: csses,
-            initial: 0
-        }),
-        err: (e) => {
-            if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
-            }
-            return new Error("Prompt failed: Unknown error");
+function cssCommand(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ optionCss, isCss, csses }) {
+        const { optionConversion } = option_1.optionUtility;
+        const { createOk, createNg, checkPromiseReturn } = result_1.resultUtility;
+        const { onPromptState } = command_core_1.commanderCore;
+        if (optionCss.isSome && isCss(optionCss.value)) {
+            return createOk(optionCss.value);
         }
+        const response = yield checkPromiseReturn({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                return yield (0, prompts_1.default)({
+                    onState: onPromptState,
+                    type: "select",
+                    name: "css",
+                    message: "Select a CSS framework for your project:",
+                    choices: csses,
+                    initial: 0
+                });
+            }),
+            err: (e) => {
+                if (e instanceof Error) {
+                    return new Error(`Prompt failed: ${e.message}`);
+                }
+                return new Error("Prompt failed: Unknown error");
+            }
+        });
+        if (response.isErr) {
+            return response;
+        }
+        const css = optionConversion(response.value.css);
+        if (css.isSome && isCss(css.value)) {
+            return createOk(css.value);
+        }
+        return createNg(new Error("CSS selection is invalid"));
     });
-    if (response.isErr) {
-        return response;
-    }
-    const css = optionConversion(response.value.css);
-    if (css.isSome && isCss(css.value)) {
-        return createOk(css.value);
-    }
-    return createNg(new Error("CSS selection is invalid"));
 }
 
 
 /***/ }),
 
 /***/ 7565:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.cssReactCommand = cssReactCommand;
 const react_is_1 = __nccwpck_require__(2720);
 const css_core_1 = __nccwpck_require__(1275);
-async function cssReactCommand(optionReactCss) {
-    const choises = [
-        { title: "tailwindCSS", value: "tailwind" },
-        { title: "vanilla-extract ", value: "vanilla-extract" }
-    ];
-    return await (0, css_core_1.cssCommand)({
-        optionCss: optionReactCss,
-        isCss: react_is_1.isReactCss,
-        csses: choises
+function cssReactCommand(optionReactCss) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const choises = [
+            { title: "tailwindCSS", value: "tailwind" },
+            { title: "vanilla-extract ", value: "vanilla-extract" }
+        ];
+        return yield (0, css_core_1.cssCommand)({
+            optionCss: optionReactCss,
+            isCss: react_is_1.isReactCss,
+            csses: choises
+        });
     });
 }
 
@@ -13612,6 +13663,15 @@ async function cssReactCommand(optionReactCss) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13621,40 +13681,44 @@ const result_1 = __nccwpck_require__(9439);
 const prompts_1 = __importDefault(__nccwpck_require__(7193));
 const command_core_1 = __nccwpck_require__(2497);
 const react_is_1 = __nccwpck_require__(2720);
-async function frameworkCommand(optionFramework) {
-    const { createNg, createOk, checkPromiseReturn } = result_1.resultUtility;
-    const { onPromptState } = command_core_1.commanderCore;
-    if (optionFramework.isSome && (0, react_is_1.isReactFramework)(optionFramework.value)) {
-        return createOk(optionFramework.value);
-    }
-    const response = await checkPromiseReturn({
-        fn: async () => await (0, prompts_1.default)({
-            onState: onPromptState,
-            type: "select",
-            name: "framework",
-            message: `Select a framework for your project:`,
-            choices: [
-                { title: "TanStack Router", value: "tanstack-router" },
-                { title: "Next.js (App Router)", value: "next/app" },
-                { title: "Next.js (Pages Router)", value: "next/pages" }
-            ],
-            initial: 0
-        }),
-        err: (e) => {
-            if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
-            }
-            return new Error("Prompt failed: Unknown error");
+function frameworkCommand(optionFramework) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { createNg, createOk, checkPromiseReturn } = result_1.resultUtility;
+        const { onPromptState } = command_core_1.commanderCore;
+        if (optionFramework.isSome && (0, react_is_1.isReactFramework)(optionFramework.value)) {
+            return createOk(optionFramework.value);
         }
+        const response = yield checkPromiseReturn({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                return yield (0, prompts_1.default)({
+                    onState: onPromptState,
+                    type: "select",
+                    name: "framework",
+                    message: `Select a framework for your project:`,
+                    choices: [
+                        { title: "TanStack Router", value: "tanstack-router" },
+                        { title: "Next.js (App Router)", value: "next/app" },
+                        { title: "Next.js (Pages Router)", value: "next/pages" }
+                    ],
+                    initial: 0
+                });
+            }),
+            err: (e) => {
+                if (e instanceof Error) {
+                    return new Error(`Prompt failed: ${e.message}`);
+                }
+                return new Error("Prompt failed: Unknown error");
+            }
+        });
+        if (response.isErr) {
+            return response;
+        }
+        const framework = response.value.framework;
+        if ((0, react_is_1.isReactFramework)(framework)) {
+            return createOk(framework);
+        }
+        return createNg(new Error("Framework selection is invalid"));
     });
-    if (response.isErr) {
-        return response;
-    }
-    const framework = response.value.framework;
-    if ((0, react_is_1.isReactFramework)(framework)) {
-        return createOk(framework);
-    }
-    return createNg(new Error("Framework selection is invalid"));
 }
 
 
@@ -13700,23 +13764,34 @@ function isReactCss(value) {
 /***/ }),
 
 /***/ 6089:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.vueCssCommander = vueCssCommander;
 const vue_is_1 = __nccwpck_require__(8455);
 const css_core_1 = __nccwpck_require__(1275);
-async function vueCssCommander(optionVueCss) {
-    const choises = [
-        { title: "scoped-css", value: "scoped-css" },
-        { title: "vanilla-extract", value: "vanilla-extract" }
-    ];
-    return await (0, css_core_1.cssCommand)({
-        optionCss: optionVueCss,
-        isCss: vue_is_1.isVueCss,
-        csses: choises
+function vueCssCommander(optionVueCss) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const choises = [
+            { title: "scoped-css", value: "scoped-css" },
+            { title: "vanilla-extract", value: "vanilla-extract" }
+        ];
+        return yield (0, css_core_1.cssCommand)({
+            optionCss: optionVueCss,
+            isCss: vue_is_1.isVueCss,
+            csses: choises
+        });
     });
 }
 
@@ -13728,6 +13803,15 @@ async function vueCssCommander(optionVueCss) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13738,50 +13822,63 @@ const result_1 = __nccwpck_require__(9439);
 const command_core_1 = __nccwpck_require__(2497);
 const vue_is_1 = __nccwpck_require__(8455);
 const prompts_1 = __importDefault(__nccwpck_require__(7193));
-async function vueFrameworkCommand(optionVueFramework) {
-    const { onPromptState } = command_core_1.commanderCore;
-    const { createOk, checkPromiseReturn, createNg } = result_1.resultUtility;
-    if (optionVueFramework.isSome && (0, vue_is_1.isVueFramework)(optionVueFramework.value)) {
-        return createOk(optionVueFramework.value);
-    }
-    const styleFramework = (0, picocolors_1.blue)("framework");
-    const response = await checkPromiseReturn({
-        fn: async () => await (0, prompts_1.default)({
-            onState: onPromptState,
-            type: "select",
-            name: "framework",
-            message: `Select a framework for your project:`,
-            choices: [
-                { title: "Vue router", value: "vue-router" },
-                { title: "Nuxt.js", value: "nuxt" }
-            ],
-            initial: 0
-        }),
-        err: (e) => {
-            if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
-            }
-            return new Error("Prompt failed: Unknown error");
+function vueFrameworkCommand(optionVueFramework) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { onPromptState } = command_core_1.commanderCore;
+        const { createOk, checkPromiseReturn, createNg } = result_1.resultUtility;
+        if (optionVueFramework.isSome && (0, vue_is_1.isVueFramework)(optionVueFramework.value)) {
+            return createOk(optionVueFramework.value);
         }
+        const styleFramework = (0, picocolors_1.blue)("framework");
+        const response = yield checkPromiseReturn({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                return yield (0, prompts_1.default)({
+                    onState: onPromptState,
+                    type: "select",
+                    name: "framework",
+                    message: `Select a framework for your project:`,
+                    choices: [
+                        { title: "Vue router", value: "vue-router" },
+                        { title: "Nuxt.js", value: "nuxt" }
+                    ],
+                    initial: 0
+                });
+            }),
+            err: (e) => {
+                if (e instanceof Error) {
+                    return new Error(`Prompt failed: ${e.message}`);
+                }
+                return new Error("Prompt failed: Unknown error");
+            }
+        });
+        if (response.isErr) {
+            return response;
+        }
+        const framework = response.value.framework;
+        if ((0, vue_is_1.isVueFramework)(framework)) {
+            return createOk(framework);
+        }
+        return createNg(new Error("Framework selection is invalid"));
     });
-    if (response.isErr) {
-        return response;
-    }
-    const framework = response.value.framework;
-    if ((0, vue_is_1.isVueFramework)(framework)) {
-        return createOk(framework);
-    }
-    return createNg(new Error("Framework selection is invalid"));
 }
 
 
 /***/ }),
 
 /***/ 3054:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.copy = copy;
 const result_1 = __nccwpck_require__(9439);
@@ -13789,37 +13886,39 @@ const fast_glob_1 = __nccwpck_require__(197);
 const promises_1 = __nccwpck_require__(1455);
 const node_path_1 = __nccwpck_require__(6760);
 const identity = (x) => x;
-async function copy(src, dest, { cwd, rename = identity, parents = true }) {
-    const { createNg, createOk, checkPromiseReturn } = result_1.resultUtility;
-    const sources = typeof src === "string" ? [src] : src;
-    if (sources.length === 0 || dest === "") {
-        return createNg(new Error("src or dest is empty"));
-    }
-    const sourceFiles = await checkPromiseReturn({
-        fn: () => (0, fast_glob_1.async)(sources, {
-            cwd,
-            dot: true,
-            absolute: false,
-            stats: false,
-            onlyFiles: true
-        }),
-        err: () => new Error("Failed to glob source files")
+function copy(src_1, dest_1, _a) {
+    return __awaiter(this, arguments, void 0, function* (src, dest, { cwd, rename = identity, parents = true }) {
+        const { createNg, createOk, checkPromiseReturn } = result_1.resultUtility;
+        const sources = typeof src === "string" ? [src] : src;
+        if (sources.length === 0 || dest === "") {
+            return createNg(new Error("src or dest is empty"));
+        }
+        const sourceFiles = yield checkPromiseReturn({
+            fn: () => (0, fast_glob_1.async)(sources, {
+                cwd,
+                dot: true,
+                absolute: false,
+                stats: false,
+                onlyFiles: true
+            }),
+            err: () => new Error("Failed to glob source files")
+        });
+        if (sourceFiles.isErr) {
+            return sourceFiles;
+        }
+        const destRelativeToCwd = cwd ? (0, node_path_1.resolve)(cwd, dest) : dest;
+        for (const p of sourceFiles.value) {
+            const dirName = (0, node_path_1.dirname)(p);
+            const baseName = rename((0, node_path_1.basename)(p));
+            const from = cwd ? (0, node_path_1.resolve)(cwd, p) : p;
+            const to = parents
+                ? (0, node_path_1.join)(destRelativeToCwd, dirName, baseName)
+                : (0, node_path_1.join)(destRelativeToCwd, baseName);
+            yield (0, promises_1.mkdir)((0, node_path_1.dirname)(to), { recursive: true });
+            yield (0, promises_1.copyFile)(from, to);
+        }
+        return createOk(() => { });
     });
-    if (sourceFiles.isErr) {
-        return sourceFiles;
-    }
-    const destRelativeToCwd = cwd ? (0, node_path_1.resolve)(cwd, dest) : dest;
-    for (const p of sourceFiles.value) {
-        const dirName = (0, node_path_1.dirname)(p);
-        const baseName = rename((0, node_path_1.basename)(p));
-        const from = cwd ? (0, node_path_1.resolve)(cwd, p) : p;
-        const to = parents
-            ? (0, node_path_1.join)(destRelativeToCwd, dirName, baseName)
-            : (0, node_path_1.join)(destRelativeToCwd, baseName);
-        await (0, promises_1.mkdir)((0, node_path_1.dirname)(to), { recursive: true });
-        await (0, promises_1.copyFile)(from, to);
-    }
-    return createOk(() => { });
 }
 
 
@@ -13901,6 +14000,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.validateNpmName = validateNpmName;
 const validate_npm_package_name_1 = __importDefault(__nccwpck_require__(8540));
 function validateNpmName(name) {
+    var _a, _b;
     const nameValidation = (0, validate_npm_package_name_1.default)(name);
     if (nameValidation.validForNewPackages) {
         return { valid: true };
@@ -13908,8 +14008,8 @@ function validateNpmName(name) {
     return {
         valid: false,
         problems: [
-            ...(nameValidation.errors ?? []),
-            ...(nameValidation.warnings ?? [])
+            ...((_a = nameValidation.errors) !== null && _a !== void 0 ? _a : []),
+            ...((_b = nameValidation.warnings) !== null && _b !== void 0 ? _b : [])
         ]
     };
 }
@@ -13918,10 +14018,19 @@ function validateNpmName(name) {
 /***/ }),
 
 /***/ 597:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = run;
 exports.notify = notify;
@@ -13939,41 +14048,44 @@ const then_1 = __nccwpck_require__(9955);
 const handleSigTerm = () => process.exit(0);
 process.on("SIGTERM", handleSigTerm);
 process.on("SIGINT", handleSigTerm);
-async function run() {
-    const { optionName, optionTechStack } = command_core_1.commanderCore;
-    const projectName = await (0, project_name_1.nameCommand)(optionName);
-    if (projectName.isErr) {
-        (0, error_1.cliErrorLog)(projectName.err);
-        process.exit(1);
-    }
-    const appPath = (0, node_path_1.resolve)(projectName.value);
-    const appName = (0, node_path_1.basename)(appPath);
-    const techStack = await (0, tech_stack_1.techStackCommand)(optionTechStack);
-    if (techStack.isErr) {
-        (0, error_1.cliErrorLog)(techStack.err);
-        process.exit(1);
-    }
-    const validation = (0, validate_npm_name_1.validateNpmName)(appName);
-    if (!validation.valid) {
-        console.error(`Could not create a project called ${appName} because of npm naming restrictions:\n\n- ${validation.problems?.join("\n- ")}\n`);
-        process.exit(1);
-    }
-    if ((0, node_fs_1.existsSync)(appName)) {
-        console.error((0, picocolors_1.red)(`The directory ${appName} already exists. Please choose a different project name or remove the existing directory.\n`));
-        process.exit(1);
-    }
-    const installResult = await (0, core_1.createApp)({
-        appPath,
-        tech: techStack.value
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a;
+        const { optionName, optionTechStack } = command_core_1.commanderCore;
+        const projectName = yield (0, project_name_1.nameCommand)(optionName);
+        if (projectName.isErr) {
+            (0, error_1.cliErrorLog)(projectName.err);
+            process.exit(1);
+        }
+        const appPath = (0, node_path_1.resolve)(projectName.value);
+        const appName = (0, node_path_1.basename)(appPath);
+        const techStack = yield (0, tech_stack_1.techStackCommand)(optionTechStack);
+        if (techStack.isErr) {
+            (0, error_1.cliErrorLog)(techStack.err);
+            process.exit(1);
+        }
+        const validation = (0, validate_npm_name_1.validateNpmName)(appName);
+        if (!validation.valid) {
+            console.error(`Could not create a project called ${appName} because of npm naming restrictions:\n\n- ${(_a = validation.problems) === null || _a === void 0 ? void 0 : _a.join("\n- ")}\n`);
+            process.exit(1);
+        }
+        if ((0, node_fs_1.existsSync)(appName)) {
+            console.error((0, picocolors_1.red)(`The directory ${appName} already exists. Please choose a different project name or remove the existing directory.\n`));
+            process.exit(1);
+        }
+        const installResult = yield (0, core_1.createApp)({
+            appPath,
+            tech: techStack.value
+        });
+        if (installResult.isErr) {
+            (0, error_1.cliErrorLog)(installResult.err);
+            process.exit(1);
+        }
+        return {
+            name: projectName.value,
+            tech: techStack.value
+        };
     });
-    if (installResult.isErr) {
-        (0, error_1.cliErrorLog)(installResult.err);
-        process.exit(1);
-    }
-    return {
-        name: projectName.value,
-        tech: techStack.value
-    };
 }
 function techInstallInfo(techStack) {
     switch (techStack) {
@@ -14002,6 +14114,15 @@ function errorExit() {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14014,69 +14135,71 @@ const node_fs_1 = __nccwpck_require__(3024);
 const is_folder_empty_1 = __nccwpck_require__(1508);
 const copy_1 = __nccwpck_require__(3054);
 const picocolors_1 = __nccwpck_require__(1019);
-async function typescriptTemplateInstall({ root, appName, material }) {
-    const { createNg, createOk, checkPromiseVoid } = result_1.resultUtility;
-    const { path: templatePath } = material;
-    const copySource = ["**/*"];
-    (0, node_fs_1.mkdirSync)(root, { recursive: true });
-    if (!(0, is_folder_empty_1.isFolderEmpty)(root, appName)) {
-        return createNg(new Error(`The directory ${appName} is not empty. Please choose a different project name or remove the existing directory.\n`));
-    }
-    console.log(`Creating a new React app in ${(0, picocolors_1.green)(root)}.`);
-    console.log();
-    process.chdir(root);
-    const res = await (0, copy_1.copy)(copySource, root, {
-        parents: true,
-        cwd: templatePath,
-        rename: (name) => {
-            switch (name) {
-                case "gitignore":
-                    return `.${name}`;
-                case "env":
-                    return `.${name}`;
-                case "package-template.json":
-                    return "package.json";
-                case "README.sample.md":
-                    return "README.md";
-                default:
-                    return name;
-            }
+function typescriptTemplateInstall(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ root, appName, material }) {
+        const { createNg, createOk, checkPromiseVoid } = result_1.resultUtility;
+        const { path: templatePath } = material;
+        const copySource = ["**/*"];
+        (0, node_fs_1.mkdirSync)(root, { recursive: true });
+        if (!(0, is_folder_empty_1.isFolderEmpty)(root, appName)) {
+            return createNg(new Error(`The directory ${appName} is not empty. Please choose a different project name or remove the existing directory.\n`));
         }
-    });
-    if (res.isErr) {
-        return res;
-    }
-    const pkgPath = node_path_1.default.join(root, "package.json");
-    const exists = await checkPromiseVoid({
-        fn: async () => {
-            await promises_1.default.stat(pkgPath);
-        },
-        err: (e) => {
-            if (e instanceof Error) {
-                return new Error(`Failed to access package.json: ${e.message}`);
+        console.log(`Creating a new React app in ${(0, picocolors_1.green)(root)}.`);
+        console.log();
+        process.chdir(root);
+        const res = yield (0, copy_1.copy)(copySource, root, {
+            parents: true,
+            cwd: templatePath,
+            rename: (name) => {
+                switch (name) {
+                    case "gitignore":
+                        return `.${name}`;
+                    case "env":
+                        return `.${name}`;
+                    case "package-template.json":
+                        return "package.json";
+                    case "README.sample.md":
+                        return "README.md";
+                    default:
+                        return name;
+                }
             }
-            return new Error("Failed to access package.json: Unknown error");
+        });
+        if (res.isErr) {
+            return res;
         }
+        const pkgPath = node_path_1.default.join(root, "package.json");
+        const exists = yield checkPromiseVoid({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                yield promises_1.default.stat(pkgPath);
+            }),
+            err: (e) => {
+                if (e instanceof Error) {
+                    return new Error(`Failed to access package.json: ${e.message}`);
+                }
+                return new Error("Failed to access package.json: Unknown error");
+            }
+        });
+        if (exists.isErr) {
+            return exists;
+        }
+        const raw = yield promises_1.default.readFile(pkgPath, "utf8");
+        const pkg = JSON.parse(raw || "{}");
+        if (!appName || typeof appName !== "string") {
+            return createNg(new Error("Invalid app name"));
+        }
+        pkg.name = appName;
+        const writeResult = yield checkPromiseVoid({
+            fn: () => __awaiter(this, void 0, void 0, function* () {
+                yield promises_1.default.writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n", "utf8");
+            }),
+            err: () => new Error(`Failed to update package.json name`)
+        });
+        if (writeResult.isErr) {
+            return writeResult;
+        }
+        return createOk(result_1.noop);
     });
-    if (exists.isErr) {
-        return exists;
-    }
-    const raw = await promises_1.default.readFile(pkgPath, "utf8");
-    const pkg = JSON.parse(raw || "{}");
-    if (!appName || typeof appName !== "string") {
-        return createNg(new Error("Invalid app name"));
-    }
-    pkg.name = appName;
-    const writeResult = await checkPromiseVoid({
-        fn: async () => {
-            await promises_1.default.writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n", "utf8");
-        },
-        err: () => new Error(`Failed to update package.json name`)
-    });
-    if (writeResult.isErr) {
-        return writeResult;
-    }
-    return createOk(result_1.noop);
 }
 
 
@@ -14099,66 +14222,88 @@ exports.techStackSelectList = [
 /***/ }),
 
 /***/ 6382:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createApp = createApp;
 const react_installer_1 = __nccwpck_require__(6703);
 const vue_setting_1 = __nccwpck_require__(9199);
 const vue_install_1 = __nccwpck_require__(4128);
 const react_setting_1 = __nccwpck_require__(4979);
-async function createApp({ appPath, tech }) {
-    switch (tech) {
-        case "react": {
-            const materialResult = await (0, react_setting_1.reactCli)();
-            if (materialResult.isErr) {
-                return materialResult;
+function createApp(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ appPath, tech }) {
+        switch (tech) {
+            case "react": {
+                const materialResult = yield (0, react_setting_1.reactCli)();
+                if (materialResult.isErr) {
+                    return materialResult;
+                }
+                return yield (0, react_installer_1.reactInstaller)({
+                    appPath,
+                    material: materialResult.value
+                });
             }
-            return await (0, react_installer_1.reactInstaller)({
-                appPath,
-                material: materialResult.value
-            });
-        }
-        case "vue": {
-            const materialResult = await (0, vue_setting_1.vueCli)();
-            if (materialResult.isErr) {
-                return materialResult;
+            case "vue": {
+                const materialResult = yield (0, vue_setting_1.vueCli)();
+                if (materialResult.isErr) {
+                    return materialResult;
+                }
+                return yield (0, vue_install_1.vueInstaller)({
+                    appPath,
+                    material: materialResult.value
+                });
             }
-            return await (0, vue_install_1.vueInstaller)({
-                appPath,
-                material: materialResult.value
-            });
         }
-    }
+    });
 }
 
 
 /***/ }),
 
 /***/ 6703:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.reactInstaller = reactInstaller;
 const node_path_1 = __nccwpck_require__(6760);
 const result_1 = __nccwpck_require__(9439);
 const typescript_template_install_1 = __nccwpck_require__(2781);
-async function reactInstaller({ appPath, material }) {
-    const { createNg } = result_1.resultUtility;
-    const { styleSheet } = material;
-    const root = (0, node_path_1.resolve)(appPath);
-    const appName = (0, node_path_1.basename)(appPath);
-    if (styleSheet.isNone) {
-        return createNg(new Error("CSS option is required"));
-    }
-    return await (0, typescript_template_install_1.typescriptTemplateInstall)({
-        root,
-        appName,
-        material
+function reactInstaller(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ appPath, material }) {
+        const { createNg } = result_1.resultUtility;
+        const { styleSheet } = material;
+        const root = (0, node_path_1.resolve)(appPath);
+        const appName = (0, node_path_1.basename)(appPath);
+        if (styleSheet.isNone) {
+            return createNg(new Error("CSS option is required"));
+        }
+        return yield (0, typescript_template_install_1.typescriptTemplateInstall)({
+            root,
+            appName,
+            material
+        });
     });
 }
 
@@ -14170,6 +14315,15 @@ async function reactInstaller({ appPath, material }) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14182,29 +14336,31 @@ const react_framework_1 = __nccwpck_require__(4774);
 const result_1 = __nccwpck_require__(9439);
 const found_file_1 = __nccwpck_require__(6795);
 const option_1 = __nccwpck_require__(5315);
-async function reactCli() {
-    const { optionReactFramework, optionCss } = command_core_1.commanderCore;
-    const { createOk } = result_1.resultUtility;
-    const { createSome } = option_1.optionUtility;
-    const frameworResult = await (0, react_framework_1.frameworkCommand)(optionReactFramework);
-    if (frameworResult.isErr) {
-        return frameworResult;
-    }
-    const cssResult = await (0, react_css_1.cssReactCommand)(optionCss);
-    if (cssResult.isErr) {
-        return cssResult;
-    }
-    const resultPath = (0, found_file_1.foundFolder)([
-        path_1.default.join(__dirname, "template", "react", frameworResult.value, cssResult.value)
-    ]);
-    if (resultPath.isErr) {
-        return resultPath;
-    }
-    const techMaterial = {
-        path: resultPath.value,
-        styleSheet: createSome(cssResult.value)
-    };
-    return createOk(techMaterial);
+function reactCli() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { optionReactFramework, optionCss } = command_core_1.commanderCore;
+        const { createOk } = result_1.resultUtility;
+        const { createSome } = option_1.optionUtility;
+        const frameworResult = yield (0, react_framework_1.frameworkCommand)(optionReactFramework);
+        if (frameworResult.isErr) {
+            return frameworResult;
+        }
+        const cssResult = yield (0, react_css_1.cssReactCommand)(optionCss);
+        if (cssResult.isErr) {
+            return cssResult;
+        }
+        const resultPath = (0, found_file_1.foundFolder)([
+            path_1.default.join(__dirname, "template", "react", frameworResult.value, cssResult.value)
+        ]);
+        if (resultPath.isErr) {
+            return resultPath;
+        }
+        const techMaterial = {
+            path: resultPath.value,
+            styleSheet: createSome(cssResult.value)
+        };
+        return createOk(techMaterial);
+    });
 }
 
 
@@ -14256,29 +14412,40 @@ exports.librarySetting = [
 /***/ }),
 
 /***/ 4128:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.vueInstaller = vueInstaller;
 const node_path_1 = __nccwpck_require__(6760);
 const result_1 = __nccwpck_require__(9439);
 const typescript_template_install_1 = __nccwpck_require__(2781);
-async function vueInstaller({ appPath, material }) {
-    const { createNg } = result_1.resultUtility;
-    const { styleSheet } = material;
-    if (styleSheet.isNone) {
-        return createNg(new Error("CSS option is required"));
-    }
-    const root = (0, node_path_1.resolve)(appPath);
-    const appName = (0, node_path_1.basename)(appPath);
-    const installResult = await (0, typescript_template_install_1.typescriptTemplateInstall)({
-        root,
-        appName,
-        material
+function vueInstaller(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ appPath, material }) {
+        const { createNg } = result_1.resultUtility;
+        const { styleSheet } = material;
+        if (styleSheet.isNone) {
+            return createNg(new Error("CSS option is required"));
+        }
+        const root = (0, node_path_1.resolve)(appPath);
+        const appName = (0, node_path_1.basename)(appPath);
+        const installResult = yield (0, typescript_template_install_1.typescriptTemplateInstall)({
+            root,
+            appName,
+            material
+        });
+        return installResult;
     });
-    return installResult;
 }
 
 
@@ -14309,6 +14476,15 @@ function isVueCss(value) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -14321,31 +14497,33 @@ const vue_framework_1 = __nccwpck_require__(7258);
 const option_1 = __nccwpck_require__(5315);
 const result_1 = __nccwpck_require__(9439);
 const found_file_1 = __nccwpck_require__(6795);
-async function vueCli() {
-    const { optionCss, optionVueFramework } = command_core_1.commanderCore;
-    const { createSome } = option_1.optionUtility;
-    const { createOk } = result_1.resultUtility;
-    const frameworkResult = await (0, vue_framework_1.vueFrameworkCommand)(optionVueFramework);
-    if (frameworkResult.isErr) {
-        return frameworkResult;
-    }
-    const cssResult = await (0, vue_css_1.vueCssCommander)(optionCss);
-    if (cssResult.isErr) {
-        return cssResult;
-    }
-    const templatePath = [
-        path_1.default.join(__dirname, "template", "vue", frameworkResult.value, cssResult.value),
-        path_1.default.join(__dirname, "..", "..", "..", "template", "vue", frameworkResult.value, cssResult.value)
-    ];
-    const resultPath = (0, found_file_1.foundFolder)(templatePath);
-    if (resultPath.isErr) {
-        return resultPath;
-    }
-    const techMaterial = {
-        path: resultPath.value,
-        styleSheet: createSome(cssResult.value)
-    };
-    return createOk(techMaterial);
+function vueCli() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { optionCss, optionVueFramework } = command_core_1.commanderCore;
+        const { createSome } = option_1.optionUtility;
+        const { createOk } = result_1.resultUtility;
+        const frameworkResult = yield (0, vue_framework_1.vueFrameworkCommand)(optionVueFramework);
+        if (frameworkResult.isErr) {
+            return frameworkResult;
+        }
+        const cssResult = yield (0, vue_css_1.vueCssCommander)(optionCss);
+        if (cssResult.isErr) {
+            return cssResult;
+        }
+        const templatePath = [
+            path_1.default.join(__dirname, "template", "vue", frameworkResult.value, cssResult.value),
+            path_1.default.join(__dirname, "..", "..", "..", "template", "vue", frameworkResult.value, cssResult.value)
+        ];
+        const resultPath = (0, found_file_1.foundFolder)(templatePath);
+        if (resultPath.isErr) {
+            return resultPath;
+        }
+        const techMaterial = {
+            path: resultPath.value,
+            styleSheet: createSome(cssResult.value)
+        };
+        return createOk(techMaterial);
+    });
 }
 
 
@@ -14388,8 +14566,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.cliErrorLog = cliErrorLog;
 const picocolors_1 = __nccwpck_require__(1019);
 function cliErrorLog(err) {
+    var _a;
     console.error((0, picocolors_1.red)(err.message));
-    console.error((0, picocolors_1.red)(err.stack ?? ""));
+    console.error((0, picocolors_1.red)((_a = err.stack) !== null && _a !== void 0 ? _a : ""));
 }
 
 
@@ -14496,10 +14675,19 @@ exports.optionUtility = (function () {
 /***/ }),
 
 /***/ 9439:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.resultUtility = exports.noop = void 0;
 const basic = {
@@ -14514,24 +14702,24 @@ exports.resultUtility = (function () {
     const UNIT = Object.freeze({
         _unit: UNIT_SYMBOL
     });
-    const checkPromiseReturn = async ({ fn, err }) => {
+    const checkPromiseReturn = (_a) => __awaiter(this, [_a], void 0, function* ({ fn, err }) {
         try {
-            const result = await fn();
+            const result = yield fn();
             return createOk(result);
         }
         catch (e) {
             return createNg(err(e));
         }
-    };
-    const checkPromiseVoid = async ({ fn, err }) => {
+    });
+    const checkPromiseVoid = (_a) => __awaiter(this, [_a], void 0, function* ({ fn, err }) {
         try {
-            await fn();
+            yield fn();
             return createOk(UNIT);
         }
         catch (e) {
             return createNg(err(e));
         }
-    };
+    });
     const checkResultReturn = ({ fn, err }) => {
         try {
             const result = fn();
