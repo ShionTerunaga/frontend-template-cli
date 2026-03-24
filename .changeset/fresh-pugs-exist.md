@@ -1,3 +1,4 @@
+---
 "create-frontend-template": minor
 ---
 
