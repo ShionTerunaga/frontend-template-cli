@@ -1,5 +1,6 @@
 {
     "name": "@apps/vue-nuxt-vanilla-extract",
+    "version": "1.0.0",
     "type": "module",
     "private": true,
     "scripts": {
