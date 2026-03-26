@@ -1,0 +1,55 @@
+name: バグ報告
+description: |
+    バグを報告するための Issue を作成します。再現手順、期待した動作、
+    実際の動作、利用環境をできるだけ詳しく記載してください。
+title: "[BUG] "
+labels: [bug]
+assignees: []
+
+body:
+    - type: markdown
+      attributes:
+          value: |
+              バグ報告ありがとうございます。以下の項目をできるだけ詳しく記入してください。情報が多いほど、再現と修正がしやすくなります。
+    - type: input
+      id: summary
+      attributes:
+          label: 概要
+          description: バグの内容を 1 行で簡潔に書いてください。
+          placeholder: 例: "createApp 実行時に TypeError が発生する"
+      validations:
+          required: true
+    - type: textarea
+      id: steps
+      attributes:
+          label: 再現手順
+          description: バグを再現するための具体的な手順を書いてください。
+          placeholder: |
+              1. リポジトリを clone する
+              2. `pnpm install` を実行する
+              3. `pnpm run test:next-app` を実行する
+      validations:
+          required: true
+    - type: textarea
+      id: expected
+      attributes:
+          label: 期待した動作
+          description: 本来どうなることを期待していたかを書いてください。
+          placeholder: 例: "プロジェクトが正常にビルドされ、テストが通る"
+    - type: textarea
+      id: actual
+      attributes:
+          label: 実際の動作
+          description: 実際に起きたことを書いてください。エラーメッセージやスタックトレースもあれば記載してください。
+          placeholder: エラー出力やスタックトレースをここに貼ってください。
+    - type: input
+      id: environment
+      attributes:
+          label: 環境
+          description: OS、Node.js のバージョン、pnpm のバージョンなど、関連する環境情報を記載してください。
+          placeholder: 例: "macOS 14.0, Node 20.10.0, pnpm 8.0.0"
+    - type: textarea
+      id: additional
+      attributes:
+          label: 補足情報
+          description: そのほか参考になりそうな情報があれば書いてください。ログ、スクリーンショット、失敗した CI へのリンクなど。
