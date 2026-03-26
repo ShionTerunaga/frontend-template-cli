@@ -85,6 +85,7 @@ export async function typescriptTemplateInstall({
     }
 
     pkg.name = appName;
+    pkg.version = "0.1.0";
 
     const writeResult = await checkPromiseVoid({
         fn: async () => {

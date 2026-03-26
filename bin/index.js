@@ -14189,6 +14189,7 @@ function typescriptTemplateInstall(_a) {
             return createNg(new Error("Invalid app name"));
         }
         pkg.name = appName;
+        pkg.version = "0.1.0";
         const writeResult = yield checkPromiseVoid({
             fn: () => __awaiter(this, void 0, void 0, function* () {
                 yield promises_1.default.writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n", "utf8");

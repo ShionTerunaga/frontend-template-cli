@@ -3,7 +3,6 @@ import { Noop, Result, resultUtility } from "../../utils/result";
 import { TechMaterial } from "../core/core-static";
 
 import { typescriptTemplateInstall } from "../common/typescript-template-install";
-import { isReactCss } from "../../command/react/react-is";
 
 export async function reactInstaller({
     appPath,
