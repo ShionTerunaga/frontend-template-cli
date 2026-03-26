@@ -6,7 +6,7 @@ will be closed.
 
 ## Related Issue (required)
 
-- Issue: #<issue-number>
+- Issue: closed #<issue-number>
 
 **This PR MUST reference an existing issue number.** If there is no existing
 issue, please open one first and include it here.
