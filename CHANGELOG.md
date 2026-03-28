@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.1
+
+### Patch Changes
+
+- [`b058055`](https://github.com/ShionTerunaga/frontend-template-cli/commit/b05805598da45cd17e1486798bf8c4460d417c33)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - I made sure to
+  update the version in `package.json` during installation.
+
+- [`d23bb49`](https://github.com/ShionTerunaga/frontend-template-cli/commit/d23bb49e4c82149b08fbc3adb2c72707cfca2344)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Fix template
+  https://github.com/ShionTerunaga/frontend-template/pull/5
+
 ## 0.7.0
 
 ### Minor Changes
