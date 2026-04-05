@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.8.0
+
+### Minor Changes
+
+- [#63](https://github.com/ShionTerunaga/frontend-template-cli/pull/63)
+  [`f7f128f`](https://github.com/ShionTerunaga/frontend-template-cli/commit/f7f128f1cfa4957d34cb2ad224818f5053b6221c)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Added Storybook
+  to Vue and made changes to Valibot
+
+### Patch Changes
+
+- [#63](https://github.com/ShionTerunaga/frontend-template-cli/pull/63)
+  [`8e01bec`](https://github.com/ShionTerunaga/frontend-template-cli/commit/8e01becc32fa0b8f17fc617db5cea70ec31a0475)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - update vulnerable
+  dependencies to patched versions
+
 ## 0.7.2
 
 ### Patch Changes
