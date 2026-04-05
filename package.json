@@ -35,8 +35,8 @@
     },
     "scripts": {
         "initial": "pnpm exec lefthook install && pnpm install",
-        "build:all": "pnpm exec vite build && node scripts/write/bin-write.mts",
-        "build": "pnpm cp:frontend-template:bin && pnpm build:all && pnpm lint:fix && pnpm format",
+        "build": "pnpm exec vite build && node scripts/write/bin-write.mts",
+        "build:all": "pnpm cp:frontend-template:bin && pnpm build:all && pnpm lint:fix && pnpm format",
         "cp:frontend-template:bin": "node scripts/copy/template/copy-frontend-template-bin.mts",
         "changeset": "changeset",
         "format": "pnpm exec oxfmt --write .",
