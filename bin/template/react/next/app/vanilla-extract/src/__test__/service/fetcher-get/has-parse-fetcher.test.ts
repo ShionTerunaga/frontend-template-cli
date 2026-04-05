@@ -1,5 +1,5 @@
 import { hasParseFetcher } from "@/services/fetcher-get/has-parse-fetcher";
-import { z } from "zod";
+import * as v from "valibot";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { optionUtility } from "ts-shared";
 import { resultUtility } from "ts-shared";
@@ -22,7 +22,7 @@ describe("hasParseFetcher", () => {
             json: async () => ({})
         });
 
-        const schema = z.object({});
+        const schema = v.object({});
 
         const result = await hasParseFetcher({
             url: createSome("https://example.com"),
@@ -41,7 +41,7 @@ describe("hasParseFetcher", () => {
             json: async () => payload
         });
 
-        const schema = z.object({ a: z.number() });
+        const schema = v.object({ a: v.number() });
 
         const result = await hasParseFetcher({
             url: createSome("https://example.com"),

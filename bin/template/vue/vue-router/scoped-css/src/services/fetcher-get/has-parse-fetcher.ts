@@ -1,10 +1,10 @@
-import { core, ZodType } from 'zod'
+import * as v from 'valibot'
 import { type Option, optionUtility } from 'ts-shared'
 import { resultUtility, type Result } from 'ts-shared'
 import { fetcher } from './fetcher'
 import { type FetcherError } from '@/shared/error/fetcher/fetcher-error'
 
-export async function hasParseFetcher<T extends ZodType, S>({
+export async function hasParseFetcher<T extends v.GenericSchema, S>({
   url,
   scheme,
   cache,
@@ -13,7 +13,7 @@ export async function hasParseFetcher<T extends ZodType, S>({
   url: Option<string>
   scheme: T
   cache?: RequestCache
-  parse: (scheme: core.output<T>) => Result<Option<S>, FetcherError>
+  parse: (scheme: v.InferOutput<T>) => Result<Option<S>, FetcherError>
 }): Promise<Result<Option<S>, FetcherError>> {
   const { createOk } = resultUtility
   const { createNone } = optionUtility
