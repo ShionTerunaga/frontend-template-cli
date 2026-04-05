@@ -1,4 +1,4 @@
-import { core, ZodType } from "zod";
+import * as v from "valibot";
 import { type Option, optionUtility } from "ts-shared";
 import { type Result, resultUtility } from "ts-shared";
 import { createHttpScheme } from "@/shared/error/http";
@@ -7,7 +7,7 @@ import {
     type FetcherError
 } from "@/shared/error/fetcher/fetcher-error";
 
-export async function fetcher<T extends ZodType>({
+export async function fetcher<T extends v.GenericSchema>({
     url,
     scheme,
     cache
@@ -15,7 +15,7 @@ export async function fetcher<T extends ZodType>({
     url: Option<string>;
     scheme: T;
     cache?: RequestCache;
-}): Promise<Result<Option<core.output<T>>, FetcherError>> {
+}): Promise<Result<Option<v.InferOutput<T>>, FetcherError>> {
     const { notFound, forbidden, badRequest, internalServerError } =
         createHttpScheme.httpErrorStatusResponse;
 
@@ -69,13 +69,13 @@ export async function fetcher<T extends ZodType>({
 
     const resValue = await res.value.json();
 
-    const judgeType = scheme.safeParse(resValue);
+    const judgeType = v.safeParse(scheme, resValue);
 
-    if (judgeType.error !== undefined) {
+    if (!judgeType.success) {
         return createNg(returnSchemeError);
     }
 
-    const okValue = judgeType.data;
+    const okValue = judgeType.output;
 
     if (okValue === undefined || okValue === null) {
         return createOk(createNone());

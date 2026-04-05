@@ -1,5 +1,5 @@
 import { fetcher } from "@/services/fetcher-get/fetcher";
-import { z } from "zod";
+import * as v from "valibot";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { optionUtility } from "ts-shared";
 
@@ -16,7 +16,7 @@ describe("fetcher", () => {
     it("returns ng when url is none", async () => {
         const result = await fetcher({
             url: createNone(),
-            scheme: z.object({})
+            scheme: v.object({})
         });
 
         expect(result.kind).toBe("ng");
@@ -31,7 +31,7 @@ describe("fetcher", () => {
 
         const result = await fetcher({
             url: createSome("https://example.com"),
-            scheme: z.object({})
+            scheme: v.object({})
         });
 
         expect(result.kind).toBe("ng");
@@ -44,7 +44,7 @@ describe("fetcher", () => {
             json: async () => ({ foo: 1 })
         });
 
-        const schema = z.object({ bar: z.string() });
+        const schema = v.object({ bar: v.string() });
 
         const result = await fetcher({
             url: createSome("https://example.com"),
@@ -62,7 +62,7 @@ describe("fetcher", () => {
             json: async () => body
         });
 
-        const schema = z.object({ bar: z.string() });
+        const schema = v.object({ bar: v.string() });
 
         const result = await fetcher({
             url: createSome("https://example.com"),

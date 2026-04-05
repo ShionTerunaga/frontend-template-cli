@@ -1,34 +1,32 @@
-import z from "zod";
+import * as v from "valibot";
 
-export const APIScheme = z.array(
-    z
-        .object({
-            id: z.string(),
-            name: z.string(),
-            alternate_names: z.array(z.string()),
-            species: z.string(),
-            gender: z.enum(["male", "female", ""]),
-            house: z.string(),
-            dateOfBirth: z.string().nullable(),
-            yearOfBirth: z.number().nullable(),
-            wizard: z.boolean(),
-            ancestry: z.string(),
-            eyeColour: z.string(),
-            hairColour: z.string(),
-            wand: z.object({
-                wood: z.string(),
-                core: z.string(),
-                length: z.number().nullable()
+export const APIScheme = v.array(
+    v.strictObject({
+            id: v.string(),
+            name: v.string(),
+            alternate_names: v.array(v.string()),
+            species: v.string(),
+            gender: v.union([v.literal("male"), v.literal("female"), v.literal("")]),
+            house: v.string(),
+            dateOfBirth: v.nullable(v.string()),
+            yearOfBirth: v.nullable(v.number()),
+            wizard: v.boolean(),
+            ancestry: v.string(),
+            eyeColour: v.string(),
+            hairColour: v.string(),
+            wand: v.object({
+                wood: v.string(),
+                core: v.string(),
+                length: v.nullable(v.number())
             }),
-            patronus: z.string(),
-            hogwartsStudent: z.boolean(),
-            hogwartsStaff: z.boolean(),
-            actor: z.string(),
-            alternate_actors: z.array(z.string()),
-            alive: z.boolean(),
-            image: z.string()
+            patronus: v.string(),
+            hogwartsStudent: v.boolean(),
+            hogwartsStaff: v.boolean(),
+            actor: v.string(),
+            alternate_actors: v.array(v.string()),
+            alive: v.boolean(),
+            image: v.string()
         })
-        .strict()
 );
 
-export type APIRes = z.infer<typeof APIScheme>;
+export type APIRes = v.InferOutput<typeof APIScheme>;

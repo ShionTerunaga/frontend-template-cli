@@ -1,5 +1,5 @@
 import { hasNoParseFetcher } from '@/services/fetcher-get/has-no-parse-fetcher'
-import { z } from 'zod'
+import * as v from 'valibot'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { optionUtility } from 'ts-shared'
 
@@ -20,7 +20,7 @@ describe('hasNoParseFetcher', () => {
             json: async () => ({ x: 1 }),
         })
 
-        const schema = z.object({ y: z.string() })
+        const schema = v.object({ y: v.string() })
 
         const result = await hasNoParseFetcher({
             url: createSome('https://example.com'),
@@ -38,7 +38,7 @@ describe('hasNoParseFetcher', () => {
             json: async () => payload,
         })
 
-        const schema = z.object({ y: z.string() })
+        const schema = v.object({ y: v.string() })
 
         const result = await hasNoParseFetcher({
             url: createSome('https://example.com'),
