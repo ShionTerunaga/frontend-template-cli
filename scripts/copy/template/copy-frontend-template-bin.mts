@@ -86,8 +86,8 @@ async function main(): Promise<void> {
             );
         }
 
-        fs.rmSync(binDir, { recursive: true, force: true });
         fs.mkdirSync(binDir, { recursive: true });
+        fs.rmSync(destTemplateDir, { recursive: true, force: true });
 
         console.log("Copying template into bin/template...");
         copyDir(sourceTemplateDir, destTemplateDir);
