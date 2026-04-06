@@ -1,10 +1,8 @@
-import z from 'zod'
+import * as v from 'valibot'
 
-export const randomDogScheme = z
-    .object({
-        message: z.string(),
-        status: z.string(),
+export const randomDogScheme = v.strictObject({
+        message: v.string(),
+        status: v.string(),
     })
-    .strict()
 
-export type RandomDogRes = z.infer<typeof randomDogScheme>
+export type RandomDogRes = v.InferOutput<typeof randomDogScheme>

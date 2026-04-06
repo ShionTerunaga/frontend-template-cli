@@ -9,3 +9,5 @@ count.txt
 .tanstack
 .wrangler
 coverage
+
+storybook-static
