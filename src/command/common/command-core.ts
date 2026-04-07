@@ -19,7 +19,11 @@ export const commanderCore = (async function () {
     }
 
     const program = new Command("create-react-template")
-        .version(optionVersion.value, "--v", "output the current version")
+        .version(
+            optionVersion.value,
+            "-v, --version",
+            "output the current version"
+        )
         .argument("[directory]")
         .usage("[directory] [options]")
         .helpOption("-h, --help", "display help for command")

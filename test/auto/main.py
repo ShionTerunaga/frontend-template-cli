@@ -22,7 +22,7 @@ def resolve_cli_cmd(repo_root):
 
 def print_cli_version(repo_root):
     cli_entry = resolve_cli_cmd(repo_root)
-    subprocess.run(cli_entry + ["--v"], check=True)
+    subprocess.run(cli_entry + ["-v"], check=True)
 
 
 def run_cli(tech, repo_root, workdir):
