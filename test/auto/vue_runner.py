@@ -67,51 +67,33 @@ def vue_run_action(actions, cmd_noninteractive, workdir):
 
 
             child.expect(pexpect.EOF, timeout=120)
+            child.close()
 
-            if child.exitstatus == 0 or child.signalstatus is None:
-                print("[PTY SAMPLE] Non-interactive run finished successfully")
-                try:
-                    child.close()
-                except Exception:
-                    pass
-                
-                project_dir = os.path.join(workdir, action["project_name"])
-                if os.path.isdir(project_dir):
-                    print(f"[PTY SAMPLE] Running pnpm in {project_dir}")
-                    try:
-                        subprocess.run(PNPM_LOCAL + ["install"], cwd=project_dir, check=True)
-                    except Exception as e:
-                        print(f"[PTY SAMPLE] pnpm install failed: {e}")
-                    try:
-                        subprocess.run(PNPM_LOCAL + ["test"], cwd=project_dir, check=True)
-                    except Exception as e:
-                        print(f"[PTY SAMPLE] pnpm test failed: {e}")
-                    try:
-                        subprocess.run(PNPM_LOCAL + ["build"], cwd=project_dir, check=True)
-                    except Exception as e:
-                        print(f"[PTY SAMPLE] pnpm build failed: {e}")
-                continue
+            if child.exitstatus != 0:
+                raise RuntimeError(
+                    f"CLI failed for {action['project_name']} with exit code {child.exitstatus}"
+                )
+
+            if child.signalstatus is not None:
+                raise RuntimeError(
+                    f"CLI terminated by signal {child.signalstatus} for {action['project_name']}"
+                )
+
+            print("[PTY SAMPLE] Non-interactive run finished successfully")
+            project_dir = os.path.join(workdir, action["project_name"])
+
+            if not os.path.isdir(project_dir):
+                raise FileNotFoundError(
+                    f"Project directory was not created: {project_dir}"
+                )
+
+            print(f"[PTY SAMPLE] Running pnpm in {project_dir}")
+            subprocess.run(PNPM_LOCAL + ["install"], cwd=project_dir, check=True)
+            subprocess.run(PNPM_LOCAL + ["test"], cwd=project_dir, check=True)
+            subprocess.run(PNPM_LOCAL + ["build"], cwd=project_dir, check=True)
         except Exception:
             try:
                 child.close()
             except Exception:
                 pass
-
-        cmd = cmd_noninteractive
-        child = pexpect.spawn(cmd[0], cmd[1:], cwd=workdir, env=env, encoding="utf-8")
-        child.logfile = sys.stdout
-        # Give the user direct control of the spawned process so they can use
-        # their local keyboard (arrow, shift, space) reliably.
-        print("[PTY SAMPLE] Entering interactive mode — use arrow/space/enter to answer prompts. Press Ctrl-D to finish.")
-        try:
-            child.interact()
-        except Exception:
-            pass
-        try:
-            child.expect(pexpect.EOF)
-        except Exception:
-            pass
-        try:
-            child.close()
-        except Exception:
-            pass
+            raise

@@ -10,7 +10,7 @@ import { foundFolder } from "../../utils/found-file";
 import { optionUtility } from "../../utils/option";
 
 export async function reactCli(): Promise<Result<TechMaterial, Error>> {
-    const { optionReactFramework, optionCss } = commanderCore;
+    const { optionReactFramework, optionCss } = await commanderCore;
     const { createOk } = resultUtility;
     const { createSome } = optionUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));

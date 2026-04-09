@@ -3,10 +3,10 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 import path, { basename, dirname, join, resolve } from "node:path";
 import fs, { existsSync, lstatSync, mkdirSync, readdirSync } from "node:fs";
+import { copyFile, mkdir, readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import fs$1 from "fs/promises";
 import path$1 from "path";
-import { copyFile, mkdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 //#region \0rolldown/runtime.js
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -3298,9 +3298,13 @@ var { program, createCommand, createArgument, createOption, CommanderError, Inva
 })))(), 1)).default;
 //#endregion
 //#region src/command/common/command-core.ts
-var commanderCore = (function() {
+var commanderCore = (async function() {
 	const { optionConversion } = optionUtility;
-	const opts = new Command("create-react-template").version("0.1.0", "-v, --version", "output the current version").argument("[directory]").usage("[directory] [options]").helpOption("-h, --help", "display help for command").allowUnknownOption().option("-n, --name <name>", "specify the project name").option("-t, --tech-stack <techStack>", "specify the tech stack(react)").option("--rf, --react-framework <reactFramework>", "framework to use (tanstack-router | next/app | next/pages)").option("--vf, --vue-framework <vueFramework>", "vue framework to use (vue-router | nuxt)").option("-c,--css <css>", "select css framework (tailwind | vanilla-extract | scoped-css)").option("--use-all-components", "install all available components").parse(process.argv).opts();
+	const cliDir = path.dirname(fileURLToPath(import.meta.url));
+	const packageJsonPath = path.join(cliDir, "package.json");
+	const optionVersion = optionConversion(JSON.parse(await readFile(packageJsonPath, "utf8")).version);
+	if (optionVersion.isNone) throw new Error("version is not found in package.json");
+	const opts = new Command("create-react-template").version(optionVersion.value, "-v, --version", "output the current version").argument("[directory]").usage("[directory] [options]").helpOption("-h, --help", "display help for command").allowUnknownOption().option("-n, --name <name>", "specify the project name").option("-t, --tech-stack <techStack>", "specify the tech stack(react)").option("--rf, --react-framework <reactFramework>", "framework to use (tanstack-router | next/app | next/pages)").option("--vf, --vue-framework <vueFramework>", "vue framework to use (vue-router | nuxt)").option("-c,--css <css>", "select css framework (tailwind | vanilla-extract | scoped-css)").option("--use-all-components", "install all available components").parse(process.argv).opts();
 	const optionName = optionConversion(opts.name);
 	const optionReactFramework = optionConversion(opts.reactFramework);
 	const optionVueFramework = optionConversion(opts.vueFramework);
@@ -8330,7 +8334,7 @@ var import_prompts = /* @__PURE__ */ __toESM((/* @__PURE__ */ __commonJSMin(((ex
 })))(), 1);
 async function nameCommand(optionName) {
 	const { optionConversion } = optionUtility;
-	const { onPromptState } = commanderCore;
+	const { onPromptState } = await commanderCore;
 	const { createOk, checkPromiseReturn } = resultUtility;
 	if (optionName.isSome && isString(optionName.value)) return createOk(optionName.value.trim());
 	const response = await checkPromiseReturn({
@@ -8403,7 +8407,7 @@ function isReactCss(value) {
 //#region src/command/common/tech-stack.ts
 async function techStackCommand(optionTech) {
 	const { createOk, createNg, checkPromiseReturn } = resultUtility;
-	const { onPromptState } = commanderCore;
+	const { onPromptState } = await commanderCore;
 	if (optionTech.isSome && isTechStack(optionTech.value)) return createOk(optionTech.value);
 	const response = await checkPromiseReturn({
 		fn: async () => await (0, import_prompts.default)({
@@ -14303,7 +14307,7 @@ function isVueCss(value) {
 async function cssCommand({ optionCss, isCss, csses }) {
 	const { optionConversion } = optionUtility;
 	const { createOk, createNg, checkPromiseReturn } = resultUtility;
-	const { onPromptState } = commanderCore;
+	const { onPromptState } = await commanderCore;
 	if (optionCss.isSome && isCss(optionCss.value)) return createOk(optionCss.value);
 	const response = await checkPromiseReturn({
 		fn: async () => await (0, import_prompts.default)({
@@ -14342,7 +14346,7 @@ async function vueCssCommander(optionVueCss) {
 //#endregion
 //#region src/command/vue/vue-framework.ts
 async function vueFrameworkCommand(optionVueFramework) {
-	const { onPromptState } = commanderCore;
+	const { onPromptState } = await commanderCore;
 	const { createOk, checkPromiseReturn, createNg } = resultUtility;
 	if (optionVueFramework.isSome && isVueFramework(optionVueFramework.value)) return createOk(optionVueFramework.value);
 	const response = await checkPromiseReturn({
@@ -14380,7 +14384,7 @@ function foundFolder(paths) {
 //#endregion
 //#region src/template/vue/vue-setting.ts
 async function vueCli() {
-	const { optionCss, optionVueFramework } = commanderCore;
+	const { optionCss, optionVueFramework } = await commanderCore;
 	const { createSome } = optionUtility;
 	const { createOk } = resultUtility;
 	const cliDir = path$1.dirname(fileURLToPath(import.meta.url));
@@ -14426,7 +14430,7 @@ async function cssReactCommand(optionReactCss) {
 //#region src/command/react/react-framework.ts
 async function frameworkCommand(optionFramework) {
 	const { createNg, createOk, checkPromiseReturn } = resultUtility;
-	const { onPromptState } = commanderCore;
+	const { onPromptState } = await commanderCore;
 	if (optionFramework.isSome && isReactFramework(optionFramework.value)) return createOk(optionFramework.value);
 	const response = await checkPromiseReturn({
 		fn: async () => await (0, import_prompts.default)({
@@ -14463,7 +14467,7 @@ async function frameworkCommand(optionFramework) {
 //#endregion
 //#region src/template/react/react-setting.ts
 async function reactCli() {
-	const { optionReactFramework, optionCss } = commanderCore;
+	const { optionReactFramework, optionCss } = await commanderCore;
 	const { createOk } = resultUtility;
 	const { createSome } = optionUtility;
 	const cliDir = path$1.dirname(fileURLToPath(import.meta.url));
@@ -14512,7 +14516,7 @@ var handleSigTerm = () => process.exit(0);
 process.on("SIGTERM", handleSigTerm);
 process.on("SIGINT", handleSigTerm);
 async function run() {
-	const { optionName, optionTechStack } = commanderCore;
+	const { optionName, optionTechStack } = await commanderCore;
 	const projectName = await nameCommand(optionName);
 	if (projectName.isErr) {
 		cliErrorLog(projectName.err);

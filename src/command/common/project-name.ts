@@ -9,7 +9,7 @@ export async function nameCommand(
     optionName: Option<unknown>
 ): Promise<Result<string, Error>> {
     const { optionConversion } = optionUtility;
-    const { onPromptState } = commanderCore;
+    const { onPromptState } = await commanderCore;
     const { createOk, checkPromiseReturn } = resultUtility;
 
     if (optionName.isSome && isString(optionName.value)) {

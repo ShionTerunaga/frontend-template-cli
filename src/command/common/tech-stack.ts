@@ -11,7 +11,7 @@ export async function techStackCommand(
     optionTech: Option<unknown>
 ): Promise<Result<TechStack, Error>> {
     const { createOk, createNg, checkPromiseReturn } = resultUtility;
-    const { onPromptState } = commanderCore;
+    const { onPromptState } = await commanderCore;
 
     if (optionTech.isSome && isTechStack(optionTech.value)) {
         return createOk(optionTech.value);

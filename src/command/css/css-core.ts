@@ -15,7 +15,7 @@ export async function cssCommand<T>({
 }) {
     const { optionConversion } = optionUtility;
     const { createOk, createNg, checkPromiseReturn } = resultUtility;
-    const { onPromptState } = commanderCore;
+    const { onPromptState } = await commanderCore;
 
     if (optionCss.isSome && isCss(optionCss.value)) {
         return createOk(optionCss.value);

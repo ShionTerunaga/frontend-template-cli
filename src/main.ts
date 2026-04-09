@@ -16,7 +16,7 @@ process.on("SIGTERM", handleSigTerm);
 process.on("SIGINT", handleSigTerm);
 
 export async function run(): Promise<RunSuccess> {
-    const { optionName, optionTechStack } = commanderCore;
+    const { optionName, optionTechStack } = await commanderCore;
 
     const projectName = await nameCommand(optionName);
 

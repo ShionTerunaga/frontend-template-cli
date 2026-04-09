@@ -6,7 +6,7 @@ import { isReactFramework } from "./react-is";
 
 export async function frameworkCommand(optionFramework: Option<unknown>) {
     const { createNg, createOk, checkPromiseReturn } = resultUtility;
-    const { onPromptState } = commanderCore;
+    const { onPromptState } = await commanderCore;
 
     if (optionFramework.isSome && isReactFramework(optionFramework.value)) {
         return createOk(optionFramework.value);

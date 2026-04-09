@@ -9,7 +9,7 @@ import prompts from "prompts";
 export async function vueFrameworkCommand(
     optionVueFramework: Option<unknown>
 ): Promise<Result<VueFramework, Error>> {
-    const { onPromptState } = commanderCore;
+    const { onPromptState } = await commanderCore;
     const { createOk, checkPromiseReturn, createNg } = resultUtility;
 
     if (optionVueFramework.isSome && isVueFramework(optionVueFramework.value)) {

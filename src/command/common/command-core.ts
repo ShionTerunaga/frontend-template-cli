@@ -1,12 +1,29 @@
 import { optionUtility } from "../../utils/option";
 import { Command } from "commander";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { InitialReturnValue } from "prompts";
 
-export const commanderCore = (function () {
+export const commanderCore = (async function () {
     const { optionConversion } = optionUtility;
+    const cliDir = path.dirname(fileURLToPath(import.meta.url));
+    const packageJsonPath = path.join(cliDir, "package.json");
+
+    const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+
+    const optionVersion = optionConversion(packageJson.version);
+
+    if (optionVersion.isNone) {
+        throw new Error("version is not found in package.json");
+    }
 
     const program = new Command("create-react-template")
-        .version("0.1.0", "-v, --version", "output the current version")
+        .version(
+            optionVersion.value,
+            "-v, --version",
+            "output the current version"
+        )
         .argument("[directory]")
         .usage("[directory] [options]")
         .helpOption("-h, --help", "display help for command")

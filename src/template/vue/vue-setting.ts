@@ -10,7 +10,7 @@ import type { TechMaterial } from "../core/core-static";
 import { foundFolder } from "../../utils/found-file";
 
 export async function vueCli(): Promise<Result<TechMaterial, Error>> {
-    const { optionCss, optionVueFramework } = commanderCore;
+    const { optionCss, optionVueFramework } = await commanderCore;
     const { createSome } = optionUtility;
     const { createOk } = resultUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
