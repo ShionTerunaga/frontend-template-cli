@@ -2,6 +2,7 @@
 import { CharacterList } from "~/components/view";
 import { getCharacter } from "~/features/harry-potter";
 import { ja } from "~/shared/lang/ja";
+import { optionUtility } from "ts-shared";
 
 const { createNone, createSome } = optionUtility;
 

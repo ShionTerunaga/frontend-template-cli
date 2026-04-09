@@ -1,18 +1,18 @@
 {
   "name": "@apps/vue-vue-router-scoped-css",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
-    "scripts": {
-        "dev": "vite",
-        "build": "run-p type-check \"build-only {@}\" --",
-        "preview": "vite preview",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
-        "test": "vitest run",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "vitest run",
     "test:unit": "vitest run",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
@@ -31,7 +31,7 @@
     "valibot": "^1.3.1"
   },
   "devDependencies": {
-    "@storybook/vue3-vite": "^10.2.10",
+    "@storybook/vue3-vite": "10.2.10",
     "@prettier/plugin-oxc": "^0.0.5",
     "@tsconfig/node24": "^24.0.3",
     "@types/jsdom": "^27.0.0",
@@ -50,9 +50,9 @@
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.29.0",
     "prettier": "3.6.2",
-    "storybook": "^10.2.10",
+    "storybook": "10.2.10",
     "typescript": "~5.9.0",
-    "vite": "^8.0.1",
+    "vite": "^8.0.5",
     "vite-plugin-vue-devtools": "^8.0.5",
     "vitest": "^4.1.0",
     "vue-eslint-parser": "^10.2.0",

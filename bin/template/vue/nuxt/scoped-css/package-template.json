@@ -1,6 +1,6 @@
 {
     "name": "@apps/vue-nuxt-scoped-css",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "type": "module",
     "private": true,
     "scripts": {
@@ -8,8 +8,8 @@
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build",
+        "storybook": "cross-env NUXT_STORYBOOK_ENABLED=true nuxt prepare && cross-env NUXT_STORYBOOK_ENABLED=true storybook dev -p 6006",
+        "build-storybook": "cross-env NUXT_STORYBOOK_ENABLED=true nuxt prepare && cross-env NUXT_STORYBOOK_ENABLED=true storybook build",
         "postinstall": "nuxt prepare",
         "lint": "echo 'lint is not configured for @apps/vue-nuxt-scoped-css'",
         "typecheck": "nuxt typecheck",
@@ -21,7 +21,7 @@
         "jsdom": "^27.4.0",
         "nuxt": "^4.3.0",
         "ts-shared": "github:ShionTerunaga/ts-shared#release",
-        "vite": "^8.0.1",
+        "vite": "^8.0.5",
         "vitest": "^4.1.0",
         "vue": "^3.5.25",
         "vue-router": "^4.6.4",
@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "@nuxtjs/storybook": "^8.3.4",
+        "cross-env": "^10.1.0",
         "storybook": "^10.2.10"
     }
 }
