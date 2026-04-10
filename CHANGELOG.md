@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3
+
+### Patch Changes
+
+- [`6ac1685`](https://github.com/ShionTerunaga/frontend-template-cli/commit/6ac16855343e16e900948a5f97815cdc2a3f0755) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Trigger release publishing from `main`, rebuild the distribution-only `release`
+  branch from the latest changelog version, and publish tags and GitHub release
+  notes from the generated release branch.
+
 ## 0.9.2
 
 ### Patch Changes
