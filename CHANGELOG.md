@@ -4,16 +4,23 @@
 
 ### Minor Changes
 
-- [#67](https://github.com/ShionTerunaga/frontend-template-cli/pull/67) [`14ef24e`](https://github.com/ShionTerunaga/frontend-template-cli/commit/14ef24e3ea7f36ac9f358c341e50bdef9e405368) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - I configured it so that the correct version is displayed when using `-v` &
-  `--version`.
+- [#67](https://github.com/ShionTerunaga/frontend-template-cli/pull/67)
+  [`14ef24e`](https://github.com/ShionTerunaga/frontend-template-cli/commit/14ef24e3ea7f36ac9f358c341e50bdef9e405368)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - I configured it
+  so that the correct version is displayed when using `-v` & `--version`.
 
 ### Patch Changes
 
-- [#62](https://github.com/ShionTerunaga/frontend-template-cli/pull/62) [`3b9fc6f`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3b9fc6ff18d7d49fffe20a10e0d8938526b10567) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - switch the CLI build to Vite for faster builds and migrate linting and
-  formatting to oxlint and oxfmt
+- [#62](https://github.com/ShionTerunaga/frontend-template-cli/pull/62)
+  [`3b9fc6f`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3b9fc6ff18d7d49fffe20a10e0d8938526b10567)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - switch the CLI
+  build to Vite for faster builds and migrate linting and formatting to oxlint
+  and oxfmt
 
-- [`0a1dd35`](https://github.com/ShionTerunaga/frontend-template-cli/commit/0a1dd35f31f36546e19ac06d54e1ae51c4147408) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - refresh the bundled React and Vue template package metadata, and update the Nuxt
-  templates to enable Storybook conditionally
+- [`0a1dd35`](https://github.com/ShionTerunaga/frontend-template-cli/commit/0a1dd35f31f36546e19ac06d54e1ae51c4147408)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - refresh the
+  bundled React and Vue template package metadata, and update the Nuxt templates
+  to enable Storybook conditionally
 
 ## 0.8.0
 
