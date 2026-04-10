@@ -23,10 +23,16 @@ jobs:
                   fetch-depth: 0
                   ref: main
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.18.3
+
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 24
+                  cache: pnpm
 
             - name: Configure git
               run: |
@@ -41,17 +47,31 @@ jobs:
                   echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
                   echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
-            - name: Sync release branch to main
+            - name: Checkout release branch from main
               run: |
                   git fetch origin main
+                  git checkout -B release origin/main
 
-                  if git ls-remote --exit-code --heads origin release >/dev/null 2>&1; then
-                    git fetch origin release
-                    git push --force-with-lease origin origin/main:release
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Prepare release artifacts
+              run: pnpm run build:release
+
+            - name: Commit release artifacts
+              run: |
+                  git add -f bin
+
+                  if git diff --cached --quiet; then
+                    echo "No release artifact changes."
                     exit 0
                   fi
 
-                  git push origin origin/main:release
+                  git commit -m "chore: prepare release artifacts"
+
+            - name: Push release branch
+              run: |
+                  git push --force-with-lease origin HEAD:release
 
             - name: Create git tag
               env:
