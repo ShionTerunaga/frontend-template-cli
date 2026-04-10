@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.1
+
+### Patch Changes
+
+- [`b478816`](https://github.com/ShionTerunaga/frontend-template-cli/commit/b478816725b561d47621243b1a89cfffd607b5cb) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Move bundled CLI artifacts to the `release` branch flow and load the CLI version
+  from `bin/version.json` instead of `bin/package.json`.
+
 ## 0.9.0
 
 ### Minor Changes
