@@ -11,8 +11,7 @@
         "create-frontend-template": "./bin/index.mjs"
     },
     "files": [
-        "bin",
-        "package.json"
+        "bin"
     ],
     "preferGlobal": true,
     "packageManager": "pnpm@10.18.3",
