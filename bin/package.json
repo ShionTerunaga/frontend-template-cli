@@ -8,9 +8,10 @@
     "node": ">=24"
   },
   "bin": {
-    "create-frontend-template": "./bin/index.mjs"
+    "create-frontend-template": "./index.mjs"
   },
   "files": [
-    "bin"
+    "index.mjs",
+    "template"
   ]
 }

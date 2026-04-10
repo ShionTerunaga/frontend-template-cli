@@ -28,7 +28,37 @@ async function binWrite(): Promise<void> {
     } catch {}
 
     await core(target);
-    await fs.promises.copyFile(sourcePackageJson, targetPackageJson);
+
+    const sourcePackageJsonText = await fs.promises.readFile(
+        sourcePackageJson,
+        "utf8"
+    );
+    const sourcePackage = JSON.parse(sourcePackageJsonText) as {
+        name: string;
+        version: string;
+        description?: string;
+        type?: string;
+        license?: string;
+        engines?: Record<string, string>;
+    };
+
+    const binPackage = {
+        name: sourcePackage.name,
+        version: sourcePackage.version,
+        description: sourcePackage.description,
+        type: sourcePackage.type,
+        license: sourcePackage.license,
+        engines: sourcePackage.engines,
+        bin: {
+            [sourcePackage.name]: "./index.mjs"
+        },
+        files: ["index.mjs", "template"]
+    };
+
+    await fs.promises.writeFile(
+        targetPackageJson,
+        `${JSON.stringify(binPackage, null, 2)}\n`
+    );
 }
 
 binWrite();
