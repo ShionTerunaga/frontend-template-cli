@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.2
+
+### Patch Changes
+
+- [`e4c89b7`](https://github.com/ShionTerunaga/frontend-template-cli/commit/e4c89b7dcf68dacd533accfa71880d93ffa5fa6d) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Publish a distribution-only `release` branch that contains only the built CLI
+  artifacts and release metadata files needed for GitHub-based global installs.
+
 ## 0.9.1
 
 ### Patch Changes
