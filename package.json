@@ -1,0 +1,31 @@
+{
+  "name": "create-frontend-template",
+  "version": "0.9.4",
+  "description": "CLI for generating frontend templates",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "create-frontend-template": "./bin/index.mjs"
+  },
+  "files": [
+    "bin"
+  ],
+  "preferGlobal": true,
+  "packageManager": "pnpm@10.18.3",
+  "dependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@types/adm-zip": "^0.5.7",
+    "adm-zip": "^0.5.16",
+    "commander": "^14.0.2",
+    "conf": "^15.0.2",
+    "csstype": "^3.2.3",
+    "fast-glob": "^3.3.3",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2",
+    "validate-npm-package-name": "^7.0.0"
+  }
+}
