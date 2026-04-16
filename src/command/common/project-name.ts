@@ -4,7 +4,7 @@ import {
     optionUtility,
     type Option
 } from "ts-shared";
-import { isString } from "../../utils/is";
+import { isString } from "@/utils/is";
 import prompts from "prompts";
 import { validateNpmName } from "../../helper/validate-npm-name";
 import { onPromptState } from "./command-core";

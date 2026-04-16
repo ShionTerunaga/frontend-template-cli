@@ -1,9 +1,11 @@
 import prompts from "prompts";
-import type { TechStack } from "../../template/core/core-static";
-import { techStackSelectList } from "../../template/core/core-static";
-import { onPromptState } from "./command-core";
 import { isTechStack } from "../react/react-is";
 import { type Option, type Result, resultUtility } from "ts-shared";
+import {
+    techStackSelectList,
+    type TechStack
+} from "@/template/core/core-static";
+import { onPromptState } from "./command-core";
 
 export async function techStackCommand(
     optionTech: Option<unknown>

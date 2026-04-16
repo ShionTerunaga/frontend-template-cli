@@ -1,5 +1,5 @@
-import type { TechStack } from "../../template/core/core-static";
-import { techStacks } from "../../template/core/core-static";
+import type { TechStack } from "@/template/core/core-static";
+import { techStacks } from "@/template/core/core-static";
 import type {
     Framework,
     Lib,

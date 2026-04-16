@@ -1,18 +1,18 @@
 import { basename, resolve } from "node:path";
-import { validateNpmName } from "./helper/validate-npm-name";
+import { validateNpmName } from "@/helper/validate-npm-name";
 import { existsSync } from "node:fs";
 import { bold, red, green } from "picocolors";
-import { nameCommand } from "./command/common/project-name";
-import { cliErrorLog } from "./shared/error";
-import { techStackCommand } from "./command/common/tech-stack";
-import { createApp } from "./template/core/core";
-import type { RunSuccess, TechStack } from "./template/core/core-static";
-import { reactCallback } from "./then";
+import { nameCommand } from "@/command/common/project-name";
+import { techStackCommand } from "@/command/common/tech-stack";
+import { createApp } from "@/template/core/core";
+import type { RunSuccess, TechStack } from "@/template/core/core-static";
+import { reactCallback } from "@/then";
 import { optionName, optionTechStack } from "./command/common/commander-option";
-import { getLatestVersion } from "./helper/get-latest-version";
-import { getCurrentVersion } from "./command/common/command-core";
-import { continueCurrentVersionCommand } from "./command/version/continue-current-version";
+import { cliErrorLog } from "./shared/error";
 import { type Result, resultUtility, type Unit } from "ts-shared";
+import { getCurrentVersion } from "./command/common/command-core";
+import { getLatestVersion } from "./helper/get-latest-version";
+import { continueCurrentVersionCommand } from "./command/version/continue-current-version";
 
 const handleSigTerm = () => process.exit(0);
 const INSTALL_COMMAND =

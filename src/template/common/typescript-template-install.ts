@@ -2,8 +2,8 @@ import type { TechMaterial } from "../core/core-static";
 import fs from "fs/promises";
 import path from "node:path";
 import { mkdirSync } from "node:fs";
-import { isFolderEmpty } from "../../helper/is-folder-empty";
-import { copy } from "../../helper/copy";
+import { isFolderEmpty } from "@/helper/is-folder-empty";
+import { copy } from "@/helper/copy";
 import { green } from "picocolors";
 import { type Unit, type Result, resultUtility } from "ts-shared";
 
@@ -16,7 +16,7 @@ export async function typescriptTemplateInstall({
     appName: string;
     material: TechMaterial;
 }): Promise<Result<Unit, Error>> {
-    const { createNg, createOk, checkPromiseVoid } = resultUtility;
+    const { UNIT, createNg, createOk, checkPromiseVoid } = resultUtility;
     const { path: templatePath } = material;
 
     const copySource = ["**/*"];
@@ -67,9 +67,13 @@ export async function typescriptTemplateInstall({
         },
         err: (e) => {
             if (e instanceof Error) {
-                return new Error(`Failed to access package.json: ${e.message}`);
+                return createNg(
+                    new Error(`Failed to access package.json: ${e.message}`)
+                );
             }
-            return new Error("Failed to access package.json: Unknown error");
+            return createNg(
+                new Error("Failed to access package.json: Unknown error")
+            );
         }
     });
 
@@ -95,12 +99,12 @@ export async function typescriptTemplateInstall({
                 "utf8"
             );
         },
-        err: () => new Error(`Failed to update package.json name`)
+        err: () => createNg(new Error(`Failed to update package.json name`))
     });
 
     if (writeResult.isErr) {
         return writeResult;
     }
 
-    return createOk(noop);
+    return createOk(UNIT);
 }

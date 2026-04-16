@@ -1,14 +1,14 @@
 import path from "path";
-import { vueCssCommander } from "../../command/vue/vue-css";
-import { vueFrameworkCommand } from "../../command/vue/vue-framework";
-import { fileURLToPath } from "node:url";
 import { type Result, resultUtility, optionUtility } from "ts-shared";
+import { vueCssCommander } from "@/command/vue/vue-css";
+import { vueFrameworkCommand } from "@/command/vue/vue-framework";
+import { fileURLToPath } from "node:url";
 import type { TechMaterial } from "../core/core-static";
-import { foundFolder } from "../../utils/found-file";
+import { foundFolder } from "@/utils/found-file";
 import {
     optionCss,
     optionVueFramework
-} from "../../command/common/commander-option";
+} from "@/command/common/commander-option";
 
 export async function vueCli(): Promise<Result<TechMaterial, Error>> {
     const { createSome } = optionUtility;

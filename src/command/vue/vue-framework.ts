@@ -1,6 +1,6 @@
 import { type Option, type Result, resultUtility } from "ts-shared";
-import { isVueFramework } from "../../template/vue/vue-is";
-import type { VueFramework } from "../../template/vue/vue-static";
+import { isVueFramework } from "@/template/vue/vue-is";
+import type { VueFramework } from "@/template/vue/vue-static";
 import prompts from "prompts";
 import { onPromptState } from "../common/command-core";
 

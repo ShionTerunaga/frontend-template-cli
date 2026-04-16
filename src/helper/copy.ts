@@ -33,7 +33,7 @@ export async function copy(
                 stats: false,
                 onlyFiles: true
             }),
-        err: () => new Error("Failed to glob source files")
+        err: () => createNg(new Error("Failed to glob source files"))
     });
 
     if (sourceFiles.isErr) {

@@ -1,7 +1,6 @@
 import { resolve, basename } from "node:path";
 import { type Result, resultUtility, type Unit } from "ts-shared";
 import type { TechMaterial } from "../core/core-static";
-
 import { typescriptTemplateInstall } from "../common/typescript-template-install";
 
 export async function reactInstaller({
