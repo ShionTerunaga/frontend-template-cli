@@ -1,5 +1,5 @@
-import { type Option } from "../../utils/option";
-import { resultUtility } from "../../utils/result";
+import { type Option } from "@/utils/option";
+import { resultUtility } from "@/utils/result";
 import prompts from "prompts";
 import { commanderCore } from "../common/command-core";
 import { isReactFramework } from "./react-is";

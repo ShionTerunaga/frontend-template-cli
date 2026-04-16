@@ -1,6 +1,6 @@
 import { resolve, basename } from "node:path";
-import type { Noop, Result } from "../../utils/result";
-import { resultUtility } from "../../utils/result";
+import type { Noop, Result } from "@/utils/result";
+import { resultUtility } from "@/utils/result";
 import type { TechMaterial } from "../core/core-static";
 
 import { typescriptTemplateInstall } from "../common/typescript-template-install";

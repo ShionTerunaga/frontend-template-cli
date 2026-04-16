@@ -1,9 +1,9 @@
-import type { Option } from "../../utils/option";
-import type { Result } from "../../utils/result";
-import { resultUtility } from "../../utils/result";
+import type { Option } from "@/utils/option";
+import type { Result } from "@/utils/result";
+import { resultUtility } from "@/utils/result";
 import { commanderCore } from "../common/command-core";
-import { isVueFramework } from "../../template/vue/vue-is";
-import type { VueFramework } from "../../template/vue/vue-static";
+import { isVueFramework } from "@/template/vue/vue-is";
+import type { VueFramework } from "@/template/vue/vue-static";
 import prompts from "prompts";
 
 export async function vueFrameworkCommand(

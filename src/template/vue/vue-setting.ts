@@ -1,13 +1,13 @@
 import path from "path";
-import { commanderCore } from "../../command/common/command-core";
-import { vueCssCommander } from "../../command/vue/vue-css";
-import { vueFrameworkCommand } from "../../command/vue/vue-framework";
+import { commanderCore } from "@/command/common/command-core";
+import { vueCssCommander } from "@/command/vue/vue-css";
+import { vueFrameworkCommand } from "@/command/vue/vue-framework";
 import { fileURLToPath } from "node:url";
-import { optionUtility } from "../../utils/option";
-import type { Result } from "../../utils/result";
-import { resultUtility } from "../../utils/result";
+import { optionUtility } from "@/utils/option";
+import type { Result } from "@/utils/result";
+import { resultUtility } from "@/utils/result";
 import type { TechMaterial } from "../core/core-static";
-import { foundFolder } from "../../utils/found-file";
+import { foundFolder } from "@/utils/found-file";
 
 export async function vueCli(): Promise<Result<TechMaterial, Error>> {
     const { optionCss, optionVueFramework } = await commanderCore;

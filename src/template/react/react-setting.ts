@@ -1,13 +1,13 @@
 import path from "path";
-import { commanderCore } from "../../command/common/command-core";
-import { cssReactCommand } from "../../command/react/react-css";
-import { frameworkCommand } from "../../command/react/react-framework";
+import { commanderCore } from "@/command/common/command-core";
+import { cssReactCommand } from "@/command/react/react-css";
+import { frameworkCommand } from "@/command/react/react-framework";
 import { fileURLToPath } from "node:url";
-import type { Result } from "../../utils/result";
-import { resultUtility } from "../../utils/result";
+import type { Result } from "@/utils/result";
+import { resultUtility } from "@/utils/result";
 import type { TechMaterial } from "../core/core-static";
-import { foundFolder } from "../../utils/found-file";
-import { optionUtility } from "../../utils/option";
+import { foundFolder } from "@/utils/found-file";
+import { optionUtility } from "@/utils/option";
 
 export async function reactCli(): Promise<Result<TechMaterial, Error>> {
     const { optionReactFramework, optionCss } = await commanderCore;

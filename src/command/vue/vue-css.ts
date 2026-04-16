@@ -1,7 +1,7 @@
-import { type Result } from "../../utils/result";
-import { type Option } from "../../utils/option";
-import { isVueCss } from "../../template/vue/vue-is";
-import type { VueCss } from "../../template/vue/vue-static";
+import { type Result } from "@/utils/result";
+import { type Option } from "@/utils/option";
+import { isVueCss } from "@/template/vue/vue-is";
+import type { VueCss } from "@/template/vue/vue-static";
 import { cssCommand } from "../css/css-core";
 
 export async function vueCssCommander(

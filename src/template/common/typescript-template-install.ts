@@ -1,11 +1,11 @@
-import type { Noop, Result } from "../../utils/result";
-import { noop, resultUtility } from "../../utils/result";
+import type { Noop, Result } from "@/utils/result";
+import { noop, resultUtility } from "@/utils/result";
 import type { TechMaterial } from "../core/core-static";
 import fs from "fs/promises";
 import path from "node:path";
 import { mkdirSync } from "node:fs";
-import { isFolderEmpty } from "../../helper/is-folder-empty";
-import { copy } from "../../helper/copy";
+import { isFolderEmpty } from "@/helper/is-folder-empty";
+import { copy } from "@/helper/copy";
 import { green } from "picocolors";
 
 export async function typescriptTemplateInstall({

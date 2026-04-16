@@ -1,7 +1,7 @@
-import { type Option } from "../../utils/option";
+import { type Option } from "@/utils/option";
 import { isReactCss } from "./react-is";
 import { cssCommand } from "../css/css-core";
-import type { ReactCss } from "../../template/react/react-static";
+import type { ReactCss } from "@/template/react/react-static";
 
 export async function cssReactCommand(optionReactCss: Option<unknown>) {
     const choises = [

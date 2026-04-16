@@ -1,5 +1,5 @@
-import { type Option, optionUtility } from "../../utils/option";
-import { resultUtility } from "../../utils/result";
+import { type Option, optionUtility } from "@/utils/option";
+import { resultUtility } from "@/utils/result";
 import type { Choice, Falsy, PrevCaller } from "prompts";
 import prompts from "prompts";
 import { commanderCore } from "../common/command-core";

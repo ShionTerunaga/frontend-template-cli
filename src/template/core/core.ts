@@ -1,4 +1,4 @@
-import type { Noop, Result } from "../../utils/result";
+import type { Noop, Result } from "@/utils/result";
 import { type TechStack } from "./core-static";
 import { reactInstaller } from "../react/react-installer";
 import { vueCli } from "../vue/vue-setting";
