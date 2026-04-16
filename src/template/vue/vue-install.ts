@@ -1,5 +1,6 @@
 import { basename, resolve } from "node:path";
-import { type Unit, type Result, resultUtility } from "ts-shared";
+import type { Noop, Result } from "../../utils/result";
+import { resultUtility } from "../../utils/result";
 import type { TechMaterial } from "../core/core-static";
 import { typescriptTemplateInstall } from "../common/typescript-template-install";
 
@@ -9,7 +10,7 @@ export async function vueInstaller({
 }: {
     appPath: string;
     material: TechMaterial;
-}): Promise<Result<Unit, Error>> {
+}): Promise<Result<Noop, Error>> {
     const { createNg } = resultUtility;
     const { styleSheet } = material;
 

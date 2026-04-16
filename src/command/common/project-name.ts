@@ -1,19 +1,16 @@
-import {
-    resultUtility,
-    type Result,
-    optionUtility,
-    type Option
-} from "ts-shared";
+import { resultUtility, type Result } from "../../utils/result";
+import { optionUtility, type Option } from "../../utils/option";
 import { isString } from "../../utils/is";
 import prompts from "prompts";
 import { validateNpmName } from "../../helper/validate-npm-name";
-import { onPromptState } from "./command-core";
+import { commanderCore } from "./command-core";
 
 export async function nameCommand(
     optionName: Option<unknown>
 ): Promise<Result<string, Error>> {
     const { optionConversion } = optionUtility;
-    const { createOk, createNg, checkPromiseReturn } = resultUtility;
+    const { onPromptState } = await commanderCore;
+    const { createOk, checkPromiseReturn } = resultUtility;
 
     if (optionName.isSome && isString(optionName.value)) {
         return createOk(optionName.value.trim());
@@ -39,10 +36,10 @@ export async function nameCommand(
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return new Error(`Prompt failed: ${e.message}`);
             }
 
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return new Error("Prompt failed: Unknown error");
         }
     });
 

@@ -1,6 +1,6 @@
 {
     "name": "create-frontend-template",
-    "version": "0.9.0",
+    "version": "0.9.4",
     "description": "CLI for generating frontend templates",
     "type": "module",
     "license": "MIT",
@@ -11,8 +11,7 @@
         "create-frontend-template": "./bin/index.mjs"
     },
     "files": [
-        "bin",
-        "package.json"
+        "bin"
     ],
     "preferGlobal": true,
     "packageManager": "pnpm@10.18.3",
@@ -38,7 +37,8 @@
         "initial": "pnpm exec lefthook install && pnpm install",
         "build:only": "pnpm exec vite build && node scripts/write/bin-write.mts",
         "cp:frontend-template:bin": "node scripts/copy/template/copy-frontend-template-bin.mts",
-        "build": "pnpm run cp:frontend-template:bin && pnpm run build:only && pnpm format && pnpm lint:fix",
+        "build": "node scripts/copy/template/copy-frontend-template-bin.mts && pnpm exec vite build && node scripts/write/bin-write.mts",
+        "build:release": "node scripts/copy/template/copy-frontend-template-bin.mts && pnpm exec vite build && node scripts/write/bin-write.mts && pnpm format && pnpm lint:fix",
         "changeset": "changeset",
         "format": "pnpm exec oxfmt --write .",
         "format:check": "pnpm exec oxfmt --check .",
@@ -61,7 +61,6 @@
         "fast-glob": "^3.3.3",
         "picocolors": "^1.1.1",
         "prompts": "^2.4.2",
-        "ts-shared": "github:ShionTerunaga/ts-shared#release",
         "validate-npm-package-name": "^7.0.0"
     },
     "devDependencies": {
@@ -85,7 +84,6 @@
         "stream-browserify": "^3.0.0",
         "ts-loader": "^9.5.4",
         "tsconfig-paths": "^4.2.0",
-        "turbo": "^2.0.0",
         "typescript": "^6.0.2",
         "vite": "^8.0.5"
     }

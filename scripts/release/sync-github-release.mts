@@ -6,20 +6,8 @@ import { pathToFileURL } from "node:url";
 
 import { getReleaseNotes } from "./write-release-notes.mts";
 
-function getVersion() {
-    const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8")) as {
-        version?: string;
-    };
-
-    if (!packageJson.version) {
-        throw new Error("package.json version is required.");
-    }
-
-    return packageJson.version;
-}
-
-function getHeadSha() {
-    return execFileSync("git", ["rev-parse", "HEAD"], {
+function getHeadSha(ref = "HEAD") {
+    return execFileSync("git", ["rev-parse", ref], {
         encoding: "utf8"
     }).trim();
 }
@@ -32,9 +20,16 @@ function releaseExists(tag: string) {
 }
 
 function main() {
-    const version = getVersion();
+    const version = process.env.VERSION;
+
+    if (!version) {
+        throw new Error("VERSION is required.");
+    }
+
     const tag = `v${version}`;
-    const target = getHeadSha();
+    const target = process.env.TARGET_SHA
+        ? getHeadSha(process.env.TARGET_SHA)
+        : getHeadSha();
     const notesPath = path.join(
         os.tmpdir(),
         `release-notes-${tag}-${process.pid}.md`

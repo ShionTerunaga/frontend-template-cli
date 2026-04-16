@@ -1,10 +1,13 @@
+import { type Option } from "../../utils/option";
+import { resultUtility } from "../../utils/result";
 import prompts from "prompts";
-import { onPromptState } from "../common/command-core";
+import { commanderCore } from "../common/command-core";
 import { isReactFramework } from "./react-is";
-import { type Option, resultUtility } from "ts-shared";
 
 export async function frameworkCommand(optionFramework: Option<unknown>) {
     const { createNg, createOk, checkPromiseReturn } = resultUtility;
+    const { onPromptState } = await commanderCore;
+
     if (optionFramework.isSome && isReactFramework(optionFramework.value)) {
         return createOk(optionFramework.value);
     }
@@ -25,9 +28,9 @@ export async function frameworkCommand(optionFramework: Option<unknown>) {
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return new Error(`Prompt failed: ${e.message}`);
             }
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return new Error("Prompt failed: Unknown error");
         }
     });
 

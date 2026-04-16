@@ -12,6 +12,9 @@ Install directly from GitHub:
 npm i -g github:ShionTerunaga/frontend-template-cli#release
 ```
 
+The `release` branch is a distribution-only branch that contains the built CLI
+artifacts required for GitHub installs.
+
 ## Usage
 
 Run the CLI with:

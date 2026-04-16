@@ -3,7 +3,7 @@ import pexpect
 import subprocess
 import sys
 
-PNPM_LOCAL = ["pnpm", "--ignore-workspace"]
+NPM_LOCAL = ["npm", "--ignore-workspace"]
 
 KEYBOARD = {
     "ArrowDown": "\x1b[B",
@@ -87,10 +87,10 @@ def vue_run_action(actions, cmd_noninteractive, workdir):
                     f"Project directory was not created: {project_dir}"
                 )
 
-            print(f"[PTY SAMPLE] Running pnpm in {project_dir}")
-            subprocess.run(PNPM_LOCAL + ["install"], cwd=project_dir, check=True)
-            subprocess.run(PNPM_LOCAL + ["test"], cwd=project_dir, check=True)
-            subprocess.run(PNPM_LOCAL + ["build"], cwd=project_dir, check=True)
+            print(f"[PTY SAMPLE] Running npm in {project_dir}")
+            subprocess.run(NPM_LOCAL + ["install"], cwd=project_dir, check=True)
+            subprocess.run(NPM_LOCAL + ["test"], cwd=project_dir, check=True)
+            subprocess.run(NPM_LOCAL + ["run", "build"], cwd=project_dir, check=True)
         except Exception:
             try:
                 child.close()

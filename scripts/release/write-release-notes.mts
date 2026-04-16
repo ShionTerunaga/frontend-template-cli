@@ -1,6 +1,17 @@
 import fs from "node:fs";
 import { pathToFileURL } from "node:url";
 
+export function getLatestVersion(changelogPath = "CHANGELOG.md") {
+    const changelog = fs.readFileSync(changelogPath, "utf8");
+    const match = changelog.match(/^##\s+([0-9]+\.[0-9]+\.[0-9]+)\s*$/m);
+
+    if (!match?.[1]) {
+        throw new Error("Could not find the latest version in CHANGELOG.md.");
+    }
+
+    return match[1];
+}
+
 export function getReleaseNotes(
     version: string,
     changelogPath = "CHANGELOG.md"
@@ -31,13 +42,8 @@ export function writeReleaseNotes(
 }
 
 function main() {
-    const version = process.env.VERSION;
+    const version = process.env.VERSION ?? getLatestVersion();
     const outputPath = process.env.OUTPUT_PATH ?? "release-notes.md";
-
-    if (!version) {
-        console.error("VERSION is required.");
-        process.exit(1);
-    }
 
     writeReleaseNotes(version, outputPath);
 }

@@ -9,6 +9,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 async function binWrite(): Promise<void> {
     const target = path.resolve(__dirname, "..", "..", "bin", "index.mjs");
     const legacyTarget = path.resolve(__dirname, "..", "..", "bin", "index.js");
+    const legacyPackageJson = path.resolve(
+        __dirname,
+        "..",
+        "..",
+        "bin",
+        "package.json"
+    );
     const sourcePackageJson = path.resolve(
         __dirname,
         "..",
@@ -20,15 +27,31 @@ async function binWrite(): Promise<void> {
         "..",
         "..",
         "bin",
-        "package.json"
+        "version.json"
     );
 
     try {
         await fs.promises.rm(legacyTarget, { force: true });
     } catch {}
 
+    try {
+        await fs.promises.rm(legacyPackageJson, { force: true });
+    } catch {}
+
     await core(target);
-    await fs.promises.copyFile(sourcePackageJson, targetPackageJson);
+
+    const sourcePackageJsonText = await fs.promises.readFile(
+        sourcePackageJson,
+        "utf8"
+    );
+    const sourcePackage = JSON.parse(sourcePackageJsonText) as {
+        version: string;
+    };
+
+    await fs.promises.writeFile(
+        targetPackageJson,
+        `${JSON.stringify({ version: sourcePackage.version }, null, 2)}\n`
+    );
 }
 
 binWrite();
