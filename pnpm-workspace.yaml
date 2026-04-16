@@ -1,9 +1,0 @@
-packages:
-    - "."
-    - "packages/**"
-    - "!**/node_modules/**"
-    - "!**/.turbo/**"
-    - "!**/.next/**"
-    - "!**/.nuxt/**"
-    - "!**/.output/**"
-    - "!**/dist/**"
