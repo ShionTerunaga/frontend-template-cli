@@ -1,4 +1,4 @@
-import { resultUtility, type Result } from "../utils/result";
+import { resultUtility, type Result } from "ts-shared";
 import { async as glob } from "fast-glob";
 import { copyFile, mkdir } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";

@@ -4,7 +4,10 @@
 
 ### Patch Changes
 
-- [#77](https://github.com/ShionTerunaga/frontend-template-cli/pull/77) [`992a3d1`](https://github.com/ShionTerunaga/frontend-template-cli/commit/992a3d1ddd3b6676b82029991e87505a3df981b1) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - We have updated the version of the template's dependencies.
+- [#77](https://github.com/ShionTerunaga/frontend-template-cli/pull/77)
+  [`992a3d1`](https://github.com/ShionTerunaga/frontend-template-cli/commit/992a3d1ddd3b6676b82029991e87505a3df981b1)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - We have updated
+  the version of the template's dependencies.
 
 ## 0.9.3
 

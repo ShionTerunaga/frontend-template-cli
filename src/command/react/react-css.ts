@@ -1,4 +1,4 @@
-import { type Option } from "../../utils/option";
+import type { Option } from "ts-shared";
 import { isReactCss } from "./react-is";
 import { cssCommand } from "../css/css-core";
 import type { ReactCss } from "../../template/react/react-static";

@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { type Result, resultUtility } from "./result";
+import { type Result, resultUtility } from "ts-shared";
 
 export function foundFolder(paths: Array<string>): Result<string, Error> {
     const { createNg, createOk } = resultUtility;
