@@ -1,18 +1,63 @@
 # Changelog
+
+## 0.9.4
+
+### Patch Changes
+
+- [#77](https://github.com/ShionTerunaga/frontend-template-cli/pull/77)
+  [`992a3d1`](https://github.com/ShionTerunaga/frontend-template-cli/commit/992a3d1ddd3b6676b82029991e87505a3df981b1)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - We have updated
+  the version of the template's dependencies.
+
+## 0.9.3
+
+### Patch Changes
+
+- [`6ac1685`](https://github.com/ShionTerunaga/frontend-template-cli/commit/6ac16855343e16e900948a5f97815cdc2a3f0755)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Trigger release
+  publishing from `main`, rebuild the distribution-only `release` branch from
+  the latest changelog version, and publish tags and GitHub release notes from
+  the generated release branch.
+
+## 0.9.2
+
+### Patch Changes
+
+- [`e4c89b7`](https://github.com/ShionTerunaga/frontend-template-cli/commit/e4c89b7dcf68dacd533accfa71880d93ffa5fa6d)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Publish a
+  distribution-only `release` branch that contains only the built CLI artifacts
+  and release metadata files needed for GitHub-based global installs.
+
+## 0.9.1
+
+### Patch Changes
+
+- [`b478816`](https://github.com/ShionTerunaga/frontend-template-cli/commit/b478816725b561d47621243b1a89cfffd607b5cb)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Move bundled CLI
+  artifacts to the `release` branch flow and load the CLI version from
+  `bin/version.json` instead of `bin/package.json`.
+
 ## 0.9.0
 
 ### Minor Changes
 
-- [#67](https://github.com/ShionTerunaga/frontend-template-cli/pull/67) [`14ef24e`](https://github.com/ShionTerunaga/frontend-template-cli/commit/14ef24e3ea7f36ac9f358c341e50bdef9e405368) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - I configured it so that the correct version is displayed when using `-v` &
-  `--version`.
+- [#67](https://github.com/ShionTerunaga/frontend-template-cli/pull/67)
+  [`14ef24e`](https://github.com/ShionTerunaga/frontend-template-cli/commit/14ef24e3ea7f36ac9f358c341e50bdef9e405368)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - I configured it
+  so that the correct version is displayed when using `-v` & `--version`.
 
 ### Patch Changes
 
-- [#62](https://github.com/ShionTerunaga/frontend-template-cli/pull/62) [`3b9fc6f`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3b9fc6ff18d7d49fffe20a10e0d8938526b10567) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - switch the CLI build to Vite for faster builds and migrate linting and
-  formatting to oxlint and oxfmt
+- [#62](https://github.com/ShionTerunaga/frontend-template-cli/pull/62)
+  [`3b9fc6f`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3b9fc6ff18d7d49fffe20a10e0d8938526b10567)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - switch the CLI
+  build to Vite for faster builds and migrate linting and formatting to oxlint
+  and oxfmt
 
-- [`0a1dd35`](https://github.com/ShionTerunaga/frontend-template-cli/commit/0a1dd35f31f36546e19ac06d54e1ae51c4147408) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - refresh the bundled React and Vue template package metadata, and update the Nuxt
-  templates to enable Storybook conditionally
+- [`0a1dd35`](https://github.com/ShionTerunaga/frontend-template-cli/commit/0a1dd35f31f36546e19ac06d54e1ae51c4147408)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - refresh the
+  bundled React and Vue template package metadata, and update the Nuxt templates
+  to enable Storybook conditionally
 
 ## 0.8.0
 

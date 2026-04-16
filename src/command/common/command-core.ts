@@ -1,37 +1,31 @@
-import { optionUtility, type Result, resultUtility } from "ts-shared";
+import { optionUtility } from "../../utils/option";
 import { Command } from "commander";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { InitialReturnValue } from "prompts";
 
-export async function getCurrentVersion(): Promise<Result<string, Error>> {
+export const commanderCore = (async function () {
     const { optionConversion } = optionUtility;
-    const { createNg, createOk } = resultUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
-    const packageJsonPath = path.join(cliDir, "package.json");
+    const versionJsonPath = path.join(cliDir, "version.json");
 
-    const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"));
+    const versionJson = JSON.parse(await readFile(versionJsonPath, "utf8")) as {
+        version?: string;
+    };
 
-    const optionVersion = optionConversion(packageJson.version);
+    const optionVersion = optionConversion(versionJson.version);
 
     if (optionVersion.isNone) {
-        return createNg(new Error("version is not found in package.json"));
+        throw new Error("version is not found in version.json");
     }
 
-    return createOk(optionVersion.value);
-}
-
-export const commanderCore = (async function () {
-    const currentVersionResult = await getCurrentVersion();
-    if (currentVersionResult.isErr) {
-        console.error(currentVersionResult.err);
-        process.exit(1);
-    }
-    const currentVersion = currentVersionResult.value;
-
-    const program = new Command("create-frontend-template")
-        .version(currentVersion, "-v, --version", "output the current version")
+    const program = new Command("create-react-template")
+        .version(
+            optionVersion.value,
+            "-v, --version",
+            "output the current version"
+        )
         .argument("[directory]")
         .usage("[directory] [options]")
         .helpOption("-h, --help", "display help for command")
@@ -53,17 +47,34 @@ export const commanderCore = (async function () {
         .option("--use-all-components", "install all available components")
         .parse(process.argv);
 
-    return program;
-})();
+    const opts = program.opts();
 
-export function onPromptState(state: {
-    value: InitialReturnValue;
-    aborted: boolean;
-    exited: boolean;
-}) {
-    if (state.aborted) {
-        process.stdout.write("\x1B[?25h");
-        process.stdout.write("\n");
-        process.exit(1);
-    }
-}
+    const optionName = optionConversion(opts.name);
+    const optionReactFramework = optionConversion(opts.reactFramework);
+    const optionVueFramework = optionConversion(opts.vueFramework);
+    const optionTechStack = optionConversion(opts.techStack);
+    const optionCss = optionConversion(opts.css);
+    const optionUseAllComponents = optionConversion(opts.useAllComponents);
+
+    const onPromptState = (state: {
+        value: InitialReturnValue;
+        aborted: boolean;
+        exited: boolean;
+    }) => {
+        if (state.aborted) {
+            process.stdout.write("\x1B[?25h");
+            process.stdout.write("\n");
+            process.exit(1);
+        }
+    };
+
+    return {
+        onPromptState,
+        optionName,
+        optionReactFramework,
+        optionVueFramework,
+        optionTechStack,
+        optionCss,
+        optionUseAllComponents
+    };
+})();
