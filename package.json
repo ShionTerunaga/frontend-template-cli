@@ -1,6 +1,6 @@
 {
     "name": "create-frontend-template",
-    "version": "0.9.5",
+    "version": "0.9.6",
     "description": "CLI for generating frontend templates",
     "type": "module",
     "license": "MIT",
