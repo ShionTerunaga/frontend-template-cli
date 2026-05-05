@@ -1,5 +1,4 @@
-import { type Result } from "@/utils/result";
-import { type Option } from "@/utils/option";
+import type { Option, Result } from "ts-shared";
 import { isVueCss } from "@/template/vue/vue-is";
 import type { VueCss } from "@/template/vue/vue-static";
 import { cssCommand } from "../css/css-core";

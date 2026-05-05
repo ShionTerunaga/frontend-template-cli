@@ -1,4 +1,4 @@
-import { resultUtility, type Result } from "@/utils/result";
+import { resultUtility, type Result } from "ts-shared";
 import { async as glob } from "fast-glob";
 import { copyFile, mkdir } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
@@ -33,7 +33,7 @@ export async function copy(
                 stats: false,
                 onlyFiles: true
             }),
-        err: () => new Error("Failed to glob source files")
+        err: () => createNg(new Error("Failed to glob source files"))
     });
 
     if (sourceFiles.isErr) {

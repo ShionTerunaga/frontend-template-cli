@@ -1,12 +1,13 @@
-import { optionUtility } from "@/utils/option";
+import { optionUtility, type Result, resultUtility } from "ts-shared";
 import { Command } from "commander";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { InitialReturnValue } from "prompts";
 
-export const commanderCore = (async function () {
+export async function getCurrentVersion(): Promise<Result<string, Error>> {
     const { optionConversion } = optionUtility;
+    const { createNg, createOk } = resultUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
     const versionJsonPath = path.join(cliDir, "version.json");
 
@@ -17,15 +18,22 @@ export const commanderCore = (async function () {
     const optionVersion = optionConversion(versionJson.version);
 
     if (optionVersion.isNone) {
-        throw new Error("version is not found in version.json");
+        return createNg(new Error("version is not found in version.json"));
     }
 
-    const program = new Command("create-react-template")
-        .version(
-            optionVersion.value,
-            "-v, --version",
-            "output the current version"
-        )
+    return createOk(optionVersion.value);
+}
+
+export const commanderCore = (async function () {
+    const currentVersionResult = await getCurrentVersion();
+    if (currentVersionResult.isErr) {
+        console.error(currentVersionResult.err);
+        process.exit(1);
+    }
+    const currentVersion = currentVersionResult.value;
+
+    const program = new Command("create-frontend-template")
+        .version(currentVersion, "-v, --version", "output the current version")
         .argument("[directory]")
         .usage("[directory] [options]")
         .helpOption("-h, --help", "display help for command")
@@ -47,34 +55,17 @@ export const commanderCore = (async function () {
         .option("--use-all-components", "install all available components")
         .parse(process.argv);
 
-    const opts = program.opts();
-
-    const optionName = optionConversion(opts.name);
-    const optionReactFramework = optionConversion(opts.reactFramework);
-    const optionVueFramework = optionConversion(opts.vueFramework);
-    const optionTechStack = optionConversion(opts.techStack);
-    const optionCss = optionConversion(opts.css);
-    const optionUseAllComponents = optionConversion(opts.useAllComponents);
-
-    const onPromptState = (state: {
-        value: InitialReturnValue;
-        aborted: boolean;
-        exited: boolean;
-    }) => {
-        if (state.aborted) {
-            process.stdout.write("\x1B[?25h");
-            process.stdout.write("\n");
-            process.exit(1);
-        }
-    };
-
-    return {
-        onPromptState,
-        optionName,
-        optionReactFramework,
-        optionVueFramework,
-        optionTechStack,
-        optionCss,
-        optionUseAllComponents
-    };
+    return program;
 })();
+
+export function onPromptState(state: {
+    value: InitialReturnValue;
+    aborted: boolean;
+    exited: boolean;
+}) {
+    if (state.aborted) {
+        process.stdout.write("\x1B[?25h");
+        process.stdout.write("\n");
+        process.exit(1);
+    }
+}

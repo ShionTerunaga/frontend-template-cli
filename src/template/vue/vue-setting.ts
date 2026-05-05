@@ -1,26 +1,26 @@
 import path from "path";
-import { commanderCore } from "@/command/common/command-core";
+import { type Result, resultUtility, optionUtility } from "ts-shared";
 import { vueCssCommander } from "@/command/vue/vue-css";
 import { vueFrameworkCommand } from "@/command/vue/vue-framework";
 import { fileURLToPath } from "node:url";
-import { optionUtility } from "@/utils/option";
-import type { Result } from "@/utils/result";
-import { resultUtility } from "@/utils/result";
 import type { TechMaterial } from "../core/core-static";
 import { foundFolder } from "@/utils/found-file";
+import {
+    optionCss,
+    optionVueFramework
+} from "@/command/common/commander-option";
 
 export async function vueCli(): Promise<Result<TechMaterial, Error>> {
-    const { optionCss, optionVueFramework } = await commanderCore;
     const { createSome } = optionUtility;
     const { createOk } = resultUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
-    const frameworkResult = await vueFrameworkCommand(optionVueFramework);
+    const frameworkResult = await vueFrameworkCommand(await optionVueFramework);
 
     if (frameworkResult.isErr) {
         return frameworkResult;
     }
 
-    const cssResult = await vueCssCommander(optionCss);
+    const cssResult = await vueCssCommander(await optionCss);
 
     if (cssResult.isErr) {
         return cssResult;
