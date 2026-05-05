@@ -8,7 +8,7 @@ import { cliErrorLog } from "@/utils/error";
 import { techStackCommand } from "@/command/common/tech-stack";
 import { createApp } from "@/template/core/core";
 import type { RunSuccess, TechStack } from "@/template/core/core-static";
-import { reactCallback } from "@/then";
+import { reactCallback, vueCallback } from "@/then";
 
 const handleSigTerm = () => process.exit(0);
 
@@ -76,6 +76,9 @@ function techInstallInfo(techStack: TechStack) {
     switch (techStack) {
         case "react": {
             reactCallback();
+        }
+        case "vue": {
+            vueCallback();
         }
     }
 }
