@@ -1,15 +1,12 @@
-import type { Option } from "@/utils/option";
-import type { Result } from "@/utils/result";
-import { resultUtility } from "@/utils/result";
-import { commanderCore } from "../common/command-core";
+import { type Option, type Result, resultUtility } from "ts-shared";
 import { isVueFramework } from "@/template/vue/vue-is";
 import type { VueFramework } from "@/template/vue/vue-static";
 import prompts from "prompts";
+import { onPromptState } from "../common/command-core";
 
 export async function vueFrameworkCommand(
     optionVueFramework: Option<unknown>
 ): Promise<Result<VueFramework, Error>> {
-    const { onPromptState } = await commanderCore;
     const { createOk, checkPromiseReturn, createNg } = resultUtility;
 
     if (optionVueFramework.isSome && isVueFramework(optionVueFramework.value)) {
@@ -31,9 +28,9 @@ export async function vueFrameworkCommand(
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
+                return createNg(new Error(`Prompt failed: ${e.message}`));
             }
-            return new Error("Prompt failed: Unknown error");
+            return createNg(new Error("Prompt failed: Unknown error"));
         }
     });
 

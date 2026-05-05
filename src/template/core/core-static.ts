@@ -1,4 +1,4 @@
-import type { Option } from "@/utils/option";
+import type { Option } from "ts-shared";
 import type { ReactCss, ReactLibrarySettings } from "../react/react-static";
 import type { VueCss } from "../vue/vue-static";
 

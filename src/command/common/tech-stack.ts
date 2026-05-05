@@ -1,17 +1,16 @@
 import prompts from "prompts";
-import type { TechStack } from "@/template/core/core-static";
-import { techStackSelectList } from "@/template/core/core-static";
-import { type Option } from "@/utils/option";
-import type { Result } from "@/utils/result";
-import { resultUtility } from "@/utils/result";
-import { commanderCore } from "./command-core";
 import { isTechStack } from "../react/react-is";
+import { type Option, type Result, resultUtility } from "ts-shared";
+import {
+    techStackSelectList,
+    type TechStack
+} from "@/template/core/core-static";
+import { onPromptState } from "./command-core";
 
 export async function techStackCommand(
     optionTech: Option<unknown>
 ): Promise<Result<TechStack, Error>> {
     const { createOk, createNg, checkPromiseReturn } = resultUtility;
-    const { onPromptState } = await commanderCore;
 
     if (optionTech.isSome && isTechStack(optionTech.value)) {
         return createOk(optionTech.value);
@@ -29,9 +28,9 @@ export async function techStackCommand(
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return new Error(`Prompt failed: ${e.message}`);
+                return createNg(new Error(`Prompt failed: ${e.message}`));
             }
-            return new Error("Prompt failed: Unknown error");
+            return createNg(new Error("Prompt failed: Unknown error"));
         }
     });
 
