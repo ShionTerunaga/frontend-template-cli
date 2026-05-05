@@ -6,7 +6,8 @@ import { nameCommand } from "@/command/common/project-name";
 import { techStackCommand } from "@/command/common/tech-stack";
 import { createApp } from "@/template/core/core";
 import type { RunSuccess, TechStack } from "@/template/core/core-static";
-import { reactCallback } from "@/then";
+
+import { reactCallback, vueCallback } from "@/then";
 import { optionName, optionTechStack } from "./command/common/commander-option";
 import { cliErrorLog } from "./shared/error";
 import { type Result, resultUtility, type Unit } from "ts-shared";
@@ -166,6 +167,11 @@ function techInstallInfo(techStack: TechStack) {
     switch (techStack) {
         case "react": {
             reactCallback();
+            break;
+        }
+        case "vue": {
+            vueCallback();
+            break;
         }
     }
 }
