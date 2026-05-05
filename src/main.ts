@@ -76,9 +76,11 @@ function techInstallInfo(techStack: TechStack) {
     switch (techStack) {
         case "react": {
             reactCallback();
+            break;
         }
         case "vue": {
             vueCallback();
+            break;
         }
     }
 }
