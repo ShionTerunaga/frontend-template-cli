@@ -4,7 +4,9 @@
 
 ### Patch Changes
 
-- [`f73c14a`](https://github.com/ShionTerunaga/frontend-template-cli/commit/f73c14a723725e0b88e36bd25c5c901a87991a79) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - upgrade dependencies version
+- [`f73c14a`](https://github.com/ShionTerunaga/frontend-template-cli/commit/f73c14a723725e0b88e36bd25c5c901a87991a79)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - upgrade
+  dependencies version
 
 ## 0.9.5
 
