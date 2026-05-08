@@ -1,0 +1,61 @@
+{
+  "name": "@apps/vue-vue-router-scoped-css",
+  "version": "2.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build",
+    "typecheck": "vue-tsc --build",
+    "lint": "echo 'lint is not configured for @apps/vue-vue-router-scoped-css'",
+    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
+    "lint:eslint": "eslint . --fix --cache",
+    "format": "prettier --write --experimental-cli src/"
+  },
+  "dependencies": {
+    "csstype": "^3.2.3",
+    "ts-shared": "github:ShionTerunaga/ts-shared#release",
+    "typescript-eslint": "^8.53.0",
+    "valibot": "^1.3.1",
+    "vue": "^3.5.33",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@prettier/plugin-oxc": "^0.0.5",
+    "@storybook/vue3-vite": "10.3.5",
+    "@tsconfig/node24": "^24.0.3",
+    "@types/jsdom": "^27.0.0",
+    "@types/node": "^24.10.1",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vitest/eslint-plugin": "^1.5.0",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.6.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.8.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-oxlint": "~1.29.0",
+    "eslint-plugin-vue": "~10.5.1",
+    "jiti": "^2.6.1",
+    "jsdom": "^27.2.0",
+    "npm-run-all2": "^8.0.4",
+    "oxlint": "~1.29.0",
+    "prettier": "3.6.2",
+    "storybook": "10.3.5",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.5",
+    "vite-plugin-vue-devtools": "^8.0.5",
+    "vitest": "^4.1.0",
+    "vue-eslint-parser": "^10.2.0",
+    "vue-tsc": "^3.2.7"
+  }
+}
