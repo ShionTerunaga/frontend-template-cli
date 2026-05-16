@@ -4,14 +4,22 @@
 
 ### Minor Changes
 
-- [#83](https://github.com/ShionTerunaga/frontend-template-cli/pull/83) [`4036f80`](https://github.com/ShionTerunaga/frontend-template-cli/commit/4036f80932d58bd5c392d8a5350bd00f025c5125) Thanks [@laserbeam2045](https://github.com/laserbeam2045)! - Add the vueCallback
+- [#83](https://github.com/ShionTerunaga/frontend-template-cli/pull/83)
+  [`4036f80`](https://github.com/ShionTerunaga/frontend-template-cli/commit/4036f80932d58bd5c392d8a5350bd00f025c5125)
+  Thanks [@laserbeam2045](https://github.com/laserbeam2045)! - Add the
+  vueCallback
 
-- [#79](https://github.com/ShionTerunaga/frontend-template-cli/pull/79) [`285a8ce`](https://github.com/ShionTerunaga/frontend-template-cli/commit/285a8cea2f3142bc92b954a57164d6b5e918e095) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - If you're not using the latest version, add a flow that asks whether you want to
-  use the latest version.
+- [#79](https://github.com/ShionTerunaga/frontend-template-cli/pull/79)
+  [`285a8ce`](https://github.com/ShionTerunaga/frontend-template-cli/commit/285a8cea2f3142bc92b954a57164d6b5e918e095)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - If you're not
+  using the latest version, add a flow that asks whether you want to use the
+  latest version.
 
 ### Patch Changes
 
-- [`797964c`](https://github.com/ShionTerunaga/frontend-template-cli/commit/797964c43f78cc8b16f58e29c9f6a8069728d513) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Addressing Template Vulnerabilities
+- [`797964c`](https://github.com/ShionTerunaga/frontend-template-cli/commit/797964c43f78cc8b16f58e29c9f6a8069728d513)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Addressing
+  Template Vulnerabilities
 
 ## 0.9.6
 
