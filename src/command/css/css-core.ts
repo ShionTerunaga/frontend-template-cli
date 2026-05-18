@@ -4,48 +4,48 @@ import { type Option, optionUtility, resultUtility } from "ts-utility-kit";
 import { onPromptState } from "../common/command-core";
 
 export async function cssCommand<T>({
-  optionCss,
-  isCss,
-  csses,
+    optionCss,
+    isCss,
+    csses
 }: {
-  optionCss: Option<unknown>;
-  isCss: (value: unknown) => value is NonNullable<T>;
-  csses: Choice[] | PrevCaller<string, Falsy | Choice[]>;
+    optionCss: Option<unknown>;
+    isCss: (value: unknown) => value is NonNullable<T>;
+    csses: Choice[] | PrevCaller<string, Falsy | Choice[]>;
 }) {
-  const { optionConversion } = optionUtility;
-  const { createOk, createNg, checkPromiseReturn } = resultUtility;
+    const { optionConversion } = optionUtility;
+    const { createOk, createNg, checkPromiseReturn } = resultUtility;
 
-  if (optionCss.isSome && isCss(optionCss.value)) {
-    return createOk(optionCss.value);
-  }
+    if (optionCss.isSome && isCss(optionCss.value)) {
+        return createOk(optionCss.value);
+    }
 
-  const response = await checkPromiseReturn({
-    fn: async () =>
-      await prompts({
-        onState: onPromptState,
-        type: "select",
-        name: "css",
-        message: "Select a CSS framework for your project:",
-        choices: csses,
-        initial: 0,
-      }),
-    err: (e) => {
-      if (e instanceof Error) {
-        return createNg(new Error(`Prompt failed: ${e.message}`));
-      }
-      return createNg(new Error("Prompt failed: Unknown error"));
-    },
-  });
+    const response = await checkPromiseReturn({
+        fn: async () =>
+            await prompts({
+                onState: onPromptState,
+                type: "select",
+                name: "css",
+                message: "Select a CSS framework for your project:",
+                choices: csses,
+                initial: 0
+            }),
+        err: (e) => {
+            if (e instanceof Error) {
+                return createNg(new Error(`Prompt failed: ${e.message}`));
+            }
+            return createNg(new Error("Prompt failed: Unknown error"));
+        }
+    });
 
-  if (response.isErr) {
-    return response;
-  }
+    if (response.isErr) {
+        return response;
+    }
 
-  const css = optionConversion(response.value.css);
+    const css = optionConversion(response.value.css);
 
-  if (css.isSome && isCss(css.value)) {
-    return createOk(css.value);
-  }
+    if (css.isSome && isCss(css.value)) {
+        return createOk(css.value);
+    }
 
-  return createNg(new Error("CSS selection is invalid"));
+    return createNg(new Error("CSS selection is invalid"));
 }

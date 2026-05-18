@@ -6,45 +6,45 @@ import { fileURLToPath } from "node:url";
 import type { TechMaterial } from "../core/core-static";
 import { foundFolder } from "@/utils/found-file";
 import {
-  optionCss,
-  optionReactFramework,
+    optionCss,
+    optionReactFramework
 } from "@/command/common/commander-option";
 
 export async function reactCli(): Promise<Result<TechMaterial, Error>> {
-  const { createOk } = resultUtility;
-  const { createSome } = optionUtility;
-  const cliDir = path.dirname(fileURLToPath(import.meta.url));
+    const { createOk } = resultUtility;
+    const { createSome } = optionUtility;
+    const cliDir = path.dirname(fileURLToPath(import.meta.url));
 
-  const frameworResult = await frameworkCommand(await optionReactFramework);
+    const frameworResult = await frameworkCommand(await optionReactFramework);
 
-  if (frameworResult.isErr) {
-    return frameworResult;
-  }
+    if (frameworResult.isErr) {
+        return frameworResult;
+    }
 
-  const cssResult = await cssReactCommand(await optionCss);
+    const cssResult = await cssReactCommand(await optionCss);
 
-  if (cssResult.isErr) {
-    return cssResult;
-  }
+    if (cssResult.isErr) {
+        return cssResult;
+    }
 
-  const resultPath = foundFolder([
-    path.join(
-      cliDir,
-      "template",
-      "react",
-      frameworResult.value,
-      cssResult.value,
-    ),
-  ]);
+    const resultPath = foundFolder([
+        path.join(
+            cliDir,
+            "template",
+            "react",
+            frameworResult.value,
+            cssResult.value
+        )
+    ]);
 
-  if (resultPath.isErr) {
-    return resultPath;
-  }
+    if (resultPath.isErr) {
+        return resultPath;
+    }
 
-  const techMaterial: TechMaterial = {
-    path: resultPath.value,
-    styleSheet: createSome(cssResult.value),
-  };
+    const techMaterial: TechMaterial = {
+        path: resultPath.value,
+        styleSheet: createSome(cssResult.value)
+    };
 
-  return createOk(techMaterial);
+    return createOk(techMaterial);
 }
