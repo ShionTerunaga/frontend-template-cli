@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.2
+
+### Patch Changes
+
+- [`13122f2`](https://github.com/ShionTerunaga/frontend-template-cli/commit/13122f2d9ec05b752fdbcaadfc776b1019dc913c) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Set the version of ts-shared
+
 ## 0.10.1
 
 ### Patch Changes
