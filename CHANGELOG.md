@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.3
+
+### Patch Changes
+
+- [`2c502d8`](https://github.com/ShionTerunaga/frontend-template-cli/commit/2c502d8328f29f888003f012a9f402a03f030c53) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Since ts-shard has been deprecated, we have switched to ts-utility-kit.
+
 ## 0.10.2
 
 ### Patch Changes
