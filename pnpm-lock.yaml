@@ -54,9 +54,9 @@ importers:
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
-      ts-shared:
-        specifier: github:ShionTerunaga/ts-shared#v1.1.5
-        version: https://codeload.github.com/ShionTerunaga/ts-shared/tar.gz/ddf4d0b7f019de1b2fe346a2aa2b6efc12802e7e
+      ts-utility-kit:
+        specifier: ^1.4.0
+        version: 1.4.0
       validate-npm-package-name:
         specifier: ^7.0.0
         version: 7.0.2
@@ -2316,9 +2316,8 @@ packages:
       typescript: '*'
       webpack: 5.104.1
 
-  ts-shared@https://codeload.github.com/ShionTerunaga/ts-shared/tar.gz/ddf4d0b7f019de1b2fe346a2aa2b6efc12802e7e:
-    resolution: {tarball: https://codeload.github.com/ShionTerunaga/ts-shared/tar.gz/ddf4d0b7f019de1b2fe346a2aa2b6efc12802e7e}
-    version: 1.1.5
+  ts-utility-kit@1.4.0:
+    resolution: {integrity: sha512-XvJBXypmnIKTmOgQRVsH3Lx45JO1nGw0iRmLQHd4P67fAzgNtm0IwRXpT/X9fi1lnDRmjNjwa9dQyEC9D2rjzQ==}
     engines: {node: '>=22.12.0'}
 
   tsconfig-paths@4.2.0:
@@ -4491,7 +4490,7 @@ snapshots:
       typescript: 6.0.2
       webpack: 5.105.4(esbuild@0.27.4)
 
-  ts-shared@https://codeload.github.com/ShionTerunaga/ts-shared/tar.gz/ddf4d0b7f019de1b2fe346a2aa2b6efc12802e7e: {}
+  ts-utility-kit@1.4.0: {}
 
   tsconfig-paths@4.2.0:
     dependencies:
