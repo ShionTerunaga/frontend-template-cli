@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.4
+
+### Patch Changes
+
+- [`3d63e67`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3d63e67756bc0a50030a8acc5ab46dd200780035) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Security Measures
+
 ## 0.10.3
 
 ### Patch Changes
