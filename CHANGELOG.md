@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.0
+
+### Minor Changes
+
+- [`7e23ffd`](https://github.com/ShionTerunaga/frontend-template-cli/commit/7e23ffde9ee9fb95c20895e14fa09f533ee59115) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Upgraded ts-utility-kit to v2
+
 ## 0.10.4
 
 ### Patch Changes
