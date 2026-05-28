@@ -1,4 +1,4 @@
-import type { Option } from "ts-utility-kit";
+import type { Option } from "ts-utility-kit/option";
 import type { ReactCss, ReactLibrarySettings } from "../react/react-static";
 import type { VueCss } from "../vue/vue-static";
 

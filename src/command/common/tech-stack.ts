@@ -1,6 +1,13 @@
 import prompts from "prompts";
 import { isTechStack } from "../react/react-is";
-import { type Option, type Result, resultUtility } from "ts-utility-kit";
+import { isSome, type Option } from "ts-utility-kit/option";
+import {
+    checkPromiseReturn,
+    createErr,
+    createOk,
+    isErr,
+    type Result
+} from "ts-utility-kit/result";
 import {
     techStackSelectList,
     type TechStack
@@ -10,9 +17,7 @@ import { onPromptState } from "./command-core";
 export async function techStackCommand(
     optionTech: Option<unknown>
 ): Promise<Result<TechStack, Error>> {
-    const { createOk, createNg, checkPromiseReturn } = resultUtility;
-
-    if (optionTech.isSome && isTechStack(optionTech.value)) {
+    if (isSome(optionTech) && isTechStack(optionTech.value)) {
         return createOk(optionTech.value);
     }
 
@@ -28,13 +33,13 @@ export async function techStackCommand(
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return createErr(new Error(`Prompt failed: ${e.message}`));
             }
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return createErr(new Error("Prompt failed: Unknown error"));
         }
     });
 
-    if (response.isErr) {
+    if (isErr(response)) {
         return response;
     }
 
@@ -44,5 +49,5 @@ export async function techStackCommand(
         return createOk(techStack);
     }
 
-    return createNg(new Error("Tech stack selection is invalid"));
+    return createErr(new Error("Tech stack selection is invalid"));
 }

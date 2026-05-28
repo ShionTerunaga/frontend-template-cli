@@ -1,4 +1,4 @@
-import type { Option } from "ts-utility-kit";
+import type { Option } from "ts-utility-kit/option";
 import { isReactCss } from "./react-is";
 import { cssCommand } from "../css/css-core";
 import type { ReactCss } from "@/template/react/react-static";

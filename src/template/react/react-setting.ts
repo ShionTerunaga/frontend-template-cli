@@ -1,5 +1,6 @@
 import path from "path";
-import { optionUtility, resultUtility, type Result } from "ts-utility-kit";
+import { createSome } from "ts-utility-kit/option";
+import { createOk, isErr, type Result } from "ts-utility-kit/result";
 import { cssReactCommand } from "@/command/react/react-css";
 import { frameworkCommand } from "@/command/react/react-framework";
 import { fileURLToPath } from "node:url";
@@ -11,19 +12,17 @@ import {
 } from "@/command/common/commander-option";
 
 export async function reactCli(): Promise<Result<TechMaterial, Error>> {
-    const { createOk } = resultUtility;
-    const { createSome } = optionUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
 
     const frameworResult = await frameworkCommand(await optionReactFramework);
 
-    if (frameworResult.isErr) {
+    if (isErr(frameworResult)) {
         return frameworResult;
     }
 
     const cssResult = await cssReactCommand(await optionCss);
 
-    if (cssResult.isErr) {
+    if (isErr(cssResult)) {
         return cssResult;
     }
 
@@ -37,7 +36,7 @@ export async function reactCli(): Promise<Result<TechMaterial, Error>> {
         )
     ]);
 
-    if (resultPath.isErr) {
+    if (isErr(resultPath)) {
         return resultPath;
     }
 

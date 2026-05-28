@@ -1,5 +1,6 @@
 import { basename, resolve } from "node:path";
-import { type Unit, type Result, resultUtility } from "ts-utility-kit";
+import { isNone } from "ts-utility-kit/option";
+import { createErr, type Result, type Unit } from "ts-utility-kit/result";
 import type { TechMaterial } from "../core/core-static";
 import { typescriptTemplateInstall } from "../common/typescript-template-install";
 
@@ -10,11 +11,10 @@ export async function vueInstaller({
     appPath: string;
     material: TechMaterial;
 }): Promise<Result<Unit, Error>> {
-    const { createNg } = resultUtility;
     const { styleSheet } = material;
 
-    if (styleSheet.isNone) {
-        return createNg(new Error("CSS option is required"));
+    if (isNone(styleSheet)) {
+        return createErr(new Error("CSS option is required"));
     }
 
     const root = resolve(appPath);

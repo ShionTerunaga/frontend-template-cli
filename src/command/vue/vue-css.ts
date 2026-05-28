@@ -1,4 +1,5 @@
-import type { Option, Result } from "ts-utility-kit";
+import type { Option } from "ts-utility-kit/option";
+import type { Result } from "ts-utility-kit/result";
 import { isVueCss } from "@/template/vue/vue-is";
 import type { VueCss } from "@/template/vue/vue-static";
 import { cssCommand } from "../css/css-core";

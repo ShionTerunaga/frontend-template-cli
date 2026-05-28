@@ -1,12 +1,16 @@
 import prompts from "prompts";
-import { type Result, resultUtility } from "ts-utility-kit";
+import {
+    checkPromiseReturn,
+    createErr,
+    createOk,
+    isErr,
+    type Result
+} from "ts-utility-kit/result";
 import { onPromptState } from "../common/command-core";
 
 export async function continueCurrentVersionCommand(): Promise<
     Result<boolean, Error>
 > {
-    const { createNg, createOk, checkPromiseReturn } = resultUtility;
-
     const response = await checkPromiseReturn({
         fn: async () =>
             await prompts({
@@ -18,14 +22,14 @@ export async function continueCurrentVersionCommand(): Promise<
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return createErr(new Error(`Prompt failed: ${e.message}`));
             }
 
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return createErr(new Error("Prompt failed: Unknown error"));
         }
     });
 
-    if (response.isErr) {
+    if (isErr(response)) {
         return response;
     }
 

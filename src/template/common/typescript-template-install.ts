@@ -5,7 +5,15 @@ import { mkdirSync } from "node:fs";
 import { isFolderEmpty } from "@/helper/is-folder-empty";
 import { copy } from "@/helper/copy";
 import { green } from "picocolors";
-import { type Unit, type Result, resultUtility } from "ts-utility-kit";
+import {
+    UNIT,
+    checkPromiseVoid,
+    createErr,
+    createOk,
+    isErr,
+    type Result,
+    type Unit
+} from "ts-utility-kit/result";
 
 export async function typescriptTemplateInstall({
     root,
@@ -16,7 +24,6 @@ export async function typescriptTemplateInstall({
     appName: string;
     material: TechMaterial;
 }): Promise<Result<Unit, Error>> {
-    const { UNIT, createNg, createOk, checkPromiseVoid } = resultUtility;
     const { path: templatePath } = material;
 
     const copySource = ["**/*"];
@@ -24,7 +31,7 @@ export async function typescriptTemplateInstall({
     mkdirSync(root, { recursive: true });
 
     if (!isFolderEmpty(root, appName)) {
-        return createNg(
+        return createErr(
             new Error(
                 `The directory ${appName} is not empty. Please choose a different project name or remove the existing directory.\n`
             )
@@ -55,7 +62,7 @@ export async function typescriptTemplateInstall({
         }
     });
 
-    if (res.isErr) {
+    if (isErr(res)) {
         return res;
     }
 
@@ -67,17 +74,17 @@ export async function typescriptTemplateInstall({
         },
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(
+                return createErr(
                     new Error(`Failed to access package.json: ${e.message}`)
                 );
             }
-            return createNg(
+            return createErr(
                 new Error("Failed to access package.json: Unknown error")
             );
         }
     });
 
-    if (exists.isErr) {
+    if (isErr(exists)) {
         return exists;
     }
 
@@ -85,7 +92,7 @@ export async function typescriptTemplateInstall({
     const pkg = JSON.parse(raw || "{}");
 
     if (!appName || typeof appName !== "string") {
-        return createNg(new Error("Invalid app name"));
+        return createErr(new Error("Invalid app name"));
     }
 
     pkg.name = appName;
@@ -99,10 +106,10 @@ export async function typescriptTemplateInstall({
                 "utf8"
             );
         },
-        err: () => createNg(new Error(`Failed to update package.json name`))
+        err: () => createErr(new Error(`Failed to update package.json name`))
     });
 
-    if (writeResult.isErr) {
+    if (isErr(writeResult)) {
         return writeResult;
     }
 

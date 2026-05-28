@@ -1,4 +1,5 @@
-import { optionUtility, type Result, resultUtility } from "ts-utility-kit";
+import { isNone, optionConversion } from "ts-utility-kit/option";
+import { createErr, createOk, isErr, type Result } from "ts-utility-kit/result";
 import { Command } from "commander";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -6,8 +7,6 @@ import { fileURLToPath } from "node:url";
 import type { InitialReturnValue } from "prompts";
 
 export async function getCurrentVersion(): Promise<Result<string, Error>> {
-    const { optionConversion } = optionUtility;
-    const { createNg, createOk } = resultUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
     const versionJsonPath = path.join(cliDir, "version.json");
 
@@ -17,8 +16,8 @@ export async function getCurrentVersion(): Promise<Result<string, Error>> {
 
     const optionVersion = optionConversion(versionJson.version);
 
-    if (optionVersion.isNone) {
-        return createNg(new Error("version is not found in version.json"));
+    if (isNone(optionVersion)) {
+        return createErr(new Error("version is not found in version.json"));
     }
 
     return createOk(optionVersion.value);
@@ -26,7 +25,7 @@ export async function getCurrentVersion(): Promise<Result<string, Error>> {
 
 export const commanderCore = (async function () {
     const currentVersionResult = await getCurrentVersion();
-    if (currentVersionResult.isErr) {
+    if (isErr(currentVersionResult)) {
         console.error(currentVersionResult.err);
         process.exit(1);
     }

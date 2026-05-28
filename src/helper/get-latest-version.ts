@@ -1,5 +1,9 @@
 import { isArray, isString } from "../utils/is";
-import { resultUtility, type Result } from "ts-utility-kit";
+import {
+    checkPromiseReturn,
+    createErr,
+    type Result
+} from "ts-utility-kit/result";
 
 const REPOSITORY_OWNER = "ShionTerunaga";
 const REPOSITORY_NAME = "frontend-template-cli";
@@ -58,18 +62,16 @@ async function fetchLatestTagVersion(): Promise<string> {
 }
 
 export async function getLatestVersion(): Promise<Result<string, Error>> {
-    const { checkPromiseReturn, createNg } = resultUtility;
-
     return checkPromiseReturn({
         fn: fetchLatestTagVersion,
         err: (error) =>
             error instanceof Error
-                ? createNg(
+                ? createErr(
                       new Error(
                           `Failed to resolve the latest repository tag: ${error.message}`
                       )
                   )
-                : createNg(
+                : createErr(
                       new Error("Failed to resolve the latest repository tag")
                   )
     });

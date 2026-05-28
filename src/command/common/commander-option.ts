@@ -1,9 +1,7 @@
-import { type Option, optionUtility } from "ts-utility-kit";
+import { optionConversion, type Option } from "ts-utility-kit/option";
 import { commanderCore } from "./command-core";
 
 async function optionCommand(opt: unknown): Promise<Option<unknown>> {
-    const { optionConversion } = optionUtility;
-
     return optionConversion(opt);
 }
 

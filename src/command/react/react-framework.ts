@@ -1,11 +1,16 @@
 import prompts from "prompts";
 import { onPromptState } from "../common/command-core";
 import { isReactFramework } from "./react-is";
-import { type Option, resultUtility } from "ts-utility-kit";
+import { isSome, type Option } from "ts-utility-kit/option";
+import {
+    checkPromiseReturn,
+    createErr,
+    createOk,
+    isErr
+} from "ts-utility-kit/result";
 
 export async function frameworkCommand(optionFramework: Option<unknown>) {
-    const { createNg, createOk, checkPromiseReturn } = resultUtility;
-    if (optionFramework.isSome && isReactFramework(optionFramework.value)) {
+    if (isSome(optionFramework) && isReactFramework(optionFramework.value)) {
         return createOk(optionFramework.value);
     }
 
@@ -25,13 +30,13 @@ export async function frameworkCommand(optionFramework: Option<unknown>) {
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return createErr(new Error(`Prompt failed: ${e.message}`));
             }
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return createErr(new Error("Prompt failed: Unknown error"));
         }
     });
 
-    if (response.isErr) {
+    if (isErr(response)) {
         return response;
     }
 
@@ -41,5 +46,5 @@ export async function frameworkCommand(optionFramework: Option<unknown>) {
         return createOk(framework);
     }
 
-    return createNg(new Error("Framework selection is invalid"));
+    return createErr(new Error("Framework selection is invalid"));
 }

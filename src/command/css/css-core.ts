@@ -1,6 +1,12 @@
 import type { Choice, Falsy, PrevCaller } from "prompts";
 import prompts from "prompts";
-import { type Option, optionUtility, resultUtility } from "ts-utility-kit";
+import { isSome, optionConversion, type Option } from "ts-utility-kit/option";
+import {
+    checkPromiseReturn,
+    createErr,
+    createOk,
+    isErr
+} from "ts-utility-kit/result";
 import { onPromptState } from "../common/command-core";
 
 export async function cssCommand<T>({
@@ -12,10 +18,7 @@ export async function cssCommand<T>({
     isCss: (value: unknown) => value is NonNullable<T>;
     csses: Choice[] | PrevCaller<string, Falsy | Choice[]>;
 }) {
-    const { optionConversion } = optionUtility;
-    const { createOk, createNg, checkPromiseReturn } = resultUtility;
-
-    if (optionCss.isSome && isCss(optionCss.value)) {
+    if (isSome(optionCss) && isCss(optionCss.value)) {
         return createOk(optionCss.value);
     }
 
@@ -31,21 +34,21 @@ export async function cssCommand<T>({
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return createErr(new Error(`Prompt failed: ${e.message}`));
             }
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return createErr(new Error("Prompt failed: Unknown error"));
         }
     });
 
-    if (response.isErr) {
+    if (isErr(response)) {
         return response;
     }
 
     const css = optionConversion(response.value.css);
 
-    if (css.isSome && isCss(css.value)) {
+    if (isSome(css) && isCss(css.value)) {
         return createOk(css.value);
     }
 
-    return createNg(new Error("CSS selection is invalid"));
+    return createErr(new Error("CSS selection is invalid"));
 }

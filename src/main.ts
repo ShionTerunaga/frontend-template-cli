@@ -10,7 +10,13 @@ import type { RunSuccess, TechStack } from "@/template/core/core-static";
 import { reactCallback, vueCallback } from "@/then";
 import { optionName, optionTechStack } from "./command/common/commander-option";
 import { cliErrorLog } from "./shared/error";
-import { type Result, resultUtility, type Unit } from "ts-utility-kit";
+import {
+    isErr,
+    type Result,
+    UNIT,
+    createOk,
+    type Unit
+} from "ts-utility-kit/result";
 import { getCurrentVersion } from "./command/common/command-core";
 import { getLatestVersion } from "./helper/get-latest-version";
 import { continueCurrentVersionCommand } from "./command/version/continue-current-version";
@@ -27,7 +33,7 @@ export async function run(): Promise<RunSuccess> {
 
     const projectName = await nameCommand(await optionName);
 
-    if (projectName.isErr) {
+    if (isErr(projectName)) {
         cliErrorLog(projectName.err);
         process.exit(1);
     }
@@ -37,7 +43,7 @@ export async function run(): Promise<RunSuccess> {
 
     const techStack = await techStackCommand(await optionTechStack);
 
-    if (techStack.isErr) {
+    if (isErr(techStack)) {
         cliErrorLog(techStack.err);
 
         process.exit(1);
@@ -68,7 +74,7 @@ export async function run(): Promise<RunSuccess> {
         tech: techStack.value
     });
 
-    if (installResult.isErr) {
+    if (isErr(installResult)) {
         cliErrorLog(installResult.err);
         process.exit(1);
     }
@@ -119,17 +125,16 @@ function isNewerVersion(
 }
 
 async function checkCliVersion(): Promise<Result<Unit, Error>> {
-    const { UNIT, createOk } = resultUtility;
     const currentVersionResult = await getCurrentVersion();
 
-    if (currentVersionResult.isErr) {
+    if (isErr(currentVersionResult)) {
         return currentVersionResult;
     }
 
     const currentVersion = currentVersionResult.value;
     const latestVersionResult = await getLatestVersion();
 
-    if (latestVersionResult.isErr) {
+    if (isErr(latestVersionResult)) {
         return latestVersionResult;
     }
 
@@ -147,7 +152,7 @@ async function checkCliVersion(): Promise<Result<Unit, Error>> {
 
     const continueCurrentVersionResult = await continueCurrentVersionCommand();
 
-    if (continueCurrentVersionResult.isErr) {
+    if (isErr(continueCurrentVersionResult)) {
         cliErrorLog(continueCurrentVersionResult.err);
         process.exit(1);
     }

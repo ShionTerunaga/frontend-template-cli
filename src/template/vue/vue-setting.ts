@@ -1,5 +1,6 @@
 import path from "path";
-import { type Result, resultUtility, optionUtility } from "ts-utility-kit";
+import { createSome } from "ts-utility-kit/option";
+import { createOk, isErr, type Result } from "ts-utility-kit/result";
 import { vueCssCommander } from "@/command/vue/vue-css";
 import { vueFrameworkCommand } from "@/command/vue/vue-framework";
 import { fileURLToPath } from "node:url";
@@ -11,18 +12,16 @@ import {
 } from "@/command/common/commander-option";
 
 export async function vueCli(): Promise<Result<TechMaterial, Error>> {
-    const { createSome } = optionUtility;
-    const { createOk } = resultUtility;
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
     const frameworkResult = await vueFrameworkCommand(await optionVueFramework);
 
-    if (frameworkResult.isErr) {
+    if (isErr(frameworkResult)) {
         return frameworkResult;
     }
 
     const cssResult = await vueCssCommander(await optionCss);
 
-    if (cssResult.isErr) {
+    if (isErr(cssResult)) {
         return cssResult;
     }
 
@@ -38,7 +37,7 @@ export async function vueCli(): Promise<Result<TechMaterial, Error>> {
 
     const resultPath = foundFolder(templatePath);
 
-    if (resultPath.isErr) {
+    if (isErr(resultPath)) {
         return resultPath;
     }
 

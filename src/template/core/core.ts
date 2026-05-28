@@ -3,7 +3,7 @@ import { reactInstaller } from "../react/react-installer";
 import { vueCli } from "../vue/vue-setting";
 import { vueInstaller } from "../vue/vue-install";
 import { reactCli } from "../react/react-setting";
-import type { Result, Unit } from "ts-utility-kit";
+import { isErr, type Result, type Unit } from "ts-utility-kit/result";
 
 export async function createApp({
     appPath,
@@ -16,7 +16,7 @@ export async function createApp({
         case "react": {
             const materialResult = await reactCli();
 
-            if (materialResult.isErr) {
+            if (isErr(materialResult)) {
                 return materialResult;
             }
 
@@ -28,7 +28,7 @@ export async function createApp({
         case "vue": {
             const materialResult = await vueCli();
 
-            if (materialResult.isErr) {
+            if (isErr(materialResult)) {
                 return materialResult;
             }
 

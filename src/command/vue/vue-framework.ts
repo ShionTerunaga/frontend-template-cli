@@ -1,4 +1,11 @@
-import { type Option, type Result, resultUtility } from "ts-utility-kit";
+import { isSome, type Option } from "ts-utility-kit/option";
+import {
+    checkPromiseReturn,
+    createErr,
+    createOk,
+    isErr,
+    type Result
+} from "ts-utility-kit/result";
 import { isVueFramework } from "@/template/vue/vue-is";
 import type { VueFramework } from "@/template/vue/vue-static";
 import prompts from "prompts";
@@ -7,9 +14,10 @@ import { onPromptState } from "../common/command-core";
 export async function vueFrameworkCommand(
     optionVueFramework: Option<unknown>
 ): Promise<Result<VueFramework, Error>> {
-    const { createOk, checkPromiseReturn, createNg } = resultUtility;
-
-    if (optionVueFramework.isSome && isVueFramework(optionVueFramework.value)) {
+    if (
+        isSome(optionVueFramework) &&
+        isVueFramework(optionVueFramework.value)
+    ) {
         return createOk(optionVueFramework.value);
     }
 
@@ -28,13 +36,13 @@ export async function vueFrameworkCommand(
             }),
         err: (e) => {
             if (e instanceof Error) {
-                return createNg(new Error(`Prompt failed: ${e.message}`));
+                return createErr(new Error(`Prompt failed: ${e.message}`));
             }
-            return createNg(new Error("Prompt failed: Unknown error"));
+            return createErr(new Error("Prompt failed: Unknown error"));
         }
     });
 
-    if (response.isErr) {
+    if (isErr(response)) {
         return response;
     }
 
@@ -44,5 +52,5 @@ export async function vueFrameworkCommand(
         return createOk(framework);
     }
 
-    return createNg(new Error("Framework selection is invalid"));
+    return createErr(new Error("Framework selection is invalid"));
 }
