@@ -4,25 +4,32 @@
 
 ### Minor Changes
 
-- [`7e23ffd`](https://github.com/ShionTerunaga/frontend-template-cli/commit/7e23ffde9ee9fb95c20895e14fa09f533ee59115) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Upgraded ts-utility-kit to v2
+- [`7e23ffd`](https://github.com/ShionTerunaga/frontend-template-cli/commit/7e23ffde9ee9fb95c20895e14fa09f533ee59115)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Upgraded
+  ts-utility-kit to v2
 
 ## 0.10.4
 
 ### Patch Changes
 
-- [`3d63e67`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3d63e67756bc0a50030a8acc5ab46dd200780035) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Security Measures
+- [`3d63e67`](https://github.com/ShionTerunaga/frontend-template-cli/commit/3d63e67756bc0a50030a8acc5ab46dd200780035)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Security Measures
 
 ## 0.10.3
 
 ### Patch Changes
 
-- [`2c502d8`](https://github.com/ShionTerunaga/frontend-template-cli/commit/2c502d8328f29f888003f012a9f402a03f030c53) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Since ts-shard has been deprecated, we have switched to ts-utility-kit.
+- [`2c502d8`](https://github.com/ShionTerunaga/frontend-template-cli/commit/2c502d8328f29f888003f012a9f402a03f030c53)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Since ts-shard
+  has been deprecated, we have switched to ts-utility-kit.
 
 ## 0.10.2
 
 ### Patch Changes
 
-- [`13122f2`](https://github.com/ShionTerunaga/frontend-template-cli/commit/13122f2d9ec05b752fdbcaadfc776b1019dc913c) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Set the version of ts-shared
+- [`13122f2`](https://github.com/ShionTerunaga/frontend-template-cli/commit/13122f2d9ec05b752fdbcaadfc776b1019dc913c)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Set the version
+  of ts-shared
 
 ## 0.10.1
 
