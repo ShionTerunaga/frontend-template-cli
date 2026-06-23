@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.0
+
+### Minor Changes
+
+- [`c228657`](https://github.com/ShionTerunaga/frontend-template-cli/commit/c22865770bf71eb826b90e2e61601efe1f36ed09) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Test Code for Templates and Package Updates
+
 ## 0.12.0
 
 ### Minor Changes
