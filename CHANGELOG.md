@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.0
+
+### Minor Changes
+
+- 6039024: Resolving Issues with Vue.js and Similar Frameworks
+
 ## 0.13.0
 
 ### Minor Changes
