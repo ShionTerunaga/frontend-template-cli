@@ -2,4 +2,4 @@
 "create-frontend-template": minor
 ---
 
-Change Style
+Chnage CLI style.
