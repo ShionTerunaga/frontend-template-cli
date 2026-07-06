@@ -1,4 +1,4 @@
-import prompts from "prompts";
+import { confirm } from "@clack/prompts";
 import {
     checkPromiseReturn,
     createErr,
@@ -6,19 +6,16 @@ import {
     isErr,
     type Result
 } from "ts-utility-kit/result";
-import { onPromptState } from "../common/command-core";
+import { onPromptCancel } from "../common/command-core";
 
 export async function continueCurrentVersionCommand(): Promise<
     Result<boolean, Error>
 > {
     const response = await checkPromiseReturn({
         fn: async () =>
-            await prompts({
-                onState: onPromptState,
-                type: "confirm",
-                name: "shouldContinue",
+            await confirm({
                 message: "Continue with the current version?",
-                initial: false
+                initialValue: false
             }),
         err: (e) => {
             if (e instanceof Error) {
@@ -33,5 +30,7 @@ export async function continueCurrentVersionCommand(): Promise<
         return response;
     }
 
-    return createOk(response.value.shouldContinue === true);
+    onPromptCancel(response.value);
+
+    return createOk(response.value === true);
 }

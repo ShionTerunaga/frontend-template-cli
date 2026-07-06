@@ -1,3 +1,4 @@
+import { log } from "@clack/prompts";
 import fs from "fs";
 import path from "path";
 import { dirname } from "path";
@@ -60,7 +61,7 @@ async function main(): Promise<void> {
     fs.mkdirSync(tempRoot, { recursive: true });
 
     try {
-        console.log(`Cloning frontend-template (${templateRef})...`);
+        log.step(`Cloning frontend-template (${templateRef})...`);
         runGit(
             [
                 "clone",
@@ -77,7 +78,7 @@ async function main(): Promise<void> {
             undefined
         );
 
-        console.log("Checking out template directory...");
+        log.step("Checking out template directory...");
         runGit(["sparse-checkout", "set", "template"], checkoutDir);
 
         if (!fs.existsSync(sourceTemplateDir)) {
@@ -89,10 +90,10 @@ async function main(): Promise<void> {
         fs.mkdirSync(binDir, { recursive: true });
         fs.rmSync(destTemplateDir, { recursive: true, force: true });
 
-        console.log("Copying template into bin/template...");
+        log.step("Copying template into bin/template...");
         copyDir(sourceTemplateDir, destTemplateDir);
 
-        console.log(`Done: ${destTemplateDir}`);
+        log.success(`Done: ${destTemplateDir}`);
     } finally {
         fs.rmSync(tempRoot, { recursive: true, force: true });
     }

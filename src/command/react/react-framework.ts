@@ -1,5 +1,5 @@
-import prompts from "prompts";
-import { onPromptState } from "../common/command-core";
+import { select } from "@clack/prompts";
+import { onPromptCancel } from "../common/command-core";
 import { isReactFramework } from "./react-is";
 import { isSome, type Option } from "ts-utility-kit/option";
 import {
@@ -16,17 +16,14 @@ export async function frameworkCommand(optionFramework: Option<unknown>) {
 
     const response = await checkPromiseReturn({
         fn: async () =>
-            await prompts({
-                onState: onPromptState,
-                type: "select",
-                name: "framework",
+            await select({
                 message: `Select a framework for your project:`,
-                choices: [
-                    { title: "TanStack Router", value: "tanstack-router" },
-                    { title: "Next.js (App Router)", value: "next/app" },
-                    { title: "Next.js (Pages Router)", value: "next/pages" }
+                options: [
+                    { label: "TanStack Router", value: "tanstack-router" },
+                    { label: "Next.js (App Router)", value: "next/app" },
+                    { label: "Next.js (Pages Router)", value: "next/pages" }
                 ],
-                initial: 0
+                initialValue: "tanstack-router"
             }),
         err: (e) => {
             if (e instanceof Error) {
@@ -40,7 +37,9 @@ export async function frameworkCommand(optionFramework: Option<unknown>) {
         return response;
     }
 
-    const framework = response.value.framework;
+    onPromptCancel(response.value);
+
+    const framework = response.value;
 
     if (isReactFramework(framework)) {
         return createOk(framework);

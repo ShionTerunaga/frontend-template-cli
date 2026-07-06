@@ -1,4 +1,4 @@
-import prompts from "prompts";
+import { select } from "@clack/prompts";
 import { isTechStack } from "../react/react-is";
 import { isSome, type Option } from "ts-utility-kit/option";
 import {
@@ -12,7 +12,7 @@ import {
     techStackSelectList,
     type TechStack
 } from "@/template/core/core-static";
-import { onPromptState } from "./command-core";
+import { onPromptCancel } from "./command-core";
 
 export async function techStackCommand(
     optionTech: Option<unknown>
@@ -23,13 +23,13 @@ export async function techStackCommand(
 
     const response = await checkPromiseReturn({
         fn: async () =>
-            await prompts({
-                onState: onPromptState,
-                type: "select",
-                name: "techStack",
+            await select({
                 message: "Select a tech stack for your project:",
-                choices: techStackSelectList,
-                initial: 0
+                options: techStackSelectList.map((choice) => ({
+                    label: choice.title,
+                    value: choice.value
+                })),
+                initialValue: techStackSelectList[0]?.value
             }),
         err: (e) => {
             if (e instanceof Error) {
@@ -43,7 +43,9 @@ export async function techStackCommand(
         return response;
     }
 
-    const techStack = response.value.techStack;
+    onPromptCancel(response.value);
+
+    const techStack = response.value;
 
     if (isTechStack(techStack)) {
         return createOk(techStack);

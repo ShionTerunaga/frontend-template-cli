@@ -1,11 +1,11 @@
-export function reactCallback() {
-    console.log(`Package install: \n\n ex) npm install`);
+import { log } from "@clack/prompts";
 
-    console.log(`Application launch: \n\n ex) npm run dev`);
+export function reactCallback() {
+    log.message(`Package install:\n\n ex) npm install`);
+    log.message(`Application launch:\n\n ex) npm run dev`);
 }
 
 export function vueCallback() {
-    console.log(`Package install: \n\n ex) npm install`);
-
-    console.log(`Application launch: \n\n ex) npm run dev`);
+    log.message(`Package install:\n\n ex) npm install`);
+    log.message(`Application launch:\n\n ex) npm run dev`);
 }

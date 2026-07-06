@@ -7,9 +7,9 @@ import {
     type Result
 } from "ts-utility-kit/result";
 import { isString } from "@/utils/is";
-import prompts from "prompts";
+import { text } from "@clack/prompts";
 import { validateNpmName } from "../../helper/validate-npm-name";
-import { onPromptState } from "./command-core";
+import { onPromptCancel } from "./command-core";
 
 export async function nameCommand(
     optionName: Option<unknown>
@@ -20,12 +20,9 @@ export async function nameCommand(
 
     const response = await checkPromiseReturn({
         fn: async () =>
-            await prompts({
-                onState: onPromptState,
-                type: "text",
-                name: "path",
+            await text({
                 message: "What is your project named?",
-                initial: "my-project",
+                defaultValue: "my-project",
                 validate: (name: string): boolean | string => {
                     const validation = validateNpmName(name);
 
@@ -49,7 +46,9 @@ export async function nameCommand(
         return response;
     }
 
-    const name = optionConversion(response.value.path);
+    onPromptCancel(response.value);
+
+    const name = optionConversion(response.value);
 
     if (isSome(name) && isString(name.value)) {
         return createOk(name.value.trim());

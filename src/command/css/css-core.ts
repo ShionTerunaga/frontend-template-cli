@@ -1,5 +1,4 @@
-import type { Choice, Falsy, PrevCaller } from "prompts";
-import prompts from "prompts";
+import { select } from "@clack/prompts";
 import { isSome, optionConversion, type Option } from "ts-utility-kit/option";
 import {
     checkPromiseReturn,
@@ -7,7 +6,13 @@ import {
     createOk,
     isErr
 } from "ts-utility-kit/result";
-import { onPromptState } from "../common/command-core";
+import { onPromptCancel } from "../common/command-core";
+
+export interface SelectChoice<T> {
+    title: string;
+    value: T;
+    hint?: string;
+}
 
 export async function cssCommand<T>({
     optionCss,
@@ -16,7 +21,7 @@ export async function cssCommand<T>({
 }: {
     optionCss: Option<unknown>;
     isCss: (value: unknown) => value is NonNullable<T>;
-    csses: Choice[] | PrevCaller<string, Falsy | Choice[]>;
+    csses: SelectChoice<NonNullable<T>>[];
 }) {
     if (isSome(optionCss) && isCss(optionCss.value)) {
         return createOk(optionCss.value);
@@ -24,13 +29,14 @@ export async function cssCommand<T>({
 
     const response = await checkPromiseReturn({
         fn: async () =>
-            await prompts({
-                onState: onPromptState,
-                type: "select",
-                name: "css",
+            await select({
                 message: "Select a CSS framework for your project:",
-                choices: csses,
-                initial: 0
+                options: csses.map((choice) => ({
+                    label: choice.title,
+                    value: choice.value,
+                    hint: choice.hint
+                })),
+                initialValue: csses[0]?.value
             }),
         err: (e) => {
             if (e instanceof Error) {
@@ -44,7 +50,9 @@ export async function cssCommand<T>({
         return response;
     }
 
-    const css = optionConversion(response.value.css);
+    onPromptCancel(response.value);
+
+    const css = optionConversion(response.value);
 
     if (isSome(css) && isCss(css.value)) {
         return createOk(css.value);
