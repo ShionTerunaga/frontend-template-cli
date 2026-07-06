@@ -1,3 +1,4 @@
+import { log } from "@clack/prompts";
 import fs from "fs";
 
 /**
@@ -13,7 +14,7 @@ export default async function core(pathName: string): Promise<void> {
     const content = fs.readFileSync(pathName, "utf8");
 
     if (content.startsWith("#!")) {
-        console.log(`Shebang already present in ${pathName}`);
+        log.message(`Shebang already present in ${pathName}`);
         return;
     }
 
@@ -27,7 +28,7 @@ export default async function core(pathName: string): Promise<void> {
             console.warn(`Warning: failed to chmod ${pathName}:`, chmodErr);
         }
 
-        console.log(`Added shebang and set executable: ${pathName}`);
+        log.success(`Added shebang and set executable: ${pathName}`);
     } catch (err: unknown) {
         console.error(`Failed to write shebang to ${pathName}:`, err);
         process.exitCode = 1;

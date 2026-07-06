@@ -1,4 +1,5 @@
 import type { TechMaterial } from "../core/core-static";
+import { log } from "@clack/prompts";
 import fs from "fs/promises";
 import path from "node:path";
 import { mkdirSync } from "node:fs";
@@ -38,8 +39,7 @@ export async function typescriptTemplateInstall({
         );
     }
 
-    console.log(`Creating a new React app in ${green(root)}.`);
-    console.log();
+    log.step(`Creating a new React app in ${green(root)}.`);
 
     process.chdir(root);
 

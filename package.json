@@ -51,6 +51,7 @@
         "test:vue-bin": "pnpm build && cd test/auto && UV_CACHE_DIR=../../.tmp/uv uv sync && UV_CACHE_DIR=../../.tmp/uv uv run main.py vue"
     },
     "dependencies": {
+        "@clack/prompts": "^0.11.0",
         "@commitlint/cli": "^19.8.1",
         "@commitlint/config-conventional": "^19.8.1",
         "@types/adm-zip": "^0.5.7",
@@ -61,7 +62,6 @@
         "fast-glob": "^3.3.3",
         "gh-issue-kit": "^0.11.0",
         "picocolors": "^1.1.1",
-        "prompts": "^2.4.2",
         "ts-utility-kit": "^2.0.0",
         "validate-npm-package-name": "^7.0.0"
     },
@@ -71,7 +71,6 @@
         "@tsconfig/node24": "^24.0.4",
         "@types/conf": "^3.0.3",
         "@types/node": "^25.0.1",
-        "@types/prompts": "^2.4.9",
         "@types/validate-npm-package-name": "^4.0.2",
         "@vercel/ncc": "^0.38.4",
         "@vitejs/plugin-react": "^6.0.1",

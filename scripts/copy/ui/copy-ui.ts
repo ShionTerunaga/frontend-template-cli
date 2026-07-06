@@ -1,3 +1,4 @@
+import { log } from "@clack/prompts";
 import { promises as fs } from "fs";
 import path from "path";
 import { dirname } from "path";
@@ -65,7 +66,7 @@ async function copyPart(kind: UiKind, targetParts: readonly string[]) {
     );
 
     if (!(await existsDir(destBase))) {
-        console.log(`skip (destination not found): ${destBase}`);
+        log.message(`skip (destination not found): ${destBase}`);
         return;
     }
 
@@ -80,7 +81,7 @@ async function copyPart(kind: UiKind, targetParts: readonly string[]) {
         await fs.rm(dest, { recursive: true, force: true });
         await copyDir(src, dest);
 
-        console.log(`copied: ${src} -> ${dest}`);
+        log.message(`copied: ${src} -> ${dest}`);
     }
 }
 
@@ -91,7 +92,7 @@ async function main() {
         }
     }
 
-    console.log("done: copied UI components/stories to React main templates.");
+    log.success("done: copied UI components/stories to React main templates.");
 }
 
 main().catch((error) => {

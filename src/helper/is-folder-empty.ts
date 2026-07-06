@@ -1,6 +1,7 @@
 import { lstatSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { green, blue } from "picocolors";
+import { log } from "@clack/prompts";
 
 export function isFolderEmpty(root: string, name: string): boolean {
     const validFiles = [
@@ -31,31 +32,27 @@ export function isFolderEmpty(root: string, name: string): boolean {
     });
 
     if (conflicts.length > 0) {
-        console.log(
+        log.message(
             `The directory ${green(name)} contains files that could conflict:`
         );
-
-        console.log();
 
         for (const file of conflicts) {
             try {
                 const stats = lstatSync(join(root, file));
 
                 if (stats.isDirectory()) {
-                    console.log(blue(`  ${file}/`));
+                    log.message(blue(`  ${file}/`));
                 } else {
-                    console.log(`  ${file}`);
+                    log.message(`  ${file}`);
                 }
             } catch {
-                console.log(`  ${file}`);
+                log.message(`  ${file}`);
             }
         }
 
-        console.log();
-        console.log(
+        log.message(
             "Either try using a new directory name, or remove the files listed above."
         );
-        console.log();
         return false;
     }
 

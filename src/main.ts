@@ -1,4 +1,5 @@
 import { basename, resolve } from "node:path";
+import { log } from "@clack/prompts";
 import { validateNpmName } from "@/helper/validate-npm-name";
 import { existsSync } from "node:fs";
 import { bold, red, green } from "picocolors";
@@ -144,7 +145,7 @@ async function checkCliVersion(): Promise<Result<Unit, Error>> {
         return createOk(UNIT);
     }
 
-    console.log(
+    log.warn(
         red(
             `A newer version of create-frontend-template is available. current: v${currentVersion}, latest: v${latestVersion}`
         )
@@ -161,10 +162,9 @@ async function checkCliVersion(): Promise<Result<Unit, Error>> {
         return createOk(UNIT);
     }
 
-    console.log("\nInstall the latest version with the following command:\n");
-    console.log(bold(`${green(INSTALL_COMMAND)}`));
-
-    console.log();
+    log.message(
+        `Install the latest version with the following command:\n\n${bold(green(INSTALL_COMMAND))}`
+    );
     process.exit(0);
 }
 
@@ -182,13 +182,11 @@ function techInstallInfo(techStack: TechStack) {
 }
 
 export function notify(projectMaterial: RunSuccess): void {
-    console.log("cd " + projectMaterial.name);
+    log.message("cd " + projectMaterial.name);
 
     techInstallInfo(projectMaterial.tech);
 
-    console.log();
-
-    console.log(bold(`${green("Happy hacking!")}`));
+    log.success(bold(`${green("Happy hacking!")}`));
 
     process.exit(0);
 }

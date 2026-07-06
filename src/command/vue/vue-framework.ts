@@ -8,8 +8,8 @@ import {
 } from "ts-utility-kit/result";
 import { isVueFramework } from "@/template/vue/vue-is";
 import type { VueFramework } from "@/template/vue/vue-static";
-import prompts from "prompts";
-import { onPromptState } from "../common/command-core";
+import { select } from "@clack/prompts";
+import { onPromptCancel } from "../common/command-core";
 
 export async function vueFrameworkCommand(
     optionVueFramework: Option<unknown>
@@ -23,16 +23,13 @@ export async function vueFrameworkCommand(
 
     const response = await checkPromiseReturn({
         fn: async () =>
-            await prompts({
-                onState: onPromptState,
-                type: "select",
-                name: "framework",
+            await select({
                 message: `Select a framework for your project:`,
-                choices: [
-                    { title: "Vue router", value: "vue-router" },
-                    { title: "Nuxt.js", value: "nuxt" }
+                options: [
+                    { label: "Vue router", value: "vue-router" },
+                    { label: "Nuxt.js", value: "nuxt" }
                 ],
-                initial: 0
+                initialValue: "vue-router"
             }),
         err: (e) => {
             if (e instanceof Error) {
@@ -46,7 +43,9 @@ export async function vueFrameworkCommand(
         return response;
     }
 
-    const framework = response.value.framework;
+    onPromptCancel(response.value);
+
+    const framework = response.value;
 
     if (isVueFramework(framework)) {
         return createOk(framework);

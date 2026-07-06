@@ -4,7 +4,7 @@ import { Command } from "commander";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { InitialReturnValue } from "prompts";
+import { cancel, isCancel } from "@clack/prompts";
 
 export async function getCurrentVersion(): Promise<Result<string, Error>> {
     const cliDir = path.dirname(fileURLToPath(import.meta.url));
@@ -57,14 +57,9 @@ export const commanderCore = (async function () {
     return program;
 })();
 
-export function onPromptState(state: {
-    value: InitialReturnValue;
-    aborted: boolean;
-    exited: boolean;
-}) {
-    if (state.aborted) {
-        process.stdout.write("\x1B[?25h");
-        process.stdout.write("\n");
+export function onPromptCancel(value: unknown) {
+    if (isCancel(value)) {
+        cancel("Operation cancelled.");
         process.exit(1);
     }
 }
