@@ -4,7 +4,9 @@
 
 ### Minor Changes
 
-- [#102](https://github.com/ShionTerunaga/frontend-template-cli/pull/102) [`c625481`](https://github.com/ShionTerunaga/frontend-template-cli/commit/c625481ef16a3ef7c4ec0700bce2cff6773b7e4d) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Chnage CLI style.
+- [#102](https://github.com/ShionTerunaga/frontend-template-cli/pull/102)
+  [`c625481`](https://github.com/ShionTerunaga/frontend-template-cli/commit/c625481ef16a3ef7c4ec0700bce2cff6773b7e4d)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Chnage CLI style.
 
 ## 0.14.0
 
