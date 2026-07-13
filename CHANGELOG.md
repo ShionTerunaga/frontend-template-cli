@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.0
+
+### Minor Changes
+
+- [`b967df6`](https://github.com/ShionTerunaga/frontend-template-cli/commit/b967df64b67e9cf98cf43a4ee93743ac8dfe8949) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - omitted `expect` for statements containing `assert`.
+
 ## 0.15.0
 
 ### Minor Changes
