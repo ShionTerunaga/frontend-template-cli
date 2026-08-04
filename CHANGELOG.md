@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.0
+
+### Minor Changes
+
+- [`a624b54`](https://github.com/ShionTerunaga/frontend-template-cli/commit/a624b5420350789ff0cc7c20c5550e2f93ed98ed) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - upgrade nextjs
+
+- [`8a93010`](https://github.com/ShionTerunaga/frontend-template-cli/commit/8a930108b443ca766afe6691bbb90150e042cf8f) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - Upgrade Packages
+
 ## 0.16.0
 
 ### Minor Changes
