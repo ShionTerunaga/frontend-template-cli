@@ -37,7 +37,7 @@
         "@commitlint/cli": "^19.8.1",
         "@commitlint/config-conventional": "^19.8.1",
         "@types/adm-zip": "^0.5.7",
-        "adm-zip": "^0.5.16",
+        "adm-zip": "^0.6.0",
         "commander": "^14.0.2",
         "conf": "^15.0.2",
         "csstype": "^3.2.3",
