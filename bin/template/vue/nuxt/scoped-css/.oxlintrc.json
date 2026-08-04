@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["vitest"],
+  "rules": {
+    "vitest/no-conditional-tests": "error"
+  }
+}

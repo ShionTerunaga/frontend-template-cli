@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": { "typeAware": true },
+  "plugins": ["jsx-a11y", "nextjs", "react", "typescript", "vitest"],
+  "rules": {
+    "nextjs/no-html-link-for-pages": "error",
+    "nextjs/no-sync-scripts": "error",
+    "react/exhaustive-deps": "warn",
+    "react/rules-of-hooks": "error",
+    "typescript/no-unused-expressions": "warn",
+    "typescript/no-unused-vars": "warn",
+    "vitest/no-conditional-tests": "error"
+  }
+}
