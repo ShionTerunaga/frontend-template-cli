@@ -23,11 +23,11 @@ export async function nameCommand(
             await text({
                 message: "What is your project named?",
                 defaultValue: "my-project",
-                validate: (name: string): boolean | string => {
+                validate: (name: string): string | undefined => {
                     const validation = validateNpmName(name);
 
                     if (validation.valid) {
-                        return true;
+                        return undefined;
                     }
 
                     return `Invalid project name: ${validation.problems?.join(", ")}`;
