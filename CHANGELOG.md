@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.17.1
+
+### Patch Changes
+
+- [`ad464ac`](https://github.com/ShionTerunaga/frontend-template-cli/commit/ad464ac95337430eef42bd0b14a0be3c9e764584) Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - fixed text input
+
 ## 0.17.0
 
 ### Minor Changes
