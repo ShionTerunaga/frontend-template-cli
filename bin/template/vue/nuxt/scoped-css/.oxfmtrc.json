@@ -1,0 +1,12 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "ignorePatterns": ["package-lock.json", "pnpm-lock.yaml", "yarn.lock"],
+    "bracketSpacing": true,
+    "jsxSingleQuote": false,
+    "printWidth": 80,
+    "proseWrap": "always",
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 4,
+    "trailingComma": "none"
+}
