@@ -1,5 +1,0 @@
-[project]
-name = "auto-cli-test"
-version = "0.1.0"
-requires-python = ">=3.11"
-dependencies = ["pexpect==4.9.0"]

@@ -1,89 +1,35 @@
-import { basename, resolve } from "node:path";
-import { log } from "@clack/prompts";
-import { validateNpmName } from "@/helper/validate-npm-name";
-import { existsSync } from "node:fs";
-import { bold, red, green } from "picocolors";
-import { nameCommand } from "@/command/common/project-name";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { confirm, isCancel, log } from "@clack/prompts";
+import { bold, green, red } from "picocolors";
 import { techStackCommand } from "@/command/common/tech-stack";
-import { createApp } from "@/template/core/core";
-import type { RunSuccess, TechStack } from "@/template/core/core-static";
+import { getLatestVersion } from "@/helper/get-latest-version";
+import { runTemplateCli } from "@/run-template-cli";
 
-import { reactCallback, vueCallback } from "@/then";
-import { optionName, optionTechStack } from "./command/common/commander-option";
-import { cliErrorLog } from "./shared/error";
-import {
-    isErr,
-    type Result,
-    UNIT,
-    createOk,
-    type Unit
-} from "ts-utility-kit/result";
-import { getCurrentVersion } from "./command/common/command-core";
-import { getLatestVersion } from "./helper/get-latest-version";
-import { continueCurrentVersionCommand } from "./command/version/continue-current-version";
-
-const handleSigTerm = () => process.exit(0);
 const INSTALL_COMMAND =
     "npm i -g github:ShionTerunaga/frontend-template-cli#release";
 
-process.on("SIGTERM", handleSigTerm);
-process.on("SIGINT", handleSigTerm);
+export async function run(): Promise<void> {
+    const currentVersion = await getCurrentVersion();
+    await checkCliVersion(currentVersion);
 
-export async function run(): Promise<RunSuccess> {
-    await checkCliVersion();
+    const techStack = await techStackCommand(currentVersion);
+    await runTemplateCli(techStack);
+}
 
-    const projectName = await nameCommand(await optionName);
-
-    if (isErr(projectName)) {
-        cliErrorLog(projectName.err);
-        process.exit(1);
-    }
-
-    const appPath = resolve(projectName.value);
-    const appName = basename(appPath);
-
-    const techStack = await techStackCommand(await optionTechStack);
-
-    if (isErr(techStack)) {
-        cliErrorLog(techStack.err);
-
-        process.exit(1);
-    }
-
-    const validation = validateNpmName(appName);
-
-    if (!validation.valid) {
-        console.error(
-            `Could not create a project called ${appName} because of npm naming restrictions:\n\n- ${validation.problems?.join(
-                "\n- "
-            )}\n`
-        );
-        process.exit(1);
-    }
-
-    if (existsSync(appName)) {
-        console.error(
-            red(
-                `The directory ${appName} already exists. Please choose a different project name or remove the existing directory.\n`
-            )
-        );
-        process.exit(1);
-    }
-
-    const installResult = await createApp({
-        appPath,
-        tech: techStack.value
-    });
-
-    if (isErr(installResult)) {
-        cliErrorLog(installResult.err);
-        process.exit(1);
-    }
-
-    return {
-        name: projectName.value,
-        tech: techStack.value
+async function getCurrentVersion(): Promise<string> {
+    const cliDir = path.dirname(fileURLToPath(import.meta.url));
+    const versionJsonPath = path.join(cliDir, "version.json");
+    const versionJson = JSON.parse(await readFile(versionJsonPath, "utf8")) as {
+        version?: unknown;
     };
+
+    if (typeof versionJson.version !== "string") {
+        throw new Error("version is not found in version.json");
+    }
+
+    return versionJson.version;
 }
 
 function normalizeVersion(version: string): number[] {
@@ -107,42 +53,23 @@ function isNewerVersion(
         );
     }
 
-    const length = latestParts.length;
+    for (let index = 0; index < latestParts.length; index++) {
+        const latestPart = latestParts[index] ?? 0;
+        const currentPart = currentParts[index] ?? 0;
 
-    for (let i = 0; i < length; i++) {
-        const latestPart = latestParts[i] ?? 0;
-        const currentPart = currentParts[i] ?? 0;
-
-        if (latestPart > currentPart) {
-            return true;
-        }
-
-        if (latestPart < currentPart) {
-            return false;
+        if (latestPart !== currentPart) {
+            return latestPart > currentPart;
         }
     }
 
     return false;
 }
 
-async function checkCliVersion(): Promise<Result<Unit, Error>> {
-    const currentVersionResult = await getCurrentVersion();
-
-    if (isErr(currentVersionResult)) {
-        return currentVersionResult;
-    }
-
-    const currentVersion = currentVersionResult.value;
-    const latestVersionResult = await getLatestVersion();
-
-    if (isErr(latestVersionResult)) {
-        return latestVersionResult;
-    }
-
-    const latestVersion = latestVersionResult.value;
+async function checkCliVersion(currentVersion: string): Promise<void> {
+    const latestVersion = await getLatestVersion();
 
     if (!isNewerVersion(latestVersion, currentVersion)) {
-        return createOk(UNIT);
+        return;
     }
 
     log.warn(
@@ -151,48 +78,21 @@ async function checkCliVersion(): Promise<Result<Unit, Error>> {
         )
     );
 
-    const continueCurrentVersionResult = await continueCurrentVersionCommand();
+    const shouldContinue = await confirm({
+        message: "Continue with the current version?",
+        initialValue: false
+    });
 
-    if (isErr(continueCurrentVersionResult)) {
-        cliErrorLog(continueCurrentVersionResult.err);
+    if (isCancel(shouldContinue)) {
         process.exit(1);
     }
 
-    if (continueCurrentVersionResult.value) {
-        return createOk(UNIT);
+    if (shouldContinue) {
+        return;
     }
 
     log.message(
         `Install the latest version with the following command:\n\n${bold(green(INSTALL_COMMAND))}`
     );
     process.exit(0);
-}
-
-function techInstallInfo(techStack: TechStack) {
-    switch (techStack) {
-        case "react": {
-            reactCallback();
-            break;
-        }
-        case "vue": {
-            vueCallback();
-            break;
-        }
-    }
-}
-
-export function notify(projectMaterial: RunSuccess): void {
-    log.message("cd " + projectMaterial.name);
-
-    techInstallInfo(projectMaterial.tech);
-
-    log.success(bold(`${green("Happy hacking!")}`));
-
-    process.exit(0);
-}
-
-export function errorExit() {
-    console.error(red("The operation was cancelled."));
-
-    process.exit(1);
 }

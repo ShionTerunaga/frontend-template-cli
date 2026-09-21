@@ -1,5 +1,9 @@
-import { errorExit, notify, run } from "./main";
+import { red } from "picocolors";
+import { run } from "./main";
 
-run()
-    .then((path) => notify(path))
-    .catch(() => errorExit());
+run().catch((error: unknown) => {
+    const message = error instanceof Error ? error.message : "Unexpected error";
+
+    console.error(red(message));
+    process.exitCode = 1;
+});

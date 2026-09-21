@@ -1,7 +1,7 @@
 {
     "name": "create-frontend-template",
     "version": "0.17.1",
-    "description": "CLI for generating frontend templates",
+    "description": "Launcher for frontend template CLIs",
     "type": "module",
     "license": "MIT",
     "engines": {
@@ -16,65 +16,33 @@
     "preferGlobal": true,
     "packageManager": "pnpm@10.18.3",
     "scripts": {
-        "initial": "pnpm exec lefthook install && pnpm install",
-        "build:only": "pnpm exec vite build && node scripts/write/bin-write.mts",
-        "cp:frontend-template:bin": "node scripts/copy/template/copy-frontend-template-bin.mts",
-        "build": "node scripts/copy/template/copy-frontend-template-bin.mts && pnpm exec vite build && node scripts/write/bin-write.mts",
-        "build:release": "node scripts/copy/template/copy-frontend-template-bin.mts && pnpm exec vite build && node scripts/write/bin-write.mts && pnpm format && pnpm lint:fix",
+        "build": "pnpm exec vite build && node scripts/write/bin-write.mts",
         "changeset": "changeset",
         "format": "pnpm exec oxfmt --write .",
         "format:check": "pnpm exec oxfmt --check .",
         "lint": "pnpm exec oxlint src scripts vite.config.ts --fix",
         "lint:check": "pnpm exec oxlint src scripts vite.config.ts",
         "lint:fix": "pnpm exec oxlint src scripts vite.config.ts --fix",
-        "version-packages": "changeset version",
+        "prepare": "lefthook install",
         "release:pr": "changeset version",
-        "test:react-bin": "pnpm build && cd test/auto && UV_CACHE_DIR=../../.tmp/uv uv sync && UV_CACHE_DIR=../../.tmp/uv uv run main.py react",
-        "test:vue-bin": "pnpm build && cd test/auto && UV_CACHE_DIR=../../.tmp/uv uv sync && UV_CACHE_DIR=../../.tmp/uv uv run main.py vue"
+        "version-packages": "changeset version"
     },
     "dependencies": {
         "@clack/prompts": "^0.11.0",
-        "@commitlint/cli": "^19.8.1",
-        "@commitlint/config-conventional": "^19.8.1",
-        "@types/adm-zip": "^0.5.7",
-        "adm-zip": "^0.6.1",
         "commander": "^14.0.2",
-        "conf": "^15.0.2",
-        "csstype": "^3.2.3",
-        "fast-glob": "^3.3.3",
-        "gh-issue-kit": "^0.11.0",
-        "picocolors": "^1.1.1",
-        "ts-utility-kit": "^2.0.0",
-        "validate-npm-package-name": "^7.0.0"
-    },
-    "pnpm": {
-        "overrides": {
-            "serialize-javascript": "7.0.5",
-            "js-yaml": "4.2.0",
-            "esbuild": "0.28.1"
-        }
+        "picocolors": "^1.1.1"
     },
     "devDependencies": {
         "@changesets/changelog-github": "^0.5.1",
         "@changesets/cli": "^2.29.7",
+        "@commitlint/cli": "^21.2.3",
+        "@commitlint/config-conventional": "^21.2.3",
         "@tsconfig/node24": "^24.0.4",
-        "@types/conf": "^3.0.3",
         "@types/node": "^25.0.1",
-        "@types/validate-npm-package-name": "^4.0.2",
-        "@vercel/ncc": "^0.38.4",
-        "@vitejs/plugin-react": "^6.0.1",
-        "assert": "^2.1.0",
-        "browserify-zlib": "^0.2.0",
-        "buffer": "^6.0.3",
-        "copy-webpack-plugin": "^13.0.1",
-        "find-packages": "^10.0.4",
+        "lefthook": "^2.1.14",
         "oxfmt": "^0.43.0",
         "oxlint": "^1.58.0",
-        "process": "^0.11.10",
-        "stream-browserify": "^3.0.0",
-        "ts-loader": "^9.5.4",
-        "tsconfig-paths": "^4.2.0",
         "typescript": "^7.0.2",
-        "vite": "^8.1.0"
+        "vite": "^8.3.0"
     }
 }

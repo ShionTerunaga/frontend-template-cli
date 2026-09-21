@@ -1,22 +1,17 @@
 pre-commit:
-    piped: true
+    parallel: true
     commands:
-        build:
-            priority: 1
-            run: pnpm build
         lint:
-            priority: 2
-            run: pnpm lint
+            run: pnpm lint:check
         format:
-            priority: 3
-            run: pnpm format
+            run: pnpm format:check
+
+commit-msg:
+    commands:
+        commitlint:
+            run: pnpm exec commitlint --edit {1}
 
 post-merge:
     commands:
         install:
             run: pnpm install
-
-commit-msg:
-    commands:
-        commitlint:
-            run: npx commitlint --edit $1

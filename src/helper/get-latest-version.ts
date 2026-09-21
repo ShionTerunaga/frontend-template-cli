@@ -1,10 +1,3 @@
-import { isArray, isString } from "../utils/is";
-import {
-    checkPromiseReturn,
-    createErr,
-    type Result
-} from "ts-utility-kit/result";
-
 const REPOSITORY_OWNER = "ShionTerunaga";
 const REPOSITORY_NAME = "frontend-template-cli";
 const GITHUB_API_BASE = "https://api.github.com";
@@ -41,7 +34,7 @@ async function fetchLatestTagVersion(): Promise<string> {
         `/repos/${REPOSITORY_OWNER}/${REPOSITORY_NAME}/tags`
     );
 
-    if (!isArray(payload) || payload.length === 0) {
+    if (!Array.isArray(payload) || payload.length === 0) {
         throw new Error("GitHub tags response is empty");
     }
 
@@ -51,7 +44,7 @@ async function fetchLatestTagVersion(): Promise<string> {
         typeof latestTag !== "object" ||
         latestTag === null ||
         !("name" in latestTag) ||
-        !isString(latestTag.name)
+        typeof latestTag.name !== "string"
     ) {
         throw new Error(
             "GitHub tags response does not contain a valid tag name"
@@ -61,18 +54,14 @@ async function fetchLatestTagVersion(): Promise<string> {
     return normalizeVersion(latestTag.name);
 }
 
-export async function getLatestVersion(): Promise<Result<string, Error>> {
-    return checkPromiseReturn({
-        fn: fetchLatestTagVersion,
-        err: (error) =>
-            error instanceof Error
-                ? createErr(
-                      new Error(
-                          `Failed to resolve the latest repository tag: ${error.message}`
-                      )
-                  )
-                : createErr(
-                      new Error("Failed to resolve the latest repository tag")
-                  )
-    });
+export async function getLatestVersion(): Promise<string> {
+    try {
+        return await fetchLatestTagVersion();
+    } catch (error) {
+        const message = error instanceof Error ? `: ${error.message}` : "";
+
+        throw new Error(
+            `Failed to resolve the latest repository tag${message}`
+        );
+    }
 }
