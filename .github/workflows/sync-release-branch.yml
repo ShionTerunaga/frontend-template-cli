@@ -1,13 +1,19 @@
 name: Sync Release Branch
 
 on:
-    push:
+    pull_request:
         branches:
             - main
+        types:
+            - closed
     workflow_dispatch:
 
 jobs:
     build_release_artifacts:
+        if: >-
+            github.event_name == 'workflow_dispatch' ||
+            (github.event.pull_request.merged == true && github.head_ref ==
+            'changeset-release/main')
         runs-on: ubuntu-latest
         permissions:
             contents: read
