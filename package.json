@@ -1,0 +1,23 @@
+{
+  "name": "create-frontend-template",
+  "version": "0.18.0",
+  "description": "Launcher for frontend template CLIs",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "create-frontend-template": "./bin/index.mjs"
+  },
+  "files": [
+    "bin"
+  ],
+  "preferGlobal": true,
+  "packageManager": "pnpm@10.18.3",
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "commander": "^14.0.2",
+    "picocolors": "^1.1.1"
+  }
+}
