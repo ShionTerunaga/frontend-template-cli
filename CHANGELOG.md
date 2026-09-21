@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.18.0
+
+### Minor Changes
+
+- [`c3d4279`](https://github.com/ShionTerunaga/frontend-template-cli/commit/c3d42792015a9b3211b7eeeb1e7848182e85b330)
+  Thanks [@ShionTerunaga](https://github.com/ShionTerunaga)! - I've separated
+  the React and Vue templates into their own repositories.
+
 ## 0.17.1
 
 ### Patch Changes
