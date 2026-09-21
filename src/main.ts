@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { confirm, isCancel, log } from "@clack/prompts";
 import { bold, green, red } from "picocolors";
-import { techStackCommand } from "@/command/common/tech-stack";
+import { techStackCommand } from "@/command/tech-stack";
 import { getLatestVersion } from "@/helper/get-latest-version";
 import { runTemplateCli } from "@/run-template-cli";
 
